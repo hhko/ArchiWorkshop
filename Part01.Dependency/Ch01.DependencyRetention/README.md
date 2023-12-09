@@ -1,0 +1,132 @@
+# 의존성 유지(retention)
+
+## 순수 함수 vs. 불순 함수
+- **순수(Pure)**
+  - 정의
+    - 함수의 결과값은 파라미터(parameter)로 넘겨진 입력값에 의해서만 결정된다.  
+      the function return values are identical for identical arguments.
+    - 부작용(side effects)이 없다.  
+      the function has no side effects.
+      - 함수의 실행이 함수 결괏값 외 외부에 영향을 끼치지 않는다.
+  - 효과: 테스트(디버깅)하기 쉽다.
+    - (결괏값을) 예측할 수 있고 결정적이다(predictable and deterministic).
+    - (결괏값을) 제어할 수 있다.
+- **불순(Impure)**
+  - 정의
+    - 함수의 결과값은 파라미터(parameter)로 넘겨진 입력값에 의해서만 결정되지 않는다.
+    - 부작용(side effects)이 있다.
+      - 함수의 실행이 함수 결괏값 외 외부에 영향을 끼친다.
+  - 효과: 테스트(디버깅)하기 어렵다.
+    - (결괏값을) 예측할 수 없고 비결정적이다(unpredictable and non-deterministic).
+    - (결괏값을) 제어할 수 없다.
+      - 예
+        - 시간
+        - 난수 생성기
+        - I/O
+        - 네트워크
+        - ...
+
+### 불순 함수 예제
+```cs
+public class Program
+{
+    private static string _member = "StringOne";
+
+    // 불순 함수
+    public static void HyphenatedConcat(string append)
+    {
+        // 부작용: 정적 멤버 변수 _member을 수정한다.
+        //  - 함수의 실행이 함수 결괏값 외 외부(정적 멤버 변수)에 영향을 끼친다.
+        _member += '-' + append;
+    }
+
+    public static void Main()
+    {
+        HyphenatedConcat("StringTwo");
+        Console.WriteLine(_member);
+    }
+}
+```
+
+```cs
+public class Program
+{
+    // 불순 함수
+    public static void HyphenatedConcat(StringBuilder sb, string append)
+    {
+        // 부작용: 입력 변수 sb을 수정한다.
+        //  - 함수의 실행이 함수 결괏값 외 외부(정적 멤버 변수)에 영향을 끼친다.
+        sb.Append('-' + append);
+    }
+
+    public static void Main()
+    {
+        StringBuilder sb = new StringBuilder("StringOne");
+        HyphenatedConcat(sb, "StringTwo");
+        Console.WriteLine(sb);
+    }
+}
+```
+
+### 순수 함수 코드
+```cs
+class Program
+{
+    // 순수 함수
+    public static string HyphenatedConcat(string s, string append)
+    {
+        // 함수의 결과값은 파라미터(parameter)로 넘겨진 입력값에 의해서만 결정된다.
+        // 부작용이 없다.
+        return (s + '-' + append);
+    }
+
+    public static void Main(string[] args)
+    {
+        Console.WriteLine(HyphenatedConcat("StringOne", "StringTwo"));
+    }
+}
+```
+
+
+
+<br/>
+
+## 의존성 정의
+- 함수 A가 함수 B를 호출하면 함수 A는 함수 B에 의존한다.
+  - 호출자(A)/피호출자(B) 의존성
+  - caller/callee dependency
+
+<br/>
+
+## 관리해야할 의존성 종류
+- **불순 의존성(Impure dependencies)**: 피호출자(callee)가 불순 함수일 때
+  ```
+  순수 함수 -호출-> 불순 함수
+  ```
+  - 이유: 호출자가 런타임 시 피호출자(callee) 불순함의 전염으로부터 관리하고 싶을 때
+  - 영향: 불순함이 전염되면 호출자까지 결과론적으로 불순 함수가 된다(테스트하기 어렵게 된다).
+- **전략 의존성(Strategy dependencies)**: 피호출자(callee)가 순수 함수일 때
+  ```
+  순수 함수 -호출-> 순수 함수1
+                -> 순수 함수2
+                -> ...
+  ```
+  - 이유: 호출자가 런타임 시 피호출자(callee) 동작을 변경하고 싶을 때
+
+<br/>
+
+## 요구 사항
+> - 콘솔에서 문자열 2개를 입력 받는다.
+> - 문자열 2개를 비교한다.
+> - 첫 번째 문자열이 두 번째 문자열보다 크거나 작거나 같은지 콘솔에 출력한다.
+
+<br/>
+
+## 의존성 유지(Dependency retention)
+
+
+<br/>
+
+## 참고 자료
+- [Refactor into pure functions](https://learn.microsoft.com/ko-kr/dotnet/standard/linq/refactor-pure-functions)
+- [Six approaches to dependency injection](https://fsharpforfunandprofit.com/posts/dependencies/)
