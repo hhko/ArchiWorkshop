@@ -1,22 +1,31 @@
-# 의존성 유지(retention)
+# 의존성 유지(Dependency Retention)
+
+## 목차
+- 순수 함수 vs. 불순 함수
+  - 불순 함수 예제
+  - 순수 함수 예제
+- 의존성 정의
+- 관리해야할 의존성 종류
+- 요구사항
+- 요구사항 구현(의존성 유지, Dependency Retention)
+
+<br/>
 
 ## 순수 함수 vs. 불순 함수
-- **순수(Pure)**
-  - 정의
-    - 함수의 결과값은 파라미터(parameter)로 넘겨진 입력값에 의해서만 결정된다.  
-      the function return values are identical for identical arguments.
-    - 부작용(side effects)이 없다.  
-      the function has no side effects.
-      - 함수의 실행이 함수 결괏값 외 외부에 영향을 끼치지 않는다.
-  - 효과: 테스트(디버깅)하기 쉽다.
+- **순수(Pure)** 함수
+  > - 함수의 결과값은 파라미터(parameter)로 넘겨진 입력값에 의해서만 결정된다.  
+  >   _the function return values are identical for identical arguments._
+  > - 부작용(side effects)이 없다.  
+  >   _the function has no side effects._  
+  >   함수의 실행이 함수 결괏값 외 외부에 영향을 끼치지 않는다.
+  - 테스트(디버깅)하기 쉽다.
     - (결괏값을) 예측할 수 있고 결정적이다(predictable and deterministic).
     - (결괏값을) 제어할 수 있다.
-- **불순(Impure)**
-  - 정의
-    - 함수의 결과값은 파라미터(parameter)로 넘겨진 입력값에 의해서만 결정되지 않는다.
-    - 부작용(side effects)이 있다.
-      - 함수의 실행이 함수 결괏값 외 외부에 영향을 끼친다.
-  - 효과: 테스트(디버깅)하기 어렵다.
+- **불순(Impure)** 함수
+  > - 함수의 결과값은 파라미터(parameter)로 넘겨진 입력값에 의해서만 결정되지 않는다.
+  > - 부작용(side effects)이 있다.  
+  >   함수의 실행이 함수 결괏값 외 외부에 영향을 끼친다.
+  - 테스트(디버깅)하기 어렵다.
     - (결괏값을) 예측할 수 없고 비결정적이다(unpredictable and non-deterministic).
     - (결괏값을) 제어할 수 없다.
       - 예
@@ -68,7 +77,7 @@ public class Program
 }
 ```
 
-### 순수 함수 코드
+### 순수 함수 예제
 ```cs
 class Program
 {
@@ -86,8 +95,6 @@ class Program
     }
 }
 ```
-
-
 
 <br/>
 
@@ -115,14 +122,14 @@ class Program
 
 <br/>
 
-## 요구 사항
+## 요구사항
 > - 콘솔에서 문자열 2개를 입력 받는다.
 > - 문자열 2개를 비교한다.
 > - 첫 번째 문자열이 두 번째 문자열보다 크거나 작거나 같은지 콘솔에 출력한다.
 
 <br/>
 
-## 의존성 유지(Dependency retention)
+## 요구사항 구현(의존성 유지, Dependency retention)
 
 
 <br/>

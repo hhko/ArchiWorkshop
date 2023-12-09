@@ -1,1 +1,1 @@
-# 의존성 거부(rejection)
+# 의존성 거부(Dependency Rejection)
