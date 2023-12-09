@@ -13,7 +13,7 @@
 
 ## 순수 함수 vs. 불순 함수
 - **순수(Pure) 함수**
-  > - 함수의 결과값은 파라미터(parameter)로 넘겨진 입력값에 의해서만 결정된다.  
+  > - 함수의 결과값은 파라미터(arguments)로 넘겨진 입력값에 의해서만 결정된다.  
   >   _the function return values are identical for identical arguments._
   > - 부작용(side effects)이 없다.  
   >   _the function has no side effects._  
