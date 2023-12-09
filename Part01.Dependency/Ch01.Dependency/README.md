@@ -1,4 +1,4 @@
-# 의존성 유지(Dependency Retention)
+# 의존성(Dependency)
 
 ## 목차
 - 순수 함수 vs. 불순 함수
@@ -6,8 +6,6 @@
   - 순수 함수 예제
 - 의존성 정의
 - 관리해야할 의존성 종류
-- 요구사항
-- 요구사항 구현(의존성 유지, Dependency Retention)
 
 <br/>
 
@@ -134,19 +132,6 @@ class Program
 
 <br/>
 
-## 요구사항
-- 콘솔에서 문자열 2개를 입력 받는다.
-- 문자열 2개를 비교한다.
-- 첫 번째 문자열이 두 번째 문자열보다 크거나 작거나 같은지 콘솔에 출력한다.
-
-<br/>
-
-## 요구사항 구현(의존성 유지, Dependency retention)
-
-
-<br/>
-
 ## 참고 자료
 - [Pure function](https://en.wikipedia.org/wiki/Pure_function)
 - [Refactor into pure functions](https://learn.microsoft.com/ko-kr/dotnet/standard/linq/refactor-pure-functions)
-- [Six approaches to dependency injection](https://fsharpforfunandprofit.com/posts/dependencies/)
