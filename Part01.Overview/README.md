@@ -16,10 +16,8 @@
 <br/>
 
 ## 아키텍처 필요성
-
-![](./.images/2023-12-10-23-28-08.png)
+![](./images/2023-12-10-23-51-03.png)
 - 출처: [Is High Quality Software Worth the Cost?](https://martinfowler.com/articles/is-quality-worth-cost.html)
-
 
 <br/>
 
@@ -71,7 +69,6 @@
 <br/>
 
 ## 아키텍처 의존성과 제어 흐름
-
 ![](./.images/2023-12-10-23-55-01.PNG)
 ![](./.images/2023-12-10-23-55-02.PNG)
 ![](./.images/2023-12-10-23-55-03.PNG)
@@ -150,6 +147,12 @@
 - 순수성(Domain model purity)
 - 성능(Performance)
 
+![](./.images/2023-12-11-00-39-47.png)
+
+- 캡슐화 & 순수성: Push all external reads and writes to the edges of a business operation.
+- 캡슐화 & 성능: Inject out-of-process dependencies into the domain model 
+- 순수성 & 성능: Split the decision-making process between the domain layer and controllers
+
 <br/>
 
 ## 요약
@@ -182,4 +185,3 @@
 - 동영상 | [우아한객체지향 by 우아한형제들 개발실장 조영호](https://www.youtube.com/watch?v=dJ5C4qRqAgA)
 - 동영상 | [The Grand Unified Theory of Clean Architecture and Test Pyramid](https://www.youtube.com/watch?v=gHSpj2zM9Nw)
 - 동영상 | [테크 리더 3인이 말하는 "개발자 원칙"](https://www.youtube.com/watch?v=DJCmvzhFVOI)
-
