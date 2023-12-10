@@ -1,0 +1,3 @@
+﻿using DependencyRetention;
+
+Impure.CompareTwoStrings();

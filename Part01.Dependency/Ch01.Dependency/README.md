@@ -11,7 +11,7 @@
 
 ## 순수 함수 vs. 불순 함수
 - **순수(Pure) 함수**
-  > - 함수의 결과값은 파라미터(arguments)로 넘겨진 입력값에 의해서만 결정된다.  
+  > - 함수의 결과값은 입력 변수(parameters)로 넘겨진 입력값(arguments)에 의해서만 결정된다.  
   >   _the function return values are identical for identical arguments._
   > - 부작용(side effects)이 없다.  
   >   _the function has no side effects._  
@@ -35,6 +35,18 @@
 
 ### 불순 함수 예제
 ```cs
+public int _count = 0;
+
+public void Add(int x)
+{
+    // 1. 함수의 결과값은 파라미터(parameter)로 넘겨진 입력값에 의해서만 결정되지 않는다.
+    // 2. 부작용이 있다: 멤버 변수 _count을 수정한다.
+    _count++;
+    return _count + x;
+}
+```
+
+```cs
 public class Program
 {
     private static string _member = "StringOne";
@@ -44,7 +56,6 @@ public class Program
     {
         // 1. 함수의 결과값은 파라미터(parameter)로 넘겨진 입력값에 의해서만 결정되지 않는다.
         // 2. 부작용이 있다: 정적 멤버 변수 _member을 수정한다.
-        //    - 함수의 실행이 함수 결괏값 외 외부(정적 멤버 변수)에 영향을 끼친다.
         _member += '-' + append;
     }
 
@@ -64,7 +75,6 @@ public class Program
     {
         // 1. 함수의 결과값은 파라미터(parameter)로 넘겨진 입력값에 의해서만 결정되지 않는다.
         // 2. 부작용이 있다: 입력 변수 sb을 수정한다.
-        //    - 함수의 실행이 함수 결괏값 외 외부(정적 멤버 변수)에 영향을 끼친다.
         sb.Append('-' + append);
     }
 
@@ -78,6 +88,13 @@ public class Program
 ```
 
 ### 순수 함수 예제
+```cs
+public void Add(int x, int y)
+{
+    return x + y;
+}
+```
+
 ```cs
 class Program
 {
@@ -109,10 +126,11 @@ class Program
 ```
 1. 관리 대상 X: 불순 함수 -호출-> 불순 함수
 2. 관리 대상 X: 불순 함수 -호출-> 순수 함수
-3. 관리 대상 O: 순수 함수 -호출-> 불순 함수     // 불순 의존성(Impure dependencies): 피호출자의 불순함이 전염된다.
+3. 관리 대상 O: 순수 함수 -호출-> 불순 함수        // 불순 의존성(Impure dependencies): 피호출자의 불순함을 전염시킨다.
 4. 관리 대상 X: 순수 함수 -호출-> 순수 함수
-5. 관리 대상 O: 순수 함수 -호출-> 순수 함수1    // 전략 의존성(Strategy dependencies): 런타임 시 피호출자의 동작을 변경한다.
-                             -> 순수 함수2
+
+5. 관리 대상 O: 순수 함수 -호출-> 순수/불순 함수1  // 전략 의존성(Strategy dependencies): 런타임 시 피호출자의 동작을 변경한다.
+                             -> 순수/불순 함수2
                              -> ...
 ```
 
@@ -120,12 +138,12 @@ class Program
   ```
   순수 함수 -호출-> 불순 함수
   ```
-  - 이유: 호출자가 런타임 시 피호출자(callee)의 **전염(불순)을 차단하고 싶을 때**  
-    순수 함수가 불순 함수를 호출하면 순수 함수까지 불순 함수가 된다(전염된다: 테스트하기 어렵게 된다).
-- **전략 의존성(Strategy dependencies)**: 피호출자(callee)가 순수 함수일 때
+  - 이유: 호출자가 런타임 시 피호출자(callee)의 **불순 전염을 차단하고 싶을 때**  
+    순수 함수가 불순 함수를 호출하면 순수 함수까지 불순 함수로 전염된다(테스트하기 어렵게 된다).
+- **전략 의존성(Strategy dependencies)**: 피호출자(callee)가 순수/불순 함수일 때
   ```
-  순수 함수 -호출-> 순수 함수1
-                -> 순수 함수2
+  순수 함수 -호출-> 순수/불순 함수1
+                -> 순수/불순 함수2
                 -> ...
   ```
   - 이유: 호출자가 런타임 시 피호출자(callee)의 **동작을 변경하고 싶을 때**
