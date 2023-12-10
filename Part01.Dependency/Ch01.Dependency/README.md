@@ -11,7 +11,7 @@
 
 ## 순수 함수 vs. 불순 함수
 - **순수(Pure) 함수**
-  > - 함수의 결과값은 입력 변수(parameters)로 넘겨진 입력값(arguments)에 의해서만 결정된다.  
+  > - 함수의 결과값은 입력값(arguments)에 의해서만 결정된다.  
   >   _the function return values are identical for identical arguments._
   > - 부작용(side effects)이 없다.  
   >   _the function has no side effects._  
@@ -130,8 +130,8 @@ class Program
 4. 관리 대상 X: 순수 함수 -호출-> 순수 함수
 
 5. 관리 대상 O: 순수 함수 -호출-> 순수/불순 함수1  // 전략 의존성(Strategy dependencies): 런타임 시 피호출자의 동작을 변경한다.
-                             -> 순수/불순 함수2
-                             -> ...
+                         -> 순수/불순 함수2
+                         -> ...
 ```
 
 - **불순 의존성(Impure dependencies)**: 피호출자(callee)가 불순 함수일 때
@@ -143,8 +143,8 @@ class Program
 - **전략 의존성(Strategy dependencies)**: 피호출자(callee)가 순수/불순 함수일 때
   ```
   순수 함수 -호출-> 순수/불순 함수1
-                -> 순수/불순 함수2
-                -> ...
+             -> 순수/불순 함수2
+             -> ...
   ```
   - 이유: 호출자가 런타임 시 피호출자(callee)의 **동작을 변경하고 싶을 때**
 
