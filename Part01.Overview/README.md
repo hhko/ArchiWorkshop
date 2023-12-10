@@ -28,10 +28,10 @@
 > 프로젝트에 참여하는 **개발자들이 설계**에 대해 공유하는 이해를 반영하는 **주관적인 개념**
 > &nbsp;
 
-- 중요한 것  
-  변경하기 어려운 것  
-  일찍, 올바르게 결정하는 것
-  - 예. 코드 배치를 어떻게 할 것인가?
+중요한 것  
+변경하기 어려운 것  
+일찍, 올바르게 결정하는 것
+- 예. 코드 배치를 어떻게 할 것인가?
 
 <br/>
 
@@ -132,12 +132,14 @@
 ### 내부 환경 테스트
 - 단위 테스트: 유스 케이스를 테스트한다.
 
-![](./images/2023-12-11-00-31-43.png)
+![](./.images/2023-12-11-00-31-43.png)
 
 ### 외부 환경 테스트
 - 통합 테스트: 시스템과 통합된 유스 케이스를 검증한다.
 
-![](./images/2023-12-11-00-33-09.png)
+![](./.images/2023-12-11-00-33-09.png)
+
+- End to End 테스트: 전체 시스템과 통합된 유스 케이스를 검증한다.
 
 ![](./.images/2023-12-11-00-33-32.png)
 
@@ -175,7 +177,7 @@
 - 문서 | [아키텍처 원칙](https://learn.microsoft.com/ko-kr/dotnet/architecture/modern-web-apps-azure/architectural-principles)
 - 문서 | [Is High Quality Software Worth the Cost?](https://martinfowler.com/articles/is-quality-worth-cost.html)
 - 문서 | [The Testing Pyramid: How to Structure Your Test Suite](https://semaphoreci.com/blog/testing-pyramid)
-- 문서 | ]Domain model purity vs. domain model completeness (DDD Trilemma)](https://enterprisecraftsmanship.com/posts/domain-model-purity-completeness/)
+- 문서 | [Domain model purity vs. domain model completeness (DDD Trilemma)](https://enterprisecraftsmanship.com/posts/domain-model-purity-completeness/)
 - 동영상 | [애플리케이션 아키텍처와 객체지향](https://www.youtube.com/watch?v=26S4VFUWlJM)
 - 동영상 | [우아한객체지향 by 우아한형제들 개발실장 조영호](https://www.youtube.com/watch?v=dJ5C4qRqAgA)
 - 동영상 | [The Grand Unified Theory of Clean Architecture and Test Pyramid](https://www.youtube.com/watch?v=gHSpj2zM9Nw)
