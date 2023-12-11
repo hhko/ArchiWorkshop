@@ -31,11 +31,11 @@ public static void CompareTwoStrings()
     // 문자열 2개를 비교한다.
     int compare = string.Compare(first, second);
     if (compare > 0)
-        Console.WriteLine("The first value is bigger");       // 첫 번째가 두 번째 문자열보다 크다.
+        Console.WriteLine("The first value is bigger");
     else if (compare < 0)
-        Console.WriteLine("The first value is smaller");      // 첫 번째가 두 번째 문자열보다 작다
+        Console.WriteLine("The first value is smaller");
     else
-        Console.WriteLine("The values are equal");            // 첫 번째와 두 번째 문자열이 같다.
+        Console.WriteLine("The values are equal");
 }
 ```
 - **`CompareTwoStrings`은 불순 함수다.**
