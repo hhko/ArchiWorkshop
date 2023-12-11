@@ -38,11 +38,11 @@ public static void CompareTwoStrings()
         Console.WriteLine("The values are equal");            // 첫 번째와 두 번째 문자열이 같다.
 }
 ```
-- `CompareTwoStrings`은 불순 함수이다.
-  - CompareTwoStrings 함수는 입력과 출력이 없다(입력이 `void`이고 출력 역시 `void`이다).
-  - 불순 코드(I/O 입/출력 함수: ReadLine, WriteLine)로 인해 `CompareTwoStrings`은 전체가 불순으로 전염된다.
-- `CompareTwoStrings`은 순수 코드만 테스트하기 힘들다.
-- `CompareTwoStrings`은 순수 코드(요구사항 결정: Decision)와 불순 코드(요구사항 기능: I/O 입/출력)가 혼재한다.
+- **`CompareTwoStrings`은 불순 함수다.**
+  - CompareTwoStrings 함수는 입/출력이 없기 때문에(`void`) 불순 함수다.
+  - CompareTwoStrings 함수는 불순 코드(I/O 입/출력 함수: ReadLine, WriteLine)가 있어 불순 함수다.
+- **`CompareTwoStrings`은 테스트하기 힘들다.**
+  - 순수 코드(문자열 비고)만 테스트할 수 없다: 유스 케이스를 테스트할 수 없다.
 
 <br/>
 
