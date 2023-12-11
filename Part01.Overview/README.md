@@ -49,7 +49,7 @@
 
 ![](./.images/2023-12-10-23-53-22.png)
 
-### 도메인 주도 설계(Domain-Driven Design) 전/후 레이어 배치
+### 도메인 주도 설계(Domain-Driven Design) 이전/이후 의존성
 ![](./.images/2023-12-10-23-58-43.png)
 
 <br/>
