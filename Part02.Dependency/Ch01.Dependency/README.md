@@ -11,22 +11,23 @@
 
 ## 순수 함수 vs. 불순 함수
 - **순수(Pure) 함수**
-  > - 함수 입력값(arguments)이 같으면 결과값(return values)이 항상 같다.  
-  >   함수 결과값(return values)은 입력값(arguments)에 의해서만 결정된다.  
-  >   _the function return values are identical for identical arguments._
-  > - 부작용(side effects)이 없다.  
-  >   _the function has no side effects._  
-  >   함수의 실행이 함수 결괏값 외 외부에 영향을 끼치지 않는다.
+  > - 함수 입력값이 같으면 결괏값이 항상 같다.
+  >   - 함수 결괏값은 입력값에 의해서만 결정된다.
+  >   - _the function return values are identical for identical arguments._
+  > - 부작용(side effects)이 없다.
+  >   - 함수의 실행이 함수 결괏값 외 외부에 영향을 끼치지 않는다.
+  >   - _the function has no side effects._
   - 테스트(디버깅)하기 쉽다.
     - (입력값에 의해 결괏값을) 예측할 수 있고 결정적이다(predictable and deterministic).
-    - (입력값에 의해 결괏값을) 제어할 수 있다.
+    - (입력값에 의해 결괏값을) **제어할 수 있다.**
 - **불순(Impure) 함수**
-  > - 함수 결과값(return values)은 입력값(arguments)에 의해서만 결정되지 않는다.
-  > - 부작용(side effects)이 있다.  
-  >   함수의 실행이 함수 결괏값 외 외부에 영향을 끼친다.
+  > - 함수 입력값이 같아도 결괏값이 항상 같지 않다.
+  >   - 함수 결과값은 입력값에 의해서만 결정되지 않는다.
+  > - 부작용(side effects)이 있다.
+  >   - 함수의 실행이 함수 결괏값 외 외부에 영향을 끼친다.
   - 테스트(디버깅)하기 어렵다.
     - (입력값에 의해 결괏값을) 예측할 수 없고 비결정적이다(unpredictable and non-deterministic).
-    - (입력값에 의해 결괏값을) 제어할 수 없다.
+    - (입력값에 의해 결괏값을) **제어할 수 없다.**
       - 예
         - 시간
         - 난수 생성기
