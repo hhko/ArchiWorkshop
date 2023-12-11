@@ -1,4 +1,7 @@
 # 아키텍처
+
+![](./.images/2023-12-11-15-54-15.png)
+
 ## 목차
 - 아키텍처 필요성
 - 아키텍처 정의
@@ -16,15 +19,16 @@
 <br/>
 
 ## 아키텍처 필요성
-![](./images/2023-12-10-23-51-03.png)
+![](./images/2023-12-10-23-51-01.png)
+
 - 출처: [Is High Quality Software Worth the Cost?](https://martinfowler.com/articles/is-quality-worth-cost.html)
 
 <br/>
 
 ## 아키텍처 정의
-> &nbsp;
+> &nbsp;  
 > 프로젝트에 참여하는 **개발자들이 설계**에 대해 공유하는 이해를 반영하는 **주관적인 개념**
-> &nbsp;
+> &nbsp;  
 
 중요한 것  
 변경하기 어려운 것  
@@ -36,9 +40,9 @@
 ## 아키텍처 원칙
 ![](./.images/2023-12-10-23-52-04.png)
 
-> &nbsp;
+> &nbsp;  
 > 관심사의 분리(Separation of Concerns)
-> &nbsp;
+> &nbsp;  
 
 - 서로 다르고 관련이 없는 책임(Responsibility)들을 분리한다.
   - 예. 레이어
@@ -94,10 +98,10 @@
 
 
 - 내부(제어할 수 있는) 환경 레이어 세분화
-  - 비즈니스 로직: 유스 케이스  
-    ※ 소프트웨 아키텍처는 유스 케이스가 중심이다.  
+  - **비즈니스 로직**: 유스 케이스  
+    ※ **소프트웨 아키텍처는 유스 케이스가 중심이다.**  
     ※ The architecture should scream the intent of the system!
-  - 비즈니스 원소: 비즈니스 최소 단위
+  - **비즈니스 원소**: 비즈니스 최소 단위
 
 ![](./.images/2023-12-11-15-34-24.png)
 
@@ -155,9 +159,9 @@
 <br/>
 
 ## 아키텍처 트릴레마(Trilemma)
-- 캡슐화(Domain model completeness)
-- 순수성(Domain model purity)
-- 성능(Performance)
+- 캡슐화: Domain model completeness
+- 순수성: Domain model purity
+- 성능: Performance
 
 ![](./.images/2023-12-11-00-39-47.png)
 
