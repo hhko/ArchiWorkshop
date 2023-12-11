@@ -160,3 +160,4 @@ class Program
 ## 참고 자료
 - [Pure function](https://en.wikipedia.org/wiki/Pure_function)
 - [Refactor into pure functions](https://learn.microsoft.com/ko-kr/dotnet/standard/linq/refactor-pure-functions)
+- [Six approaches to dependency injection](https://fsharpforfunandprofit.com/posts/dependencies/)
