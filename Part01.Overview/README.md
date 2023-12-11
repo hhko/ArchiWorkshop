@@ -37,7 +37,7 @@
 ## 아키텍처 원칙
 ![](./.images/2023-12-10-23-52-04.png)
 
-> 관심사의 분리(Separation of Concerns)
+> **관심사의 분리(Separation of Concerns)**
 
 - 서로 다르고 관련이 없는 책임(Responsibility)들을 분리한다.
   - 예. 레이어
