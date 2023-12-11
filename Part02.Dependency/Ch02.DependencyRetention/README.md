@@ -40,9 +40,9 @@ public static void CompareTwoStrings()
 ```
 - **`CompareTwoStrings`은 불순 함수다.**
   - CompareTwoStrings 함수는 입/출력이 없기 때문에(`void`) 불순 함수다.
-  - CompareTwoStrings 함수는 불순 코드(I/O 입/출력 함수: ReadLine, WriteLine)가 있어 불순 함수다.
+  - CompareTwoStrings 함수는 불순 코드(I/O 입/출력 함수: ReadLine, WriteLine)를 호출하고 있어 불순 함수다.
 - **`CompareTwoStrings`은 테스트하기 힘들다.**
-  - 순수 코드(문자열 비고)만 테스트할 수 없다: 유스 케이스를 테스트할 수 없다.
+  - 순수 코드(문자열 비고)만 테스트할 수 없다(유스 케이스만을 테스트할 수 없다).
 
 <br/>
 
