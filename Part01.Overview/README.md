@@ -18,7 +18,7 @@
 <br/>
 
 ## 아키텍처 필요성
-![](./images/2023-12-10-23-51-01.png)
+![](./.images/2023-12-10-23-51-01.png)
 
 - 출처: [Is High Quality Software Worth the Cost?](https://martinfowler.com/articles/is-quality-worth-cost.html)
 
