@@ -13,3 +13,13 @@
 1. [의존성(Dependency)](./Part02.Dependency/Ch01.Dependency/README.md)
 1. [의존성 유지(Dependency Retention)](./Part02.Dependency/Ch02.DependencyRetention/README.md)
 1. [의존성 거부(Dependency Rejection)](./Part02.Dependency/Ch03.DependencyRejection/README.md)
+1. 의존성 주입
+
+## Part 3. 운영
+> 어떻게 운영할 것인가?
+> - 관찰 가능성
+
+1. 구성
+1. 로그
+1. 지표
+1. 추적
