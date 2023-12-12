@@ -1,8 +1,8 @@
 # 아키텍처
 
 > 소프트웨어 아키텍처는 **유스 케이스가 중심이다.**
-> - 구현 코드로 유스 케이스를 이해할 수 있어야 한다.
-> - 테스트 코드로 유스 케이스 스펙을 이해할 수 있어야 한다.
+> - 구현 코드로 **유스 케이스**를 이해할 수 있어야 한다.
+> - 테스트 코드로 **유스 케이스 스펙**을 이해할 수 있어야 한다.
 
 ![](./.images/2023-12-11-15-56-27.png)
 
@@ -24,14 +24,14 @@
 ## 아키텍처 필요성
 ![](./.images/2023-12-10-23-51-01.png)
 
-- 출처: [Is High Quality Software Worth the Cost?](https://martinfowler.com/articles/is-quality-worth-cost.html)
+_출처: [Is High Quality Software Worth the Cost?](https://martinfowler.com/articles/is-quality-worth-cost.html)_
 
 <br/>
 
 ## 아키텍처 정의
 > 프로젝트에 참여하는 **개발자들이 설계**에 대해 공유하는 이해를 반영하는 **주관적인 개념**
 
-- 출처: [애플리케이션 아키텍처와 객체지향](https://www.youtube.com/watch?v=26S4VFUWlJM)
+_출처: [애플리케이션 아키텍처와 객체지향](https://www.youtube.com/watch?v=26S4VFUWlJM)_
 
 중요한 것  
 변경하기 어려운 것  
