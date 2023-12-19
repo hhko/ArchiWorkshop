@@ -16,20 +16,23 @@
 ## 요구사항 구현(의존성 유지, Dependency retention)
 > **목표**
 > - 불순 함수를 이해한다.
+> - 불순 함수에 포함된 **유스 케이스만(문자열 비교)**을 테스트하기 힘들다.
 
 ![](./images/2023-12-09-23-05-52.png)
 
 ```cs
 public static void CompareTwoStrings()
 {
-    // 콘솔에서 문자열 2개를 입력 받는다.
+    // 입력: 콘솔에서 문자열 2개를 입력 받는다.
     Console.WriteLine("Enter the first value");
     string? first = Console.ReadLine();
     Console.WriteLine("Enter the second value");
     string? second = Console.ReadLine();
 
-    // 문자열 2개를 비교한다.
+    // 비교: 문자열 2개를 비교한다.
     int compare = string.Compare(first, second);
+
+    // 출력: 비교 결과를 출력한다.
     if (compare > 0)
         Console.WriteLine("The first value is bigger");
     else if (compare < 0)
@@ -40,9 +43,11 @@ public static void CompareTwoStrings()
 ```
 - **`CompareTwoStrings`은 불순 함수다.**
   - CompareTwoStrings 함수는 입/출력이 없기 때문에(`void`) 불순 함수다.
+    - 순수 함수는 입력값으로 결괏값을 제어할 수 있어야 하기 때문에 입력이 반드시 존재해야 한다.
   - CompareTwoStrings 함수는 불순 코드(I/O 입/출력 함수: ReadLine, WriteLine)를 호출하고 있어 불순 함수다.
+    - I/O 입/출력 함수는 사용자 입력으로 결정되기 때문에 결괏값을 제어할 수 없는 불순 함수다.
 - **`CompareTwoStrings`은 테스트하기 힘들다.**
-  - 순수 코드(문자열 비고)만 테스트할 수 없다(유스 케이스만을 테스트할 수 없다).
+  - 문자열 비교(순수 함수) 유스 케이스만을 분리하여 테스트할 수 없다.
 
 <br/>
 

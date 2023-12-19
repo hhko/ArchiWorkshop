@@ -13,8 +13,8 @@
 - **순수(Pure) 함수**
   > **함수 입력값이 같으면 결괏값이 항상 같다.**
   > - 함수 결괏값은 입력값에 의해서만 결정된다.
-  > - _the function return values are identical for identical arguments._  
-  
+  > - _the function return values are identical for identical arguments._
+
   > **부작용(side effects)이 없다.**
   > - 함수의 실행이 함수 결괏값 외 외부에 영향을 끼치지 않는다.
   > - _the function has no side effects._
@@ -25,7 +25,7 @@
 - **불순(Impure) 함수**
   > **함수 입력값이 같아도 결괏값이 항상 같지 않다.**
   > - 함수 결과값은 입력값에 의해서만 결정되지 않는다.
-  
+
   > **부작용(side effects)이 있다.**
   > - 함수의 실행이 함수 결괏값 외 외부에 영향을 끼친다.
 
@@ -124,8 +124,7 @@ class Program
 
 ## 의존성 정의
 - 함수 A가 함수 B를 호출하면 함수 A는 함수 B에 의존한다.
-  - 호출자(A)/피호출자(B) 의존성
-  - caller/callee dependency
+  - 호출자(caller: A)/피호출자(callee: B) 의존성
 
 <br/>
 
@@ -145,8 +144,8 @@ class Program
   ```
   순수 함수 -호출-> 불순 함수
   ```
-  - 이유: 호출자가 런타임 시 피호출자(callee)의 **불순 전염을 차단하고 싶을 때**  
-    순수 함수가 불순 함수를 호출하면 순수 함수까지 불순 함수로 전염된다(테스트하기 어렵게 된다).
+  - 이유: 호출자가 런타임 시 피호출자(callee)의 **불순 전염을 차단하고 싶을 때**
+  - 순수 함수가 불순 함수를 호출하면 순수 함수까지 불순 함수로 전염되어 입력값으로 결괏값을 제어할 수 없어 테스트하기 어렵게 된다.
 - **전략 의존성(Strategy dependencies)**: 피호출자(callee)가 순수/불순 함수일 때
   ```
   순수 함수 -호출-> 순수/불순 함수1
