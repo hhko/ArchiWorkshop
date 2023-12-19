@@ -1,5 +1,5 @@
 # Architecture Workshop
-Architecting is **a Series of Trade-offs**.
+Architecting is a Series of Trade-offs.
 
 ## Part 1. 개요
 > 소프트웨어 아키텍처는 **유스 케이스가 중심이다.**
