@@ -7,7 +7,7 @@
     - 이슈
       - that solution is sub-optimal if you need to perform a search among those Value Objects using standard database features.
       - It is also not the best implementation if the number of items in the collection is too high as it might cause performance issues.
-- 이슈 코드
+- 이슈 코드: 통합 테이블
   ```cs
   public sealed class City : ValueObject<City>
   {
@@ -21,7 +21,7 @@
     ...
   }
   ```
-- 해결 코드
+- 해결 코드: 개별 테이블
   ```cs
   public sealed class City : ValueObject<City>
   {
