@@ -2,3 +2,4 @@
 - https://github.com/amantinband/clean-architecture
 - https://github.com/amantinband/buber-breakfast
 - https://github.com/ardalis/DotNetDataAccessTour
+- https://github.com/ardalis/CleanArchitecture
