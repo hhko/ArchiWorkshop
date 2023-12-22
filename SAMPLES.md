@@ -2,4 +2,5 @@
 - https://github.com/amantinband/clean-architecture
 - https://github.com/amantinband/buber-breakfast
 - https://github.com/ardalis/DotNetDataAccessTour
+  - https://www.youtube.com/watch?v=zNr2O6SBQZw
 - https://github.com/ardalis/CleanArchitecture
