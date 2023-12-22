@@ -8,3 +8,4 @@
   - https://medium.com/@bddkickstarter/functional-bdd-5014c880c935
   - https://medium.com/@bddkickstarter/functional-bdd-part-2-the-gherkin-type-provider-731c7df3653e
   - https://medium.com/@bddkickstarter/functional-bdd-part-3-scenario-outlines-feature-validation-c73b9972924d
+- https://code-maze.com/csharp-hexagonal-architectural-pattern/
