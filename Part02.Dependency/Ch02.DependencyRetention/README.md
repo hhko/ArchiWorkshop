@@ -42,6 +42,9 @@ public static void CompareTwoStrings()
         Console.WriteLine("The values are equal");
 }
 ```
+
+![](./.images/2023-12-27-00-57-38.png)
+
 - **`CompareTwoStrings`은 불순 함수입니다.**
   - CompareTwoStrings 함수는 입/출력이 없기 때문에(`void`) 불순 함수입니다.
     > 순수 함수는 입력값으로 결괏값을 제어할 수 있어야 하기 때문에 입력이 반드시 존재해야 합니다.
