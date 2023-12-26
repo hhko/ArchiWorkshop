@@ -4,7 +4,7 @@ Architecting is a series of trade-offs.
 ## Part 1. 개요
 > 소프트웨어 아키텍처는 **유스 케이스가 중심입니다.**
 1. [아키텍처](./Part01.Overview/Ch01.Architecture/README.md)
-1. [아키텍처 테스트](./Part01.Overview/Ch02.Test/README.md
+1. [아키텍처 테스트](./Part01.Overview/Ch02.Test/README.md)
 1. [아키텍처 트릴레마(Trilemma)](./Part01.Overview/Ch03.Trilemma/README.md)
 1. [아키텍처 문서화](./Part01.Overview/Ch04.Document/README.md)
 
