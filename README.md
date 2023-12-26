@@ -3,9 +3,10 @@ Architecting is a series of trade-offs.
 
 ## Part 1. 개요
 > 소프트웨어 아키텍처는 **유스 케이스가 중심입니다.**
-1. [아키텍처](./Part01.Overview/README.md)
-1. 아키텍처 트릴레마(Trilemma)
-1. 아키텍처 문서화
+1. [아키텍처](./Part01.Overview/Ch01.Architecture/README.md)
+1. [아키텍처 테스트](./Part01.Overview/Ch02.Test/README.md
+1. [아키텍처 트릴레마(Trilemma)](./Part01.Overview/Ch03.Trilemma/README.md)
+1. [아키텍처 문서화](./Part01.Overview/Ch04.Document/README.md)
 
 ## Part 2. 의존성
 > 의존성을 관리하여 **제어할 수 있는 유스 케이스를 발굴합니다.**

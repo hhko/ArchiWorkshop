@@ -14,7 +14,6 @@
 - 아키텍처 레이어
 - 아키텍처 의존성과 제어 흐름
 - 아키텍처 문서화
-- 아키텍처 테스트
 - 아키텍처 트릴레마(Trilemma)
 - 요약
 - 참고 자료
@@ -116,11 +115,6 @@ _출처: [애플리케이션 아키텍처와 객체지향](https://www.youtube.c
 
 ![](./.images/2023-12-11-15-34-24.png)
 
-<br/>
-
-## 아키텍처 문서화
-- 외부 환경(제어할 수 없는): 비즈니스 기능 중심
-- 내부 환경(제어할 수 있는): 비즈니스 로직 중심
 
 <br/>
 
@@ -149,30 +143,6 @@ _출처: [애플리케이션 아키텍처와 객체지향](https://www.youtube.c
   }
   ```
 - ...
-
-### 내부 환경 테스트
-- 단위 테스트: **유스 케이스**를 테스트합니다.
-![](./.images/2023-12-11-15-35-12.png)
-
-### 외부 환경 테스트
-- 통합 테스트: 시스템과 통합된 **유스 케이스**를 테스트합니다.
-![](./.images/2023-12-11-15-35-21.png)
-
-- End to End 테스트: 전체 시스템과 통합된 **유스 케이스**를 테스트합니다.
-![](./.images/2023-12-11-15-35-33.png)
-
-<br/>
-
-## 아키텍처 트릴레마(Trilemma)
-- 캡슐화: Domain model completeness
-- 순수성: Domain model purity
-- 성능: Performance
-
-![](./.images/2023-12-11-00-39-47.png)
-
-- **캡슐화 & 순수성**: Push all external reads and writes to the edges of a business operation.
-- **캡슐화 & 성능**: Inject out-of-process dependencies into the domain model 
-- **순수성 & 성능**: Split the decision-making process between the domain layer and controllers
 
 <br/>
 
