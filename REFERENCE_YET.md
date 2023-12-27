@@ -17,3 +17,5 @@
 
 ## 운영
 - [ ] Trace 통합 테스트: https://github.com/martinjt/todo-odd
+- [ ] Practical OpenTelemetry for .NET: https://www.youtube.com/watch?v=tctadmNTHfU
+  - [ ] https://github.com/martinjt?tab=repositories&q=Otel&type=&language=&sort=
