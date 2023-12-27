@@ -15,22 +15,64 @@
 
 ## 요구사항 구현(의존성 거부, Dependency Rejection)
 > **목표**
-> - 순수성: 불순 함수를 순수 함수와 불순 함수로 분리 시킨다.
-> - 구조화: 불순 함수는 최 외각에 배치 시킨다.
+> - 순수성: 순수 코드와 불순 코드를 분리 시킵니다.
+> - 구조화: 불순 코드는 최 외각에 배치 시킵니다.
 > - 테스트 자동화
->   - 순수 함수는 단위 테스트한다.
->   - 전체 코드는 통합 테스트한다.
+>   - 순수 함수는 단위 테스트합니다.
+>   - 불순 함수는 통합 테스트합니다.
 
-- 불순한 의존성을 제거하고 순수한 코드만 남긴다(불순 코드를 외각으로 이동 시킨다).
-- 먼저, 콘솔에서 읽은 모든 내용을 매개변수로 전달해야 합니다.
-- 둘째, 결정은 I/O를 수행하는 것이 아니라 순수한 데이터 구조로 반환되어야 합니다.
+### 순수 함수: 문자열 2개를 비교한다.
+```cs
+internal sealed class Pure
+{
+    public enum ComparisonResult
+    {
+        Bigger,
+        Smaller,
+        Equal
+    }
 
+    public static ComparisonResult CompareTwoStrings(string? first, string? second)
+    {
+        return string.Compare(first, second) switch
+        {
+            > 0 => ComparisonResult.Bigger,
+            < 0 => ComparisonResult.Smaller,
+            _ => ComparisonResult.Equal
+        };
+    }
+}
+```
+
+### 불순 함수: 콘솔 I/O 입/출력
+```cs
+using static DependencyRejection.Pure;
+
+// 불순 코드: 콘솔 입력
+Console.WriteLine("Enter the first value");
+string? first = Console.ReadLine();
+Console.WriteLine("Enter the second value");
+string? second = Console.ReadLine();
+
+// 순수 함수
+ComparisonResult comparisonResult = CompareTwoStrings(first, second);
+
+// 불순 코드: 콘솔 출력
+string output = comparisonResult switch
+{
+    ComparisonResult.Bigger => "The first value is bigger",
+    ComparisonResult.Smaller => "The first value is smaller",
+    ComparisonResult.Equal => "The values are equal",
+    _ => throw new NotImplementedException()
+};
+Console.WriteLine(output);
+```
 <br/>
 
 ## 요구사항 테스트
-### 단위 테스트: 요구사항 로직(결정)
+### 단위 테스트: 순수 함수(요구사항 로직)
 
-### 통합 테스트: 요구사항 기능
+### 통합 테스트: 불순 함수(요구사항 기능)
 
 <br/>
 
