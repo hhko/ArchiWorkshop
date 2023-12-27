@@ -67,6 +67,9 @@ string output = comparisonResult switch
 };
 Console.WriteLine(output);
 ```
+
+![](./.images/2023-12-28-01-13-57.png)
+
 <br/>
 
 ## 요구사항 테스트
