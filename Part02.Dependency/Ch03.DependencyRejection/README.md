@@ -21,7 +21,9 @@
 >   - 순수 함수는 단위 테스트합니다.
 >   - 불순 함수는 통합 테스트합니다.
 
-### 순수 함수: 문자열 2개를 비교한다.
+### 순수 함수
+> 문자열 2개를 비교하는 순수 코드를 콘솔 I/O 입/출력 코드(불순 코드)로부터 분리 시킵니다.
+
 ```cs
 internal sealed class Pure
 {
@@ -44,7 +46,9 @@ internal sealed class Pure
 }
 ```
 
-### 불순 코드: 콘솔 I/O 입/출력
+### 불순 코드
+> 콘솔 I/O 입/출력 코드는 최 외각에 배치 시킵니다.
+
 ```cs
 using static DependencyRejection.Pure;
 
