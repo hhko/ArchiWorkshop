@@ -11,12 +11,11 @@ internal sealed class Pure
 
     public static ComparisonResult CompareTwoStrings(string? first, string? second)
     {
-        int compare = string.Compare(first, second);
-        if (compare > 0)
-            return ComparisonResult.Bigger;
-        else if (compare < 0)
-            return ComparisonResult.Smaller;
-        else
-            return ComparisonResult.Equal;
+        return string.Compare(first, second) switch
+        {
+            > 0 => ComparisonResult.Bigger,
+            < 0 => ComparisonResult.Smaller,
+            _ => ComparisonResult.Equal
+        };
     }
 }

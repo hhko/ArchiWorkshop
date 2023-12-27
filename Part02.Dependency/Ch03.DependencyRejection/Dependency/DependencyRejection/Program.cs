@@ -1,5 +1,4 @@
-﻿using DependencyRejection;
-using static DependencyRejection.Pure;
+﻿using static DependencyRejection.Pure;
 
 Console.WriteLine("Enter the first value");
 string? first = Console.ReadLine();
@@ -8,7 +7,11 @@ string? second = Console.ReadLine();
 
 ComparisonResult comparisonResult = CompareTwoStrings(first, second);
 
-//switch comparisonResult 
-Console.WriteLine("The first value is bigger");
-Console.WriteLine("The first value is smaller");
-Console.WriteLine("The values are equal");
+string output = comparisonResult switch
+{
+    ComparisonResult.Bigger => "The first value is bigger",
+    ComparisonResult.Smaller => "The first value is smaller",
+    ComparisonResult.Equal => "The values are equal",
+    _ => throw new NotSupportedException()
+};
+Console.WriteLine(output);

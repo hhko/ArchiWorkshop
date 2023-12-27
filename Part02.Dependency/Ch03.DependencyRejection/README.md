@@ -44,7 +44,7 @@ internal sealed class Pure
 }
 ```
 
-### 불순 함수: 콘솔 I/O 입/출력
+### 불순 코드: 콘솔 I/O 입/출력
 ```cs
 using static DependencyRejection.Pure;
 
