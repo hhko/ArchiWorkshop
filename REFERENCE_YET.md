@@ -6,8 +6,11 @@
   - [ ] https://medium.com/@bddkickstarter/functional-bdd-part-3-scenario-outlines-feature-validation-c73b9972924d
 
 ## 아키텍처 템플릿
-- [ ] 클린 아키텍처: https://github.com/amantinband/clean-architecture
-- [ ] 클린 아키텍처: https://github.com/ardalis/CleanArchitecture
+- [ ] https://github.com/amantinband/clean-architecture
+- [ ] https://github.com/ardalis/CleanArchitecture
+- [ ] https://github.com/jasontaylordev/RapidBlazor
+- [ ] https://github.com/cbcrouse/CleanArchitecture
+- [ ] https://github.com/stphnwlsh/CleanMinimalApi
 
 ## 아키텍처 예제
 - [ ] 클린 아키텍처 예제: https://github.com/amantinband/buber-breakfast
@@ -19,3 +22,6 @@
 - [ ] Trace 통합 테스트: https://github.com/martinjt/todo-odd
 - [ ] Practical OpenTelemetry for .NET: https://www.youtube.com/watch?v=tctadmNTHfU
   - [ ] https://github.com/martinjt?tab=repositories&q=Otel&type=&language=&sort=
+
+## 예제
+- [ ] https://github.com/michael-wolfenden/todo-minimal-api/tree/main
