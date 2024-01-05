@@ -1,4 +1,4 @@
-# Architecture Workshop based on Domain-Driven Design
+# Architecture Workshop for Domain-Driven Design
 Architecting is a series of trade-offs.
 
 ## Part 1. 개요
