@@ -7,6 +7,10 @@ on:
   push:
     branches: [ "main" ]
     paths: [ 'Projects/ArchiWorkshop/Src/**', 'Projects/ArchiWorkshop/Tests/**', '.github/workflows/dotnet-ci.yml' ]
+    paths-ignore:
+        - '**.md'
+        - '**.pptx'
+        - '**.png'
 
 jobs:
   build:
@@ -24,7 +28,6 @@ jobs:
         solution_dir: ./Projects/ArchiWorkshop
         solution_path: ./Projects/ArchiWorkshop/ArchiWorkshop.sln
 
-    #  /home/runner/work/ArchiWorkshop/ArchiWorkshop/TestResults/b3d4fbc7-0b4f-4495-898b-282ca89888f0/coverage.cobertura.xml
     steps:
         - name: Checkout
           uses: actions/checkout@v3
@@ -44,6 +47,12 @@ jobs:
                 --configuration ${{ matrix.configuration }} \
                 --no-restore
 
+        #  /home/runner/work/ArchiWorkshop
+        #    /ArchiWorkshop                      : 저장소 Root
+        #      /Projects
+        #        /ArchiWorkshop                  : 솔루션 Root
+        #          /TestResults                  : 테스트 자동화 결과
+        #            /19f5be57-f7f1-4902-a22d-ca2dcd8fdc7a/coverage.cobertura.xml
         - name: Test
           run: |
             dotnet test ${{ env.solution_path }} \
@@ -53,14 +62,18 @@ jobs:
                 --collect:"XPlat Code Coverage" \
                 --verbosity normal
 
-        - name: ls
-          run: |
-            echo "hello"
-            pwd
-            ls -al
-            cd ${{ env.solution_dir }}
-            pwd
-            ls -al
+
+        # 참고 자료
+        # https://github.com/microsoft/codecoverage/tree/main/samples/Calculator
+
+        # - name: ls
+        #   run: |
+        #     echo "hello"
+        #     pwd
+        #     ls -al
+        #     cd ${{ env.solution_dir }}
+        #     pwd
+        #     ls -al
 
     # - name: Setup .NET
     #   uses: actions/setup-dotnet@v3
