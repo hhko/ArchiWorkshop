@@ -1,0 +1,5 @@
+- 코드 커버리지 | ArchiWorkshop.Tests.Unit 코드 커버리지 제외
+- 코드 커버리지 | N개 테스트일 때 통합 코드 커버리지 구하기
+- ValueObject | `public abstract IEnumerable<object> GetAtomicValues();` object 제거하기
+  - `protected` override IEnumerable<object> GetAtomicValues()
+  - protected abstract IEnumerable<`IComparable`> GetEqualityComponents();

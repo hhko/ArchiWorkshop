@@ -1,6 +1,8 @@
 # Architecture Workshop for Domain-Driven Design
 Architecting is a series of trade-offs.
 
+- [프로젝트](./Projects/ArchiWorkshop/)
+
 ## Part 1. 개요
 > 소프트웨어 아키텍처는 **유스 케이스가 중심입니다.**
 1. [아키텍처](./Part01.Overview/Ch01.Architecture/README.md)
