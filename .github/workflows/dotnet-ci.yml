@@ -7,10 +7,10 @@ on:
   push:
     branches: [ "main" ]
     paths: [ 'Projects/ArchiWorkshop/Src/**', 'Projects/ArchiWorkshop/Tests/**', '.github/workflows/dotnet-ci.yml' ]
-    paths-ignore:
-        - '**.md'
-        - '**.pptx'
-        - '**.png'
+    # paths-ignore:
+    #     - '**.md'
+    #     - '**.pptx'
+    #     - '**.png'
 
 jobs:
   build:
