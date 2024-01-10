@@ -48,7 +48,7 @@ jobs:
           run: |
             dotnet test ${{ env.solution_path }} \
                 --configuration ${{ matrix.configuration }} \
-                --results-directory "${{ env.solution_path }}\TestResults" \
+                --results-directory "${{ env.solution_dir }}\TestResults" \
                 --no-build \
                 --collect:"XPlat Code Coverage" \
                 --verbosity normal
@@ -58,7 +58,7 @@ jobs:
             echo "hello"
             pwd
             ls -al
-            cd ${{ env.solution_path }}
+            cd ${{ env.solution_dir }}
             pwd
             ls -al
 
