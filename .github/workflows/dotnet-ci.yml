@@ -24,6 +24,7 @@ jobs:
         solution_dir: ./Projects/ArchiWorkshop
         solution_path: ./Projects/ArchiWorkshop/ArchiWorkshop.sln
 
+    #  /home/runner/work/ArchiWorkshop/ArchiWorkshop/TestResults/b3d4fbc7-0b4f-4495-898b-282ca89888f0/coverage.cobertura.xml
     steps:
         - name: Checkout
           uses: actions/checkout@v3
@@ -47,7 +48,7 @@ jobs:
           run: |
             dotnet test ${{ env.solution_path }} \
                 --configuration ${{ matrix.configuration }} \
-                --results-directory "TestResults" \
+                --results-directory "${{ env.solution_path }}\TestResults" \
                 --no-build \
                 --collect:"XPlat Code Coverage" \
                 --verbosity normal
@@ -55,6 +56,9 @@ jobs:
         - name: ls
           run: |
             echo "hello"
+            pwd
+            ls -al
+            cd ${{ env.solution_path }}
             pwd
             ls -al
 
