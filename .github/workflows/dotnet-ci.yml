@@ -48,11 +48,13 @@ jobs:
                 --no-restore
 
         #  /home/runner/work/ArchiWorkshop
-        #    /ArchiWorkshop                      : 저장소 Root
+        #    /ArchiWorkshop                                             : 저장소 Root
         #      /Projects
-        #        /ArchiWorkshop                  : 솔루션 Root
-        #          /TestResults                  : 테스트 자동화 결과
-        #            /19f5be57-f7f1-4902-a22d-ca2dcd8fdc7a/coverage.cobertura.xml
+        #        /ArchiWorkshop                                         : 솔루션 Root
+        #          /TestResults                                         : 테스트 자동화 결과
+        #               /19f5be57-f7f1-4902-a22d-ca2dcd8fdc7a           : 코드 커버리지 N개
+        #                   /coverage.cobertura.xml
+        #               /CodeCoverageReport.Cobertura.xml               : Merged 코드 커버리지
         - name: Test
           run: |
             dotnet test ${{ env.solution_path }} \
@@ -66,12 +68,31 @@ jobs:
           run: dotnet tool install -g dotnet-coverage
 
         - name: Convert .coverage report to cobertura
-          run: dotnet-coverage merge ${{ env.solution_dir }}/TestResults/**/*.coverage -f cobertura -o ${{ env.solution_dir }}/TestResults/CodeCoverageReport.Cobertura.xml
+          run: |
+            dotnet-coverage merge ${{ env.solution_dir }}/TestResults/**/*.coverage \
+                -f cobertura \
+                -o ${{ env.solution_dir }}/TestResults/CodeCoverageReport.Cobertura.xml
+
+        - name: ReportGenerator
+          uses: danielpalme/ReportGenerator-GitHub-Action@5.2.0
+          with:
+            reports: '${{ env.solution_dir }}/TestResults/CodeCoverageReport.Cobertura.xml'
+            targetdir: '${{ env.solution_dir }}/TestResults/CodeCoverageReport'
+            reporttypes: 'MarkdownSummaryGithub'
+
+        - name: Upload coverage into summary
+          run: cat ${{ env.solution_dir }}/TestResults/CodeCoverageReport/SummaryGithub.md >> $GITHUB_STEP_SUMMARY
+
+        - name: Archive code coverage results
+          uses: actions/upload-artifact@v3
+          with:
+            name: CodeCoverageReport
+            path: ${{ env.solution_dir }}/TestResults/**/*.coverage
 
         - name: ls
           run: |
             pwd
-            cd ${{ env.solution_dir }}/
+            cd ${{ env.solution_dir }}/TestResults
             ls -al
 
         #   - name: Test
