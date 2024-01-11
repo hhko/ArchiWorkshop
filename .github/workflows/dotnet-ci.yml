@@ -37,6 +37,8 @@ jobs:
         #   - Deprecating save-state and set-output commands: https://github.blog/changelog/2022-10-11-github-actions-deprecating-save-state-and-set-output-commands/
         #   - GitHub Actions에서 output 변수의 문법 변경: https://blog.outsider.ne.kr/1651
         #   - Github Actions and creating a short SHA hash: https://dev.to/hectorleiva/github-actions-and-creating-a-short-sha-hash-8b7
+        #
+        # ${{ steps.vars.outputs.short_sha }}
         - name: Set Short Git Commit SHA
           id: vars
           run: |
@@ -61,17 +63,22 @@ jobs:
                 --configuration ${{ matrix.configuration }} \
                 --no-restore
 
-        # 테스트
+        #
+        # 테스트 결과 폴더 구성
+        #
         #  /home/runner/work/ArchiWorkshop
-        #    /ArchiWorkshop                                             : 저장소 Root
-        #      /Projects
-        #        /ArchiWorkshop                                         : 솔루션 Root
-        #          /TestResults                                         : 테스트 자동화 결과
-        #               /19f5be57-f7f1-4902-a22d-ca2dcd8fdc7a           : 코드 커버리지 N개
-        #                   /coverage.cobertura.xml
-        #               /CodeCoverageReport.Cobertura.xml               : Merged 코드 커버리지
+        #    /ArchiWorkshop                                     // 저장소 Root
+        #    /Projects
+        #    /ArchiWorkshop                                     // 솔루션 Root
+        #       /TestResults                                    // 테스트 자동화 결과
+        #           /19f5be57-f7f1-4902-a22d-ca2dcd8fdc7a       // dotnet test: 코드 커버리지 N개           <- Artifacts 업로드
+        #               /coverage.cobertura.xml
+        #
+        #               /merged-coverage.cobertura.xml          // dotnet-coverage: Merged 코드 커버리지
+        #
+        #               /CodeCoverageReport                     // ReportGenerator: 코드 커버리지 Markdown  <- Summary 업로드
+        #                   /SummaryGithub.md
 
-        # --collect:"XPlat Code Coverage" \
         - name: Test
           run: |
             dotnet test ${{ env.solution_path }} \
@@ -90,22 +97,22 @@ jobs:
           run: |
             dotnet-coverage merge ${{ env.solution_dir }}/TestResults/**/*.cobertura.xml \
                 -f cobertura \
-                -o ${{ env.solution_dir }}/TestResults/CodeCoverageReport.Cobertura.xml
+                -o ${{ env.solution_dir }}/TestResults/merged-coverage.cobertura.xml
 
         # 코드 커버리지 보고서 생성
         - name: ReportGenerator
           uses: danielpalme/ReportGenerator-GitHub-Action@5.2.0
           with:
-            reports: '${{ env.solution_dir }}/TestResults/CodeCoverageReport.Cobertura.xml'
+            reports: '${{ env.solution_dir }}/TestResults/merged-coverage.cobertura.xml'
             targetdir: '${{ env.solution_dir }}/TestResults/CodeCoverageReport'
             reporttypes: 'MarkdownSummaryGithub'
 
-        # 코드 커버리지 Summary에 업로드
+        # 코드 커버리지 Markdown 파일 Summary 업로드
         - name: Upload Coverage Into GitHub Actions Summary
           run: cat ${{ env.solution_dir }}/TestResults/CodeCoverageReport/SummaryGithub.md >> $GITHUB_STEP_SUMMARY
 
-        # 코드 커버리지 결과 저장
-        - name: Archive CodeCoverageResults
+        # 코드 커버리지 .cobertura 파일 Artifacts 업로드
+        - name: Upload CodeCoverageResults Files Into GitHub Actions Artifacts
           uses: actions/upload-artifact@v3
           with:
             name: CodeCoverageReport_${{ matrix.dotnet-version }}_sha-${{ steps.vars.outputs.short_sha }}
