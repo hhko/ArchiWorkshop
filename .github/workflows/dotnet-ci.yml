@@ -3,10 +3,12 @@
 
 name: "ArchiWorkshop CI"
 
+# TODO: PR일 때 코드 커버리지 댓글 추가
 on:
   push:
     branches: [ "main" ]
     paths: [ 'Projects/ArchiWorkshop/Src/**', 'Projects/ArchiWorkshop/Tests/**', '.github/workflows/dotnet-ci.yml' ]
+    # TODO: 특정 확장자 Actions 제외
     # paths-ignore:
     #     - '**.md'
     #     - '**.pptx'
@@ -18,11 +20,13 @@ jobs:
 
     strategy:
         matrix:
-            # os: [ ubuntu-22.04 ]
             dotnet-version: [ '8.0.x' ]
             configuration: [ Release ]
+            os: [ ubuntu-22.04, ubuntu-20.04 ]
 
-    runs-on: ubuntu-22.04
+   # TODO: 복수 운영체제일 때 "Generate CodeCoverage Summary Report" 중복 데이터 생성 문제
+    runs-on: ${{ matrix.os }}
+    #runs-on: ubuntu-22.04
 
     env:
         solution_dir: ./Projects/ArchiWorkshop
@@ -39,20 +43,20 @@ jobs:
         #   - Github Actions and creating a short SHA hash: https://dev.to/hectorleiva/github-actions-and-creating-a-short-sha-hash-8b7
         #
         # ${{ steps.vars.outputs.short_sha }}
-        - name: Set Short Git Commit SHA
+        - name: Set short git commit SHA
           id: vars
           run: |
             calculatedSha=$(git rev-parse --short ${{ github.sha }})
             echo "short_sha=$calculatedSha" >> $GITHUB_OUTPUT
 
         # .NET SDK 설치
-        - name: Setup .NET SDK ${{ matrix.dotnet-version }}
+        - name: Setup .net sdk ${{ matrix.dotnet-version }}
           uses: actions/setup-dotnet@v3
           with:
             dotnet-version: ${{ matrix.dotnet-version }}
 
         # 패키지 복원
-        - name: Restore NuGet Packages
+        - name: Restore nuget packages
           run: |
             dotnet restore ${{ env.solution_path }}
 
@@ -79,6 +83,7 @@ jobs:
         #               /CodeCoverageReport                     // ReportGenerator: 코드 커버리지 Markdown  <- Summary 업로드
         #                   /SummaryGithub.md
 
+        # 테스트 & 코드 커버리지 .cobertura 파일 생성
         - name: Test
           run: |
             dotnet test ${{ env.solution_path }} \
@@ -92,15 +97,15 @@ jobs:
         - name: Install dotnet-coverage
           run: dotnet tool install -g dotnet-coverage
 
-        # Merged 코드 커버리지 생성
+        # Merged 코드 커버리지 파일 생성
         - name: Convert .coverage report to cobertura
           run: |
             dotnet-coverage merge ${{ env.solution_dir }}/TestResults/**/*.cobertura.xml \
                 -f cobertura \
                 -o ${{ env.solution_dir }}/TestResults/merged-coverage.cobertura.xml
 
-        # 코드 커버리지 보고서 생성
-        - name: ReportGenerator
+        # 코드 커버리지 Markdown 파일 생성
+        - name: Create coverage markdown file
           uses: danielpalme/ReportGenerator-GitHub-Action@5.2.0
           with:
             reports: '${{ env.solution_dir }}/TestResults/merged-coverage.cobertura.xml'
@@ -108,12 +113,46 @@ jobs:
             reporttypes: 'MarkdownSummaryGithub'
 
         # 코드 커버리지 Markdown 파일 Summary 업로드
-        - name: Upload Coverage Into GitHub Actions Summary
+        - name: Upload coverage markdown into github actions summary
           run: cat ${{ env.solution_dir }}/TestResults/CodeCoverageReport/SummaryGithub.md >> $GITHUB_STEP_SUMMARY
 
         # 코드 커버리지 .cobertura 파일 Artifacts 업로드
-        - name: Upload CodeCoverageResults Files Into GitHub Actions Artifacts
+        - name: Upload coverage files into github actions artifacts
           uses: actions/upload-artifact@v3
           with:
             name: CodeCoverageReport_${{ matrix.dotnet-version }}_sha-${{ steps.vars.outputs.short_sha }}
             path: ${{ env.solution_dir }}/TestResults/**/*.cobertura.xml
+
+#
+# 참고 자료
+#
+# - [x] GitHub Actions で .NETプロジェクトのコードカバレッジを計測する
+#       https://zenn.dev/shimat/articles/03ad92427cbed6
+# - [x] ReportGenerator Usage 자동 생성
+#       https://reportgenerator.io/usage
+# - [x] GitHub Actions 적용 사례
+#   - https://github.com/microsoft/teams-ai/blob/main/.github/workflows/dotnet-ci.yml
+# - [x] Git SHA
+#   - Github Actions and creating a short SHA hash: https://dev.to/hectorleiva/github-actions-and-creating-a-short-sha-hash-8b7
+# - [x] GitHub outputs 환경 변수
+#   - GitHub Actions의 잡 요약($GITHUB_STEP_SUMMARY) 기능: https://blog.outsider.ne.kr/1594
+#   - Deprecating save-state and set-output commands: https://github.blog/changelog/2022-10-11-github-actions-deprecating-save-state-and-set-output-commands/
+#   - GitHub Actions에서 output 변수의 문법 변경: https://blog.outsider.ne.kr/1651
+
+# - [x] 파일 찾은 후 복사하기
+#   ```
+#   - name: Find coverage output path
+#     run: |
+#       cp $(find . -name "coverage.cobertura.xml") .
+#
+# - [x] run 복수 명령
+#   ```
+#   run: |
+#   ```
+# - [x] run 한 명령 복수 라인
+#   ```
+#   run: |
+#     명령 \
+#       --옵션 \
+#       --옵션 \
+#   ```
