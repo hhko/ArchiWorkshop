@@ -29,24 +29,39 @@ jobs:
         solution_path: ./Projects/ArchiWorkshop/ArchiWorkshop.sln
 
     steps:
+        # 형상관리 최신 소스 받기
         - name: Checkout
           uses: actions/checkout@v3
 
+        # Git Commit SHA 얻기
+        #   - Deprecating save-state and set-output commands: https://github.blog/changelog/2022-10-11-github-actions-deprecating-save-state-and-set-output-commands/
+        #   - GitHub Actions에서 output 변수의 문법 변경: https://blog.outsider.ne.kr/1651
+        #   - Github Actions and creating a short SHA hash: https://dev.to/hectorleiva/github-actions-and-creating-a-short-sha-hash-8b7
+        - name: Set Short Git Commit SHA
+          id: vars
+          run: |
+            calculatedSha=$(git rev-parse --short ${{ github.sha }})
+            echo "short_sha=$calculatedSha" >> $GITHUB_OUTPUT
+
+        # .NET SDK 설치
         - name: Setup .NET SDK ${{ matrix.dotnet-version }}
           uses: actions/setup-dotnet@v3
           with:
             dotnet-version: ${{ matrix.dotnet-version }}
 
+        # 패키지 복원
         - name: Restore NuGet Packages
           run: |
             dotnet restore ${{ env.solution_path }}
 
+        # 빌드
         - name: Build
           run: |
             dotnet build ${{ env.solution_path }} \
                 --configuration ${{ matrix.configuration }} \
                 --no-restore
 
+        # 테스트
         #  /home/runner/work/ArchiWorkshop
         #    /ArchiWorkshop                                             : 저장소 Root
         #      /Projects
@@ -55,24 +70,29 @@ jobs:
         #               /19f5be57-f7f1-4902-a22d-ca2dcd8fdc7a           : 코드 커버리지 N개
         #                   /coverage.cobertura.xml
         #               /CodeCoverageReport.Cobertura.xml               : Merged 코드 커버리지
+
+        # --collect:"XPlat Code Coverage" \
         - name: Test
           run: |
             dotnet test ${{ env.solution_path }} \
                 --configuration ${{ matrix.configuration }} \
                 --results-directory ${{ env.solution_dir }}/TestResults \
                 --no-build \
-                --collect:"XPlat Code Coverage" \
+                --collect "Code Coverage;Format=cobertura" \
                 --verbosity normal
 
+        # dotnet-coverage 도구 설치
         - name: Install dotnet-coverage
           run: dotnet tool install -g dotnet-coverage
 
+        # Merged 코드 커버리지 생성
         - name: Convert .coverage report to cobertura
           run: |
             dotnet-coverage merge ${{ env.solution_dir }}/TestResults/**/*.coverage \
                 -f cobertura \
                 -o ${{ env.solution_dir }}/TestResults/CodeCoverageReport.Cobertura.xml
 
+        # 코드 커버리지 보고서 생성
         - name: ReportGenerator
           uses: danielpalme/ReportGenerator-GitHub-Action@5.2.0
           with:
@@ -80,73 +100,13 @@ jobs:
             targetdir: '${{ env.solution_dir }}/TestResults/CodeCoverageReport'
             reporttypes: 'MarkdownSummaryGithub'
 
-        - name: Upload coverage into summary
+        # 코드 커버리지 Summary에 업로드
+        - name: Upload Coverage Into GitHub Actions Summary
           run: cat ${{ env.solution_dir }}/TestResults/CodeCoverageReport/SummaryGithub.md >> $GITHUB_STEP_SUMMARY
 
-        - name: Archive code coverage results
+        # 코드 커버리지 결과 저장
+        - name: Archive CodeCoverageResults
           uses: actions/upload-artifact@v3
           with:
-            name: CodeCoverageReport
+            name: CodeCoverageReport_${{ matrix.dotnet-version }}_sha-${{ steps.vars.outputs.short_sha }}
             path: ${{ env.solution_dir }}/TestResults/**/*.coverage
-
-        - name: ls
-          run: |
-            pwd
-            cd ${{ env.solution_dir }}/TestResults
-            ls -al
-
-        #   - name: Test
-        #     run: dotnet test --collect "Code Coverage" --no-build --verbosity normal
-        #   - name: Install dotnet-coverage
-        #     run: dotnet tool install -g dotnet-coverage
-        #   - name: Convert .coverage report to cobertura
-        #     run: dotnet-coverage merge $GITHUB_WORKSPACE/samples/Calculator/tests/Calculator.Core.Tests/TestResults/**/*.coverage -f cobertura -o $GITHUB_WORKSPACE/report.cobertura.xml
-        #   - name: ReportGenerator
-        #     uses: danielpalme/ReportGenerator-GitHub-Action@5.2.0
-        #     with:
-        #       reports: '${{ github.workspace }}/report.cobertura.xml'
-        #       targetdir: '${{ github.workspace }}/coveragereport'
-        #       reporttypes: 'MarkdownSummaryGithub'
-        #   - name: Upload coverage into summary
-        #     run: cat $GITHUB_WORKSPACE/coveragereport/SummaryGithub.md >> $GITHUB_STEP_SUMMARY
-        #   - name: Archive code coverage results
-        #     uses: actions/upload-artifact@v3
-        #     with:
-        #       name: code-coverage-report
-        #       path: ./**/TestResults/**/*.coverage
-
-        # 참고 자료
-        # https://github.com/microsoft/codecoverage/tree/main/samples/Calculator
-
-        # - name: ls
-        #   run: |
-        #     echo "hello"
-        #     pwd
-        #     ls -al
-        #     cd ${{ env.solution_dir }}
-        #     pwd
-        #     ls -al
-
-    # - name: Setup .NET
-    #   uses: actions/setup-dotnet@v3
-    #   with:
-    #     dotnet-version: 8.0.x
-    # - name: Restore dependencies
-    #   run: dotnet restore
-    # - name: Build
-    #   run: dotnet build --no-restore
-    # - name: Test
-    #   run: dotnet test --collect "Code Coverage;Format=cobertura" --no-build --verbosity normal
-    # - name: ReportGenerator
-    #   uses: danielpalme/ReportGenerator-GitHub-Action@5.2.0
-    #   with:
-    #     reports: './**/TestResults/**/*.cobertura.xml'
-    #     targetdir: '${{ github.workspace }}/coveragereport'
-    #     reporttypes: 'MarkdownSummaryGithub'
-    # - name: Upload coverage into summary
-    #   run: cat $GITHUB_WORKSPACE/coveragereport/SummaryGithub.md >> $GITHUB_STEP_SUMMARY
-    # - name: Archive code coverage results
-    #   uses: actions/upload-artifact@v3
-    #   with:
-    #     name: code-coverage-report
-    #     path: ./**/TestResults/**/*.cobertura.xml
