@@ -78,7 +78,7 @@ jobs:
                 --configuration ${{ matrix.configuration }} \
                 --results-directory ${{ env.solution_dir }}/TestResults \
                 --no-build \
-                --collect "Code Coverage;Format=cobertura" \
+                --collect "XPlat Code Coverage" \
                 --verbosity normal
 
         # dotnet-coverage 도구 설치
@@ -88,7 +88,7 @@ jobs:
         # Merged 코드 커버리지 생성
         - name: Convert .coverage report to cobertura
           run: |
-            dotnet-coverage merge ${{ env.solution_dir }}/TestResults/**/*.coverage \
+            dotnet-coverage merge ${{ env.solution_dir }}/TestResults/**/*.cobertura.xml \
                 -f cobertura \
                 -o ${{ env.solution_dir }}/TestResults/CodeCoverageReport.Cobertura.xml
 
@@ -109,4 +109,4 @@ jobs:
           uses: actions/upload-artifact@v3
           with:
             name: CodeCoverageReport_${{ matrix.dotnet-version }}_sha-${{ steps.vars.outputs.short_sha }}
-            path: ${{ env.solution_dir }}/TestResults/**/*.coverage
+            path: ${{ env.solution_dir }}/TestResults/**/*.cobertura.xml

@@ -1,4 +1,4 @@
-﻿namespace ArchiWorkshop.Domains.Abstractions.Extensions;
+﻿namespace ArchiWorkshop.Domains.Abstractions.Utilities;
 
 public static class IEnumerableUtilities
 {
