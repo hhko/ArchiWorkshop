@@ -13,20 +13,16 @@
   - 공백
   - 길이
   - 형식
-  ```cs
-  var faker = new Faker();
-  var email = faker.Person.Email;
-  ```
 
 ---
 
 ```
 // 파일
-Xyz				// 핵심 메서드
+Xyz             // 핵심 메서드
 XyzUtilities	// 그외 메서드
 
 // 폴더
-Utilities		// 더 명확한 이름(확장 메서드, 정적 메서드)
+Utilities       // 더 명확한 이름(확장 메서드, 정적 메서드)
 ```
 
 - `2024-01-13(토)` Bogus 기반으로 Email 테스트 성공
