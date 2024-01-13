@@ -77,8 +77,3 @@ public class Hello
 
 }
 ```
-
-## TODO
-- ArchiWorkshop.Tests.Unit 코드 커버리지 제외
-- N개 테스트일 때 통합 코드 커버리지 구하기
-

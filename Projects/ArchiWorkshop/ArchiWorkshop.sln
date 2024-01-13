@@ -15,7 +15,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Docs", "Docs", "{DDB204DE-4
 	ProjectSection(SolutionItems) = preProject
 		Docs\CodeCoverage.md = Docs\CodeCoverage.md
 		Docs\PowerShell.md = Docs\PowerShell.md
-		Docs\README.md = Docs\README.md
+		Docs\Result.md = Docs\Result.md
+		Docs\TODO.md = Docs\TODO.md
 	EndProjectSection
 EndProject
 Global
