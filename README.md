@@ -1,5 +1,10 @@
 # Architecture Workshop for Domain-Driven Design
-Architecting is a series of trade-offs.
+> Architecting is a series of trade-offs.  
+>
+> 건축업자가 프로그래머의 프로그램 작성 방식에 따라 건물을 짓는다면 가장 먼저 도착하는 딱따구리가 **문명을 파괴할 것입니다.**  
+> If builders built buildings the way programmers wrote programs, then the first woodpecker that came along **would destroy civilization.**  
+>
+> _Gerald Weinberg_
 
 - [프로젝트](./Projects/ArchiWorkshop/)
 
@@ -22,3 +27,7 @@ Architecting is a series of trade-offs.
 1. 로그
 1. 지표
 1. 추적
+
+## Part 4. 유효성 검사
+> 유효한 도메인 모델을 정의(**유효성 규칙**)한다.
+1. 개념

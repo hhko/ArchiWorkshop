@@ -3,6 +3,9 @@
 - [PowerShell 문서](./PowerShell.md)
 
 ## 한일
+- [x] Result 타입
+- [x] Build.ps1
+---
 - [x] ValueObject 기본 소스 추가
 - [x] 어셈블리 구분 클래스 추가
   ```

@@ -15,5 +15,10 @@ public class EmailTests
 
         // Assert
         actual.Should().NotBeNull();
+        actual.Value.Should().BeAssignableTo<Email>();
     }
+
+    // 공백
+    // 길이
+    // 형식
 }

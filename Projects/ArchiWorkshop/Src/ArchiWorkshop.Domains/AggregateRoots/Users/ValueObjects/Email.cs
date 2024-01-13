@@ -1,8 +1,10 @@
-﻿using ArchiWorkshop.Domains.Abstractions.BaseTypes;
-using static ArchiWorkshop.Domains.Abstractions.Utilities.ListUtilities;
-using System.Text.RegularExpressions;
-
+﻿using System.Text.RegularExpressions;
+using ArchiWorkshop.Domains.Abstractions.BaseTypes;
+using ArchiWorkshop.Domains.Abstractions.Errors;
+using ArchiWorkshop.Domains.Abstractions.Results;
+using ArchiWorkshop.Domains.Abstractions.Utilities;
 using static System.Text.RegularExpressions.RegexOptions;
+using static ArchiWorkshop.Domains.Abstractions.Utilities.ListUtilities;
 
 namespace ArchiWorkshop.Domains.AggregateRoots.Users.ValueObjects;
 
@@ -19,24 +21,19 @@ public class Email : ValueObject
         Value = value;
     }
 
-    public static Email Create(string email)
+    public static ValidationResult<Email> Create(string email)
     {
-        return new Email(email);
+        var errors = Validate(email);
+        return errors.CreateValidationResult(() => new Email(email));
     }
 
-    //public static ValidationResult<Email> Create(string email)
-    //{
-    //    var errors = Validate(email);
-    //    return errors.CreateValidationResult(() => new Email(email));
-    //}
-
-    //public static IList<Error> Validate(string email)
-    //{
-    //    return EmptyList<Error>()
-    //        .If(email.IsNullOrEmptyOrWhiteSpace(), EmailError.Empty)
-    //        .If(email.Length > MaxLength, EmailError.TooLong)
-    //        .If(_regex.NotMatch(email), EmailError.Invalid);
-    //}
+    public static IList<Error> Validate(string email)
+    {
+        return EmptyList<Error>()
+            .If(email.IsNullOrEmptyOrWhiteSpace(), EmailError.Empty)
+            .If(email.Length > MaxLength, EmailError.TooLong)
+            .If(_regex.NotMatch(email), EmailError.Invalid);
+    }
 
     public override IEnumerable<object> GetAtomicValues()
     {
