@@ -14,10 +14,10 @@
 #                /...
 
 $current_dir = Get-Location
-$testResult_dir = Join-Path -Path $current_dir -ChildPath "TestResults"
+$testResults_dir = Join-Path -Path $current_dir -ChildPath "TestResults"
 
-if (Test-Path -Path $testResult_dir) {
-    Remove-Item -Path (Join-Path -Path $testResult_dir -ChildPath "*") -Recurse -Force
+if (Test-Path -Path $testResults_dir) {
+    Remove-Item -Path (Join-Path -Path $testResults_dir -ChildPath "*") -Recurse -Force
 }
 
 dotnet restore $current_dir
@@ -26,18 +26,18 @@ dotnet build $current_dir --no-restore --configuration Release --verbosity m
 
 dotnet test `
     --configuration Release `
-    --results-directory $testResult_dir `
+    --results-directory $testResults_dir `
     --no-build `
     --collect "XPlat Code Coverage" `
     --verbosity normal
 
-dotnet-coverage merge (Join-Path -Path $testResult_dir -ChildPath "**/*.cobertura.xml") `
+dotnet-coverage merge (Join-Path -Path $testResults_dir -ChildPath "**/*.cobertura.xml") `
     -f cobertura `
-    -o (Join-Path -Path $testResult_dir -ChildPath "merged-coverage.cobertura.xml")
+    -o (Join-Path -Path $testResults_dir -ChildPath "merged-coverage.cobertura.xml")
 
 reportgenerator `
-	-reports:(Join-Path -Path $testResult_dir -ChildPath "merged-coverage.cobertura.xml") `
-	-targetdir:(Join-Path -Path $testResult_dir -ChildPath "CodeCoverageReport") `
+	-reports:(Join-Path -Path $testResults_dir -ChildPath "merged-coverage.cobertura.xml") `
+	-targetdir:(Join-Path -Path $testResults_dir -ChildPath "CodeCoverageReport") `
 	-reporttypes:"Html;Badges" `
     -verbosity:Info
 

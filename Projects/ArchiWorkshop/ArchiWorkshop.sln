@@ -14,10 +14,17 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Docs", "Docs", "{DDB204DE-4901-4A1F-B132-A89F4C0A58A7}"
 	ProjectSection(SolutionItems) = preProject
 		Docs\CodeCoverage.md = Docs\CodeCoverage.md
+		Docs\NuGetPackages.md = Docs\NuGetPackages.md
 		Docs\PowerShell.md = Docs\PowerShell.md
 		Docs\Result.md = Docs\Result.md
 		Docs\TODO.md = Docs\TODO.md
 	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ArchiWorkshop.Tests.Integration", "Tests\ArchiWorkshop.Tests.Integration\ArchiWorkshop.Tests.Integration.csproj", "{F7E1439D-BCF8-4ED0-8815-577BC35ED2CD}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ArchiWorkshop.Applications", "Src\ArchiWorkshop.Applications\ArchiWorkshop.Applications.csproj", "{8D7D1D0E-400C-44E3-90F3-B4C4E9C9186B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ArchiWorkshop.Adapters.WebApi", "Src\ArchiWorkshop.Adapters.WebApi\ArchiWorkshop.Adapters.WebApi.csproj", "{8EB0974F-56D7-4819-B05C-8E63924C210E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +40,18 @@ Global
 		{B6CD4C6F-857B-4492-8782-E3CC57085F8D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B6CD4C6F-857B-4492-8782-E3CC57085F8D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B6CD4C6F-857B-4492-8782-E3CC57085F8D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F7E1439D-BCF8-4ED0-8815-577BC35ED2CD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F7E1439D-BCF8-4ED0-8815-577BC35ED2CD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F7E1439D-BCF8-4ED0-8815-577BC35ED2CD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F7E1439D-BCF8-4ED0-8815-577BC35ED2CD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8D7D1D0E-400C-44E3-90F3-B4C4E9C9186B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8D7D1D0E-400C-44E3-90F3-B4C4E9C9186B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8D7D1D0E-400C-44E3-90F3-B4C4E9C9186B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8D7D1D0E-400C-44E3-90F3-B4C4E9C9186B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8EB0974F-56D7-4819-B05C-8E63924C210E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8EB0974F-56D7-4819-B05C-8E63924C210E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8EB0974F-56D7-4819-B05C-8E63924C210E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8EB0974F-56D7-4819-B05C-8E63924C210E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -40,6 +59,9 @@ Global
 	GlobalSection(NestedProjects) = preSolution
 		{F61A4643-E2F6-45D5-AE65-FE0256CCC7CA} = {83FA9F62-FB45-4429-91DB-43CA845DD672}
 		{B6CD4C6F-857B-4492-8782-E3CC57085F8D} = {DB118F10-54AE-4C5E-84D4-C0B894A31561}
+		{F7E1439D-BCF8-4ED0-8815-577BC35ED2CD} = {DB118F10-54AE-4C5E-84D4-C0B894A31561}
+		{8D7D1D0E-400C-44E3-90F3-B4C4E9C9186B} = {83FA9F62-FB45-4429-91DB-43CA845DD672}
+		{8EB0974F-56D7-4819-B05C-8E63924C210E} = {83FA9F62-FB45-4429-91DB-43CA845DD672}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {2E7B95D6-EAD5-457B-A071-4F7F76A28C31}

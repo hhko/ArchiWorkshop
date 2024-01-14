@@ -1,14 +1,15 @@
-﻿using static System.Runtime.InteropServices.JavaScript.JSType;
-
-namespace ArchiWorkshop.Domains.Abstractions.Errors;
+﻿namespace ArchiWorkshop.Domains.Abstractions.Results;
 
 public class Error : IEquatable<Error>
 {
-    // Error 종류
+    // 성공 Error 종료
+    //  - None : 없음
+    public static readonly Error None = new(string.Empty, string.Empty);
+
+    // 실패 Error 종류
     //  - NullValue
     //  - ConditionNotSatisfied
     //  - ValidationError
-    public static readonly Error None = new(string.Empty, string.Empty);
     public static readonly Error NullValue = new($"{nameof(NullValue)}", "The result value is null.");
     public static readonly Error ConditionNotSatisfied = new($"{nameof(ConditionNotSatisfied)}", "The specified condition was not satisfied.");
     public static readonly Error ValidationError = new($"{nameof(ValidationError)}", "A validation problem occurred.");

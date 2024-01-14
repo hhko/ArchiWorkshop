@@ -1,6 +1,5 @@
 ﻿using System.Text.RegularExpressions;
 using ArchiWorkshop.Domains.Abstractions.BaseTypes;
-using ArchiWorkshop.Domains.Abstractions.Errors;
 using ArchiWorkshop.Domains.Abstractions.Results;
 using ArchiWorkshop.Domains.Abstractions.Utilities;
 using static System.Text.RegularExpressions.RegexOptions;

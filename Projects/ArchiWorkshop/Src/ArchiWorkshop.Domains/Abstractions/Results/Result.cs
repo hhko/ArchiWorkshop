@@ -1,6 +1,4 @@
-﻿using ArchiWorkshop.Domains.Abstractions.Errors;
-
-namespace ArchiWorkshop.Domains.Abstractions.Results;
+﻿namespace ArchiWorkshop.Domains.Abstractions.Results;
 
 public class Result : IResult
 {

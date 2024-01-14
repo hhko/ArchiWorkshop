@@ -6,14 +6,15 @@
 - WebApi 성능 테스트
 - WebApi 통합 테스트
 - WebApi
-- Entity
+
 - Address 적용
 - FistName 적용
 - Email 유효성 검사 테스트 자동화, Bogus
   - 공백
   - 길이
   - 형식
-
+- Domain 레이어 Abstractions 테스트 추가
+- Entity
 ---
 
 ```
@@ -23,8 +24,21 @@ XyzUtilities	// 그외 메서드
 
 // 폴더
 Utilities       // 더 명확한 이름(확장 메서드, 정적 메서드)
+
+
+New			// ?
+Create		// 외부
 ```
 
+- `2024-01-14(일)` `IX, IX<T> : IX` T타입 생성을 위한 자료구조
+  ```cs
+  IEntityId
+  IEntityId<T> : IEntityId 
+  ```
+- `2024-01-14(일)` EntityIdConverter 이해(현재 버전에는 제외 시킴)
+- `2024-01-14(일)` IEntityId 구현
+- `2024-01-14(일)` Error -> Result 폴더와 통합
+- `2024-01-14(일)` 레이어 기본 프로젝트 생성 
 - `2024-01-13(토)` Bogus 기반으로 Email 테스트 성공
 - `2024-01-13(토)` Result 타입
 - `2024-01-13(토)` Build.ps1

@@ -1,4 +1,4 @@
-﻿using ArchiWorkshop.Domains.Abstractions.Errors;
+﻿using ArchiWorkshop.Domains.Abstractions.Results;
 
 namespace ArchiWorkshop.Domains.AggregateRoots.Users.ValueObjects;
 

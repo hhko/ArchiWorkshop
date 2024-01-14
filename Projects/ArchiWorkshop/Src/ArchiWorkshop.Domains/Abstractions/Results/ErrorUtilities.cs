@@ -1,7 +1,6 @@
 ﻿using ArchiWorkshop.Domains.Abstractions.BaseTypes;
-using ArchiWorkshop.Domains.Abstractions.Results;
 
-namespace ArchiWorkshop.Domains.Abstractions.Errors;
+namespace ArchiWorkshop.Domains.Abstractions.Results;
 
 public static class ErrorUtilities
 {
