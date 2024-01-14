@@ -1,9 +1,10 @@
 ﻿using ArchiWorkshop.Domains.Abstractions.Utilities;
 
-namespace ArchiWorkshop.Domains.Abstractions.BaseTypes;
+namespace ArchiWorkshop.Domains.Abstractions.DomainTypes;
 
 [Serializable]
-public abstract class ValueObject : IEquatable<ValueObject>
+public abstract class ValueObject
+    : IEquatable<ValueObject>
 {
     //public const string Value = nameof(Value);
 
@@ -11,31 +12,43 @@ public abstract class ValueObject : IEquatable<ValueObject>
 
     public bool Equals(ValueObject? other)
     {
-        return other is not null 
-            && ValuesAreEqual(other);
+        //return other is not null 
+        //    && ValuesAreEqual(other);
+
+        if (other is null)
+        {
+            return false;
+        }
+
+        //if (other.GetType() != GetType())
+        //{
+        //    return false;
+        //}
+
+        return ValuesAreEqual(other);
     }
 
     public override bool Equals(object? obj)
     {
-        return obj is ValueObject valueObject 
-            && ValuesAreEqual(valueObject);
-        
-        //if (obj is null)
-        //{
-        //    return false;
-        //}
-        //
-        //if (GetType() != obj.GetType())
-        //{
-        //    return false;
-        //}
-        //
-        //if (obj is not ValueObject otherValueObject)
-        //{
-        //    return false;
-        //}
-        //
-        //return ValuesAreEqual(otherValueObject);
+        //return obj is ValueObject valueObject 
+        //    && ValuesAreEqual(valueObject);
+
+        if (obj is null)
+        {
+            return false;
+        }
+
+        if (obj.GetType() != GetType())
+        {
+            return false;
+        }
+
+        if (obj is not ValueObject otherValueObject)
+        {
+            return false;
+        }
+
+        return ValuesAreEqual(otherValueObject);
     }
 
     private bool ValuesAreEqual(ValueObject other)
@@ -68,7 +81,7 @@ public abstract class ValueObject : IEquatable<ValueObject>
     {
         return GetAtomicValues()
             .Aggregate(
-                default(int), 
+                default(int),
                 (hashcode, value) => HashCode.Combine(hashcode, value.GetHashCode()));
     }
 

@@ -2,7 +2,7 @@
 
 public class Error : IEquatable<Error>
 {
-    // 성공 Error 종료
+    // 성공 Error 종류
     //  - None : 없음
     public static readonly Error None = new(string.Empty, string.Empty);
 
@@ -36,39 +36,43 @@ public class Error : IEquatable<Error>
 
     public bool Equals(Error? other)
     {
-        return other is not null
-            && Code == other.Code && Message == other.Message;
+        //return other is not null
+        //    && Code == other.Code && Message == other.Message;
 
-        //if (other is null)
+        if (other is null)
+        {
+            return false;
+        }
+
+        //if (other.GetType() != GetType())
         //{
         //    return false;
         //}
-        //
-        //return Code == other.Code
-        //    && Message == other.Message;
+
+        return Code == other.Code && Message == other.Message;
     }
 
     public override bool Equals(object? obj)
     {
-        return obj is Error error
-            && Equals(error);
+        //return obj is Error error
+        //    && Equals(error);
 
-        //if (obj is null)
-        //{
-        //    return false;
-        //}
-        //
-        //if (GetType() != obj.GetType())
-        //{
-        //    return false;
-        //}
-        //
-        //if (obj is not Error otherError)
-        //{
-        //    return false;
-        //}
-        //
-        //return Equals(otherError);
+        if (obj is null)
+        {
+            return false;
+        }
+
+        if (obj.GetType() != GetType())
+        {
+            return false;
+        }
+
+        if (obj is not Error otherError)
+        {
+            return false;
+        }
+
+        return Equals(otherError);
     }
 
     public static bool operator ==(Error? first, Error? second)

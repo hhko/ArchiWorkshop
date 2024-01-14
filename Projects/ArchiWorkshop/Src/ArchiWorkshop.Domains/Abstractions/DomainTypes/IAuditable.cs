@@ -1,4 +1,4 @@
-﻿namespace ArchiWorkshop.Domains.Abstractions.BaseTypes;
+﻿namespace ArchiWorkshop.Domains.Abstractions.DomainTypes;
 
 public interface IAuditable
 {

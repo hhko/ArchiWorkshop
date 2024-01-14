@@ -1,5 +1,7 @@
-## 기능
+## 레이어
+### 도메인
 - Ulid
+- MediatR.Contracts
 
 
 ## 테스트

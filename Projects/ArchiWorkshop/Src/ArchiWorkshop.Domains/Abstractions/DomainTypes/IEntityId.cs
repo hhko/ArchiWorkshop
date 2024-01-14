@@ -1,6 +1,7 @@
-﻿namespace ArchiWorkshop.Domains.Abstractions.BaseTypes;
+﻿namespace ArchiWorkshop.Domains.Abstractions.DomainTypes;
 
-public interface IEntityId : IComparable<IEntityId>
+public interface IEntityId
+    : IComparable<IEntityId>
 {
     // TODO: ?
     //const string Id = nameof(Id);
@@ -14,7 +15,8 @@ public interface IEntityId : IComparable<IEntityId>
 }
 
 //[TypeConverter(typeof(EntityIdConverter))]
-public interface IEntityId<TEntityId> : IEntityId
+public interface IEntityId<TEntityId>
+    : IEntityId
 {
     /// <summary>
     /// Create a new entity id using given ulid

@@ -30,6 +30,56 @@ New			// ?
 Create		// 외부
 ```
 
+```
+// 1. ValueObject
+[Serializable]
+ValueObject
+  : IEquatable<ValueObject>
+
+// 2. Enumeration?
+
+// 3. Entity
+IEntityId
+    : IComparable<IEntityId>
+IEntityId<TEntityId>
+    : IEntityId
+
+IEntity
+Entity<TEntityId>
+    : IEquatable<Entity<TEntityId>>
+    , IEntity
+    where TEntityId : struct, IEntityId<TEntityId>
+
+// 4. AggregateRoot
+IDomainEvent
+    : INotification
+
+IAggregateRoot
+    : IEntity
+AggregateRoot<TEntityId>
+    : Entity<TEntityId>
+    , IAggregateRoot
+    where TEntityId : struct, IEntityId<TEntityId>
+
+// 5. Entity & AggregateRoot
+IAuditable
+
+-------------------------
+
+// Entity 예
+Customer
+    : Entity<CustomerId>
+    , IAuditable
+
+// AggregateRoot 예
+User
+    : AggregateRoot<UserId>
+    , IAuditable
+```
+
+- `2024-01-14(일)` Entity 클래스 구현
+- `2024-01-14(일)` IDomainEvent 인터페이스 구현
+- `2024-01-14(일)` IAggregateRoot 인터페이스 구현
 - `2024-01-14(일)` `IX, IX<T> : IX` T타입 생성을 위한 자료구조
   ```cs
   IEntityId
