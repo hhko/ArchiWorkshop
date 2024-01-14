@@ -22,7 +22,7 @@ jobs:
         matrix:
             dotnet-version: [ '8.0.x' ]
             configuration: [ Release ]
-            os: [ ubuntu-22.04, ubuntu-20.04 ]
+            os: [ ubuntu-22.04 ]
 
    # TODO: 복수 운영체제일 때 "Generate CodeCoverage Summary Report" 중복 데이터 생성 문제
     runs-on: ${{ matrix.os }}

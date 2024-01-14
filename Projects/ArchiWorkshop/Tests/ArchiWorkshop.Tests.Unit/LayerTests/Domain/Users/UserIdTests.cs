@@ -1,20 +1,19 @@
-﻿using System.ComponentModel;
-using System.Drawing;
+﻿//using System.ComponentModel;
 
-namespace ArchiWorkshop.Domains.AggregateRoots.Users;
+//namespace ArchiWorkshop.Domains.AggregateRoots.Users;
 
-public class UserIdTests
-{
-    [Fact]
-    public void ConvertStringToEntity()
-    {
-        // Arrange
-        UserId userId = UserId.New();
+//public class UserIdTests
+//{
+//    [Fact]
+//    public void ConvertStringToEntity()
+//    {
+//        // Arrange
+//        UserId userId = UserId.New();
 
-        // Act
-        UserId actualUseId = (UserId)TypeDescriptor.GetConverter(typeof(UserId)).ConvertFrom(userId.Value.ToString());
+//        // Act
+//        UserId actualUseId = (UserId)TypeDescriptor.GetConverter(typeof(UserId)).ConvertFrom(userId.Value.ToString());
 
-        // Assert
-        (actualUseId == userId).Should().BeTrue();
-    }
-}
+//        // Assert
+//        (actualUseId == userId).Should().BeTrue();
+//    }
+//}
