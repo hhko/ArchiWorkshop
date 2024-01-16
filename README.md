@@ -2,6 +2,7 @@
 > Architecting is a series of trade-offs.
 
 - [프로젝트](./Projects/ArchiWorkshop/)
+  - [![ArchiWorkshop CI](https://github.com/hhko/ArchiWorkshop/actions/workflows/dotnet-ci.yml/badge.svg)](https://github.com/hhko/ArchiWorkshop/actions/workflows/dotnet-ci.yml)
 
 ## Part 1. 개요
 > 소프트웨어 아키텍처는 **유스 케이스가 중심입니다.**
@@ -26,3 +27,7 @@
 ## Part 4. 유효성 검사
 > 유스 케이스 구성을 위한 **유효한 도메인 모델을 정의(유효성 규칙)합니다.**
 1. 개념
+
+
+## Part 5. 도메인 모델
+
