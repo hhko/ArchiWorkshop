@@ -18,16 +18,20 @@ jobs:
   build:
     name: Build
 
+    # 빌드 환경 경우의 수 정의
     strategy:
         matrix:
             dotnet-version: [ '8.0.x' ]
             configuration: [ Release ]
             os: [ ubuntu-22.04 ]
 
-   # TODO: 복수 운영체제일 때 "Generate CodeCoverage Summary Report" 중복 데이터 생성 문제
+    # 빌드 환경 지정
     runs-on: ${{ matrix.os }}
     #runs-on: ubuntu-22.04
 
+    # 환경 변수
+    #  - 규칙: ${{ env.환경_변수_이름 }}
+    #  - 예제: ${{ env.solution_dir }}
     env:
         solution_dir: ./Projects/ArchiWorkshop
         solution_path: ./Projects/ArchiWorkshop/ArchiWorkshop.sln
@@ -42,7 +46,10 @@ jobs:
         #   - GitHub Actions에서 output 변수의 문법 변경: https://blog.outsider.ne.kr/1651
         #   - Github Actions and creating a short SHA hash: https://dev.to/hectorleiva/github-actions-and-creating-a-short-sha-hash-8b7
         #
-        # ${{ steps.vars.outputs.short_sha }}
+        # 동적 변수 만들기
+        # 규칙 1. $GITHUB_OUTPUT은 "steps.vars.outputs"을 지정한다.
+        # 규칙 2. "키=값" 형식으로 outputs을 정의한다.
+        # 예. ${{ steps.vars.outputs.short_sha }}
         - name: Set short git commit SHA
           id: vars
           run: |
@@ -83,7 +90,10 @@ jobs:
         #               /CodeCoverageReport                     // ReportGenerator: 코드 커버리지 Markdown  <- Summary 업로드
         #                   /SummaryGithub.md
 
-        # 테스트 & 코드 커버리지 .cobertura 파일 생성
+        # 테스트와 코드 커버리지 coverage.cobertura.xml 파일 생성
+        #   - name: Find coverage output path
+        #     run: |
+        #       cp $(find . -name "coverage.cobertura.xml") .
         - name: Test
           run: |
             dotnet test ${{ env.solution_path }} \
@@ -97,14 +107,14 @@ jobs:
         - name: Install dotnet-coverage
           run: dotnet tool install -g dotnet-coverage
 
-        # Merged 코드 커버리지 파일 생성
+        # N개 coverage.cobertura.xml 파일을 머지한 코드 커버리지 merged-coverage.cobertura.xml 파일 생성
         - name: Convert .coverage report to cobertura
           run: |
             dotnet-coverage merge ${{ env.solution_dir }}/TestResults/**/*.cobertura.xml \
                 -f cobertura \
                 -o ${{ env.solution_dir }}/TestResults/merged-coverage.cobertura.xml
 
-        # 코드 커버리지 Markdown 파일 생성
+        # merged-coverage.cobertura.xml 파일 기반으로 코드 커버리지 SummaryGithub.md 파일 생성
         - name: Create coverage markdown file
           uses: danielpalme/ReportGenerator-GitHub-Action@5.2.0
           with:
@@ -112,47 +122,13 @@ jobs:
             targetdir: '${{ env.solution_dir }}/TestResults/CodeCoverageReport'
             reporttypes: 'MarkdownSummaryGithub'
 
-        # 코드 커버리지 Markdown 파일 Summary 업로드
+        # 코드 커버리지 SummaryGithub.md 파일 Summary 업로드
         - name: Upload coverage markdown into github actions summary
           run: cat ${{ env.solution_dir }}/TestResults/CodeCoverageReport/SummaryGithub.md >> $GITHUB_STEP_SUMMARY
 
-        # 코드 커버리지 .cobertura 파일 Artifacts 업로드
+        # N개 코드 커버리지 coverage.cobertura.xml 파일을 압축하여 Artifacts 업로드
         - name: Upload coverage files into github actions artifacts
           uses: actions/upload-artifact@v3
           with:
             name: CodeCoverageReport_${{ matrix.dotnet-version }}_sha-${{ steps.vars.outputs.short_sha }}
             path: ${{ env.solution_dir }}/TestResults/**/*.cobertura.xml
-
-#
-# 참고 자료
-#
-# - [x] GitHub Actions で .NETプロジェクトのコードカバレッジを計測する
-#       https://zenn.dev/shimat/articles/03ad92427cbed6
-# - [x] ReportGenerator Usage 자동 생성
-#       https://reportgenerator.io/usage
-# - [x] GitHub Actions 적용 사례
-#   - https://github.com/microsoft/teams-ai/blob/main/.github/workflows/dotnet-ci.yml
-# - [x] Git SHA
-#   - Github Actions and creating a short SHA hash: https://dev.to/hectorleiva/github-actions-and-creating-a-short-sha-hash-8b7
-# - [x] GitHub outputs 환경 변수
-#   - GitHub Actions의 잡 요약($GITHUB_STEP_SUMMARY) 기능: https://blog.outsider.ne.kr/1594
-#   - Deprecating save-state and set-output commands: https://github.blog/changelog/2022-10-11-github-actions-deprecating-save-state-and-set-output-commands/
-#   - GitHub Actions에서 output 변수의 문법 변경: https://blog.outsider.ne.kr/1651
-
-# - [x] 파일 찾은 후 복사하기
-#   ```
-#   - name: Find coverage output path
-#     run: |
-#       cp $(find . -name "coverage.cobertura.xml") .
-#
-# - [x] run 복수 명령
-#   ```
-#   run: |
-#   ```
-# - [x] run 한 명령 복수 라인
-#   ```
-#   run: |
-#     명령 \
-#       --옵션 \
-#       --옵션 \
-#   ```
