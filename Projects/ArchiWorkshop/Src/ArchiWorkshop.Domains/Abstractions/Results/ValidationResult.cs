@@ -19,14 +19,14 @@ public sealed class ValidationResult : Result, IValidationResult
 
     public Error[] ValidationErrors { get; }
 
-    //public static ValidationResult WithErrors(ICollection<Error> validationErrors)
-    //{
-    //    return new ValidationResult(validationErrors.ToArray());
-    //}
-    public static ValidationResult WithErrors(Error[] validationErrors)
+    public static ValidationResult WithErrors(ICollection<Error> validationErrors)
     {
-        return new ValidationResult(validationErrors);
+        return new ValidationResult(validationErrors.ToArray());
     }
+    //public static ValidationResult WithErrors(Error[] validationErrors)
+    //{
+    //    return new ValidationResult(validationErrors);
+    //}
 
     public static ValidationResult WithoutErrors()
     {

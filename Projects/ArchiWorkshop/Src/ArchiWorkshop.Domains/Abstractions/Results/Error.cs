@@ -110,9 +110,17 @@ public class Error : IEquatable<Error>
     {
         if (exception is AggregateException || exception.InnerException is null)
         {
+            // AggregateException
+            //  [0] This was invalid operation
+            //  [1] Invalid argument
+            //  One or more errors occurred. (This was invalid operation) (Invalid argument)
             return New(exception.GetType().Name, exception.Message);
         }
 
+        // InnerException일 때
+        //  exception.Message                : This was invalid operation
+        //  exception.InnerException.Message : Invalid argument
+        //  This was invalid operation (Invalid argument)
         return New(exception.GetType().Name, $"{exception.Message}. ({exception.InnerException.Message})");
     }
 

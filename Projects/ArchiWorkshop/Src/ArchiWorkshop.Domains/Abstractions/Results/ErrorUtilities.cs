@@ -4,9 +4,27 @@ namespace ArchiWorkshop.Domains.Abstractions.Results;
 
 public static class ErrorUtilities
 {
+    public static TResult CreateValidationResult<TResult>(this ICollection<Error> errors)
+        where TResult : class, IResult
+    {
+        if (typeof(TResult) == typeof(Result))
+        {
+            return (ValidationResult.WithErrors(errors) as TResult)!;
+        }
+
+        object validationResult = typeof(ValidationResult<>)
+            .GetGenericTypeDefinition()
+            .MakeGenericType(typeof(TResult).GenericTypeArguments[0])
+            .GetMethod(nameof(ValidationResult.WithErrors))!
+            .Invoke(null, [errors])!;
+
+        return (TResult)validationResult;
+    }
+
     public static ValidationResult<TValueObject> CreateValidationResult<TValueObject>(
         this ICollection<Error> errors,
-        Func<TValueObject> createValueObject) where TValueObject : ValueObject
+        Func<TValueObject> createValueObject) 
+        where TValueObject : ValueObject
     {
         if (errors is null)
         {
