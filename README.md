@@ -1,5 +1,5 @@
 # Architecture Workshop for Domain-Driven Design
-> Architecting is a series of trade-offs.
+> Architecting is a series of trade-offs.  
 > Architecting is all about strategically chosen concessions and trade-offs.
 
 - [프로젝트](./Projects/ArchiWorkshop/)
