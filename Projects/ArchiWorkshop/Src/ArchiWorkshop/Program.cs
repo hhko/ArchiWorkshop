@@ -5,7 +5,7 @@
 });
 
 builder.Services
-     //.RegisterAppOptions()
+    //.RegisterAppOptions()
      .RegisterApplicationLayer();
     // .RegisterPersistenceLayer(builder.Environment)
     // .RegisterInfrastructureLayer()

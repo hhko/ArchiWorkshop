@@ -28,6 +28,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ArchiWorkshop.Adapters.WebA
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ArchiWorkshop", "Src\ArchiWorkshop\ArchiWorkshop.csproj", "{0EBAE4B3-E894-4086-B9B6-E698B3C26226}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ArchiWorkshop.Adapters.Infrastructure", "Src\ArchiWorkshop.Adapters.Infrastructure\ArchiWorkshop.Adapters.Infrastructure.csproj", "{31AC56E9-0182-4E02-923C-DEAE1D414B3A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -58,6 +60,10 @@ Global
 		{0EBAE4B3-E894-4086-B9B6-E698B3C26226}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0EBAE4B3-E894-4086-B9B6-E698B3C26226}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0EBAE4B3-E894-4086-B9B6-E698B3C26226}.Release|Any CPU.Build.0 = Release|Any CPU
+		{31AC56E9-0182-4E02-923C-DEAE1D414B3A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{31AC56E9-0182-4E02-923C-DEAE1D414B3A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{31AC56E9-0182-4E02-923C-DEAE1D414B3A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{31AC56E9-0182-4E02-923C-DEAE1D414B3A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -69,6 +75,7 @@ Global
 		{8D7D1D0E-400C-44E3-90F3-B4C4E9C9186B} = {83FA9F62-FB45-4429-91DB-43CA845DD672}
 		{8EB0974F-56D7-4819-B05C-8E63924C210E} = {83FA9F62-FB45-4429-91DB-43CA845DD672}
 		{0EBAE4B3-E894-4086-B9B6-E698B3C26226} = {83FA9F62-FB45-4429-91DB-43CA845DD672}
+		{31AC56E9-0182-4E02-923C-DEAE1D414B3A} = {83FA9F62-FB45-4429-91DB-43CA845DD672}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {2E7B95D6-EAD5-457B-A071-4F7F76A28C31}
