@@ -2,7 +2,7 @@
 using FluentValidation;
 using MediatR;
 
-namespace ArchiWorkshop.Applications;
+namespace ArchiWorkshop.Applications.Abstractions.Pipelines;
 
 // CQRS Validation Pipeline with MediatR and FluentValidation
 // https://code-maze.com/cqrs-mediatr-fluentvalidation/
