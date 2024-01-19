@@ -1,5 +1,10 @@
 # Architecture Workshop for Domain-Driven Design 프로젝트
 
+```
+{솔루션} -> {솔루션}.Adapters.WebApi                                          -> {솔루션}.Applications -> {솔루션}.Domains
+        -> {솔루션}.Adapters.Persistence -> {솔루션}.Adapters.Infrastructure
+```
+
 ## 요구사항
 - ...
 

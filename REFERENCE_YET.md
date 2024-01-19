@@ -11,6 +11,7 @@
 - [ ] https://github.com/jasontaylordev/RapidBlazor
 - [ ] https://github.com/cbcrouse/CleanArchitecture
 - [ ] https://github.com/stphnwlsh/CleanMinimalApi
+- [ ] https://github.com/nadirbad/VerticalSliceArchitecture
 
 ## 아키텍처 예제
 - [ ] 클린 아키텍처 예제: https://github.com/amantinband/buber-breakfast
