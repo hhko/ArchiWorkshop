@@ -9,8 +9,7 @@ public static class ApplicationLayerRegistration
     public static IServiceCollection RegisterApplicationLayer(this IServiceCollection services)
     {
         services
-            .RegisterFluentValidation()
-            .RegisterMediator();
+            .RegisterFluentValidation();
             //.RegisterMiddlewares();
 
         return services;
