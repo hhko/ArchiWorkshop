@@ -1,16 +1,16 @@
 # Architecture Workshop for Domain-Driven Design 프로젝트
 
-```
+```shell
 ArchiWorkshop
   # Adapter Layer
   -> ArchiWorkshop.Adapters.WebApi
   -> ArchiWorkshop.Adapters.Persistence -> ArchiWorkshop.Adapters.Infrastructure
 
-    # Application Layer
-    -> ArchiWorkshop.Applications
+  # Application Layer
+  -> ArchiWorkshop.Applications
 
-      # Domain Layer
-      -> ArchiWorkshop.Domains
+  # Domain Layer
+  -> ArchiWorkshop.Domains
 ```
 
 ## 요구사항
