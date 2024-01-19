@@ -3,7 +3,7 @@
 ```shell
 ArchiWorkshop
   # Adapter Layer
-  -> ArchiWorkshop.Adapters.WebApi
+  -> ArchiWorkshop.Adapters.Presentation
   -> ArchiWorkshop.Adapters.Persistence -> ArchiWorkshop.Adapters.Infrastructure
 
   # Application Layer

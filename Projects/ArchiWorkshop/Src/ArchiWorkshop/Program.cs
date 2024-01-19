@@ -5,8 +5,8 @@
 });
 
 builder.Services
-    //.RegisterAppOptions()
-     .RegisterApplicationLayer();
+    .RegisterAppOptions()
+    .RegisterApplicationLayer();
     // .RegisterPersistenceLayer(builder.Environment)
     // .RegisterInfrastructureLayer()
     //.RegisterAdapterLayerWebApi();

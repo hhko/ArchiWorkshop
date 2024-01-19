@@ -1,6 +1,6 @@
 ﻿using System.Reflection;
 
-namespace ArchiWorkshop.Adapters.WebApi;
+namespace ArchiWorkshop.Adapters.Presentation;
 
 public static class AssemblyReference
 {

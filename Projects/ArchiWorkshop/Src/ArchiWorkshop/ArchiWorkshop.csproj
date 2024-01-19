@@ -8,7 +8,8 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-		<ProjectReference Include="..\ArchiWorkshop.Adapters.WebApi\ArchiWorkshop.Adapters.WebApi.csproj" />
+		<ProjectReference Include="..\ArchiWorkshop.Adapters.Persistence\ArchiWorkshop.Adapters.Persistence.csproj" />
+		<ProjectReference Include="..\ArchiWorkshop.Adapters.Presentation\ArchiWorkshop.Adapters.Presentation.csproj" />
 	</ItemGroup>
 
 </Project>

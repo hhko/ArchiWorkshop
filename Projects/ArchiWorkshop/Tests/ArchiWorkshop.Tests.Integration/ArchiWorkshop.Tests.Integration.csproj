@@ -24,10 +24,6 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<ProjectReference Include="..\..\Src\ArchiWorkshop.Adapters.WebApi\ArchiWorkshop.Adapters.WebApi.csproj" />
-	</ItemGroup>
-
-	<ItemGroup>
 		<Using Include="Xunit" />
 		<Using Include="FluentAssertions" />
 	</ItemGroup>
