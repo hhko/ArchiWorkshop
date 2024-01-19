@@ -20,21 +20,20 @@ ArchiWorkshop
 ![](./.images/2024-01-20-06-54-33.png)
 - `AssemblyReference.cs`: 네임스페이스 기준으로 어셈블리를 참조할 수 있도록 표준화한다.
 - `Abstractions` 폴더에서 레이어 공통 요소와 개별 레이어 구성을 위한 파일을 관리합니다. 
-- `{레이어명}LayerRegistration.cs`: 레이어 단위로 DI을 수행한다.
-  ```CS
-  // DI 네임스페이스를 사용하여 참조와 using 구문을 제거 시킵니다.
-  //namespace ArchiWorkshop.Applications.Abstractions.Registrations;
-  namespace Microsoft.Extensions.DependencyInjection;
-
-  public static class PersistenceLayerRegistration
-  {
-    public static IServiceCollection RegisterApplicationLayer(this IServiceCollection services)
-    { 
-      // ...
+  - `{레이어명}LayerRegistration.cs`: 레이어 단위로 DI을 수행한다.
+    ```CS
+    // DI 네임스페이스를 사용하여 참조와 using 구문을 제거 시킵니다.
+    //namespace ArchiWorkshop.Applications.Abstractions.Registrations;
+    namespace Microsoft.Extensions.DependencyInjection;
+  
+    public static class PersistenceLayerRegistration
+    {
+      public static IServiceCollection RegisterApplicationLayer(this IServiceCollection services)
+      { 
+        // ...
+      }
     }
-  }
-  ```
-
+    ```
 
 ## 요구사항
 - ...

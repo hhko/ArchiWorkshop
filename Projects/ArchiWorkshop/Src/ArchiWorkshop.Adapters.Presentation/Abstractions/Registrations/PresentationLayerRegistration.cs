@@ -4,4 +4,8 @@ namespace Microsoft.Extensions.DependencyInjection;
 
 public static class PresentationLayerRegistration
 {
+    public static IServiceCollection RegisterAppOptions(this IServiceCollection services)
+    {
+        return services;
+    }
 }
