@@ -1,7 +1,6 @@
 # Architecture Workshop for Domain-Driven Design 프로젝트
 
 ## 아키텍처 구성
-
 ### 레이어 프로젝트 구성
 ```
 {솔루션}.{레이어}s.{주제}
@@ -16,24 +15,25 @@
   - Infrastructure
   - ...
 
+### 레이어 프로젝트 구성 예
 ```shell
 ArchiWorkshop
   # Adapter Layer
-  -> ArchiWorkshop.Adapters.Presentation
-  -> ArchiWorkshop.Adapters.Persistence -> ArchiWorkshop.Adapters.Infrastructure
+  참조-> ArchiWorkshop.Adapters.Presentation
+  참조-> ArchiWorkshop.Adapters.Persistence 참조-> ArchiWorkshop.Adapters.Infrastructure
 
   # Application Layer
-  -> ArchiWorkshop.Applications
+  참조-> ArchiWorkshop.Applications
 
   # Domain Layer
-  -> ArchiWorkshop.Domains
+  참조-> ArchiWorkshop.Domains
 ```
 - `ArchiWorkshop.Applications` 레이어만 `ArchiWorkshop.Domains` 레이어를 참조합니다.
 
 ### 레이어 폴더 구성
 ![](./.images/2024-01-20-06-54-33.png)
 - `AssemblyReference.cs`: 네임스페이스 기준으로 어셈블리를 참조할 수 있도록 표준화한다.
-- `Abstractions` 폴더에서 레이어 공통 요소와 개별 레이어 구성을 위한 파일을 관리합니다. 
+- `Abstractions` 폴더는 레이어 공통 요소와 개별 레이어 구성을 위한 파일을 관리합니다. 
 - `{레이어명}LayerRegistration.cs`: 레이어 단위로 DI을 수행한다.
   ```CS
   // DI 네임스페이스를 사용하여 참조와 using 구문을 제거 시킵니다.
@@ -208,27 +208,27 @@ public static ValidationResult<TValueObject> CreateValidationResult<TValueObject
 <br/>
 
 ## 도메인 Result 타입
-### Result 타입 구조
-```shell
-# 값이 없는 성공/실패
-IResult
-↑
-Result  IValidationResult
-↑       ↑
-ValidationResult
-```
-```shell
-# 값이 있는 성공/실패
-IResult
-↑
-IResult<out TValue>
-↑
-Result<TValue>  IValidationResult
-↑               ↑
-ValidationResult<T>
-```
+### Result 구조
+- 값이 없는 성공/실패: `Result`
+  ```shell
+  IResult
+  ↑
+  Result  IValidationResult
+  ↑       ↑
+  ValidationResult
+  ```
+- 값이 있는 성공/실패: `IResult<out TValue>`
+  ```shell
+  IResult
+  ↑
+  IResult<out TValue>
+  ↑
+  Result<TValue>  IValidationResult
+  ↑               ↑
+  ValidationResult<T>
+  ```
 
-### Result 타입 속성
+### Result 속성
 ```cs
 public interface IResult
 {
