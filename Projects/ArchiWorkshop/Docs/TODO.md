@@ -1,3 +1,11 @@
+- WebApi 프로젝트 구성
+- WebApi -> Application 레이어 구성
+- MediatR Pipeline 이해
+- 로그 파이프라인 이해
+- 로그 LoggerMessage 속성 이해
+- Validation 파이프라인 이해
+- Error CreateValidationResult 메서드 이해
+---
 - 컨테이너화 테스트
   - 단위
   - 통합
@@ -6,7 +14,7 @@
 - WebApi 성능 테스트
 - WebApi 통합 테스트
 - WebApi
-
+---
 - Address 적용
 - FistName 적용
 - Email 유효성 검사 테스트 자동화, Bogus
@@ -15,6 +23,7 @@
   - 형식
 - Domain 레이어 Abstractions 테스트 추가
 - Entity
+- <out T> 이해
 ---
 
 ```
@@ -23,60 +32,17 @@ Xyz             // 핵심 메서드
 XyzUtilities	// 그외 메서드
 
 // 폴더
-Utilities       // 더 명확한 이름(확장 메서드, 정적 메서드)
+Utilities       // 더 명확한 이름(확장 메서드, 정적 메서드: using static)
 
 
 New			// ?
 Create		// 외부
 ```
 
-```
-// 1. ValueObject
-[Serializable]
-ValueObject
-  : IEquatable<ValueObject>
-
-// 2. Enumeration?
-
-// 3. Entity
-IEntityId
-    : IComparable<IEntityId>
-IEntityId<TEntityId>
-    : IEntityId
-
-IEntity
-Entity<TEntityId>
-    : IEquatable<Entity<TEntityId>>
-    , IEntity
-    where TEntityId : struct, IEntityId<TEntityId>
-
-// 4. AggregateRoot
-IDomainEvent
-    : INotification
-
-IAggregateRoot
-    : IEntity
-AggregateRoot<TEntityId>
-    : Entity<TEntityId>
-    , IAggregateRoot
-    where TEntityId : struct, IEntityId<TEntityId>
-
-// 5. Entity & AggregateRoot
-IAuditable
-
 -------------------------
 
-// Entity 예
-Customer
-    : Entity<CustomerId>
-    , IAuditable
-
-// AggregateRoot 예
-User
-    : AggregateRoot<UserId>
-    , IAuditable
-```
-
+- `2024-01-20(토)` Application Layer 로그 파이프라인
+- `2024-01-20(토)` DI 구조화 이해
 - `2024-01-14(일)` Entity 클래스 구현
 - `2024-01-14(일)` IDomainEvent 인터페이스 구현
 - `2024-01-14(일)` IAggregateRoot 인터페이스 구현

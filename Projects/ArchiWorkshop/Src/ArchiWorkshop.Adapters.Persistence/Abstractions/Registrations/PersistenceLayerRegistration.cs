@@ -6,17 +6,8 @@ namespace Microsoft.Extensions.DependencyInjection;
 
 public static class PersistenceLayerRegistration
 {
-    public static IServiceCollection RegisterAppOptions(this IServiceCollection services)
+    public static IServiceCollection RegisterAdapterLayerPersistence(this IServiceCollection services)
     {
-        services
-            //.RegisterBackgroundServices()
-            //.RegisterDatabaseContext(environment.IsDevelopment())
-            //.RegisterCache()
-            //.RegisterRepositories()
-            //.RegisterDecorators()
-            //.RegisterHealthChecks()
-            .RegisterMediator();
-
         return services;
     }
 }

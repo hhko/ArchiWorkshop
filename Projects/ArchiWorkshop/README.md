@@ -1,7 +1,21 @@
 # Architecture Workshop for Domain-Driven Design 프로젝트
 
 ## 아키텍처 구성
+
 ### 레이어 프로젝트 구성
+```
+{솔루션}.{레이어}s.{주제}
+```
+- 레이어
+  - Adapter
+  - Application
+  - Domain
+- 주제
+  - Presentation
+  - Persistence
+  - Infrastructure
+  - ...
+
 ```shell
 ArchiWorkshop
   # Adapter Layer
@@ -20,20 +34,20 @@ ArchiWorkshop
 ![](./.images/2024-01-20-06-54-33.png)
 - `AssemblyReference.cs`: 네임스페이스 기준으로 어셈블리를 참조할 수 있도록 표준화한다.
 - `Abstractions` 폴더에서 레이어 공통 요소와 개별 레이어 구성을 위한 파일을 관리합니다. 
-  - `{레이어명}LayerRegistration.cs`: 레이어 단위로 DI을 수행한다.
-    ```CS
-    // DI 네임스페이스를 사용하여 참조와 using 구문을 제거 시킵니다.
-    //namespace ArchiWorkshop.Applications.Abstractions.Registrations;
-    namespace Microsoft.Extensions.DependencyInjection;
-  
-    public static class PersistenceLayerRegistration
-    {
-      public static IServiceCollection RegisterApplicationLayer(this IServiceCollection services)
-      { 
-        // ...
-      }
+- `{레이어명}LayerRegistration.cs`: 레이어 단위로 DI을 수행한다.
+  ```CS
+  // DI 네임스페이스를 사용하여 참조와 using 구문을 제거 시킵니다.
+  //namespace ArchiWorkshop.Applications.Abstractions.Registrations;
+  namespace Microsoft.Extensions.DependencyInjection;
+
+  public static class PersistenceLayerRegistration
+  {
+    public static IServiceCollection RegisterApplicationLayer(this IServiceCollection services)
+    { 
+      // ...
     }
-    ```
+  }
+  ```
 
 ## 요구사항
 - ...
@@ -42,6 +56,17 @@ ArchiWorkshop
 
 ## 개발 환경
 - [코드 커버리지](./Docs/CodeCoverage.md)
+
+<br/>
+
+## Framework 참조 추가
+```xml
+<ItemGroup>
+	<FrameworkReference Include="Microsoft.AspNetCore.App" />
+</ItemGroup>
+```
+![](./.images/2024-01-21-01-08-07.png)
+- `IWebHostEnvironment`
 
 <br/>
 
@@ -89,5 +114,172 @@ builder.Services.RegisterApplicationLayer();
 
 <br/>
 
-## 타입
-- [Result 타입(성공/실패 처리 타입)](./Docs/Result.md)
+## 도메인 기본 타입
+```cs
+// 1.1 ValueObject
+[Serializable]
+ValueObject
+  : IEquatable<ValueObject>
+
+// 1.2 Enumeration?
+// TODO...
+
+// 2.1 Entity Id
+IEntityId
+    : IComparable<IEntityId>
+IEntityId<TEntityId>
+    : IEntityId
+
+// 2.2 Entity
+IEntity
+Entity<TEntityId>
+    : IEquatable<Entity<TEntityId>>
+    , IEntity
+    where TEntityId : struct, IEntityId<TEntityId>
+
+// 3.1 DomainEvent
+IDomainEvent
+    : INotification
+
+// 3.2 AggregateRoot
+IAggregateRoot
+    : IEntity
+AggregateRoot<TEntityId>
+    : Entity<TEntityId>
+    , IAggregateRoot
+    where TEntityId : struct, IEntityId<TEntityId>
+
+// 4. Entity & AggregateRoot
+IAuditable
+```
+```cs
+// 적용 예: Entity
+Customer
+    : Entity<CustomerId>
+    , IAuditable
+
+// 적용 예: AggregateRoot
+User
+    : AggregateRoot<UserId>
+    , IAuditable
+```
+
+<br/>
+
+## 도메인 Error 타입
+### Error 타임 구성
+```cs
+public string Code { get; }
+public string Message { get; }
+```
+
+### Error 타입 생성
+- 사전 정의
+  ```cs
+  // 실패: 에러
+  public static readonly Error NullValue = new($"{nameof(NullValue)}", "The result value is null.");
+  public static readonly Error ConditionNotSatisfied = new($"{nameof(ConditionNotSatisfied)}", "The specified condition was not satisfied.");
+  public static readonly Error ValidationError = new($"{nameof(ValidationError)}", "A validation problem occurred.");
+
+  // 성공
+   public static readonly Error None = new(string.Empty, string.Empty);
+  ```
+- From Exception
+  ```cs
+  public static Error FromException<TException>(TException exception)
+    where TException : Exception
+  ```
+- 사용자 정의
+  ```cs
+  public static Error New(string code, string message)
+  ```
+
+### Error에서 IResult 타입 생성
+```cs
+public static TResult CreateValidationResult<TResult>(this ICollection<Error> errors)
+  where TResult : class, IResult
+
+public static ValidationResult<TValueObject> CreateValidationResult<TValueObject>(
+  this ICollection<Error> errors,
+  Func<TValueObject> createValueObject) 
+  where TValueObject : ValueObject
+```
+
+<br/>
+
+## 도메인 Result 타입
+### Result 타입 구조
+```shell
+# 값이 없는 성공/실패
+IResult
+↑
+Result  IValidationResult
+↑       ↑
+ValidationResult
+```
+```shell
+# 값이 있는 성공/실패
+IResult
+↑
+IResult<out TValue>
+↑
+Result<TValue>  IValidationResult
+↑               ↑
+ValidationResult<T>
+```
+
+### Result 타입 속성
+```cs
+public interface IResult
+{
+    bool IsSuccess { get; }
+
+    bool IsFailure { get; }
+
+    Error Error { get; }
+}
+
+public interface IResult<out TValue> : IResult
+{
+    TValue Value { get; }
+}
+
+public interface IValidationResult
+{
+    Error[] ValidationErrors { get; }
+}
+```
+
+### Result 생성
+- 성공/실패를 동적으로 판단할 때
+  ```cs
+  // bool      : False일 때 -> ConditionNotSatisfied
+  // TValue?   : NULL일 때  -> NullValue
+  Create
+  ```
+- 성공/실패를 정적으로 판단할 때
+  ```cs
+  // 값이 없는 성공/실패
+  Success()
+  Failure(Error error)
+
+  // 값이 있는 성공/실패
+  Success<TValue>(TValue value)
+  Failure<TValue>(Error error)
+  ```
+
+### ValidationResult 생성
+- ~~성공/실패를 동적으로 판단할 때~~
+- 성공/실패를 정적으로 판단할 때
+  ```cs
+  // 값이 없는 성공/실패
+  WithoutErrors()
+  WithErrors(Error[] validationErrors)
+
+  // 값이 있는 성공/실패
+  WithoutErrors(TValue? value)
+  WithErrors(Error[] validationErrors)
+  ```
+
+<br/>
+

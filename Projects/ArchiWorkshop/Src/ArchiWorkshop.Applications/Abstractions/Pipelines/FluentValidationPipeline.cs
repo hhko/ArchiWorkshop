@@ -8,7 +8,8 @@ namespace ArchiWorkshop.Applications.Abstractions.Pipelines;
 // https://code-maze.com/cqrs-mediatr-fluentvalidation/
 
 // https://www.linkedin.com/pulse/advanced-features-mediatr-package-pipeline-behaviors/
-public class FluentValidationPipeline<TRequest, TResponse> : IPipelineBehavior<TRequest, TResponse>
+public class FluentValidationPipeline<TRequest, TResponse> 
+    : IPipelineBehavior<TRequest, TResponse>
     where TRequest : IRequest<TResponse>
     where TResponse : class, IResult
 {
@@ -19,7 +20,9 @@ public class FluentValidationPipeline<TRequest, TResponse> : IPipelineBehavior<T
         _validators = validators;
     }
 
-    public async Task<TResponse> Handle(TRequest request, RequestHandlerDelegate<TResponse> next, CancellationToken cancellationToken)
+    public async Task<TResponse> Handle(TRequest request,
+                                        RequestHandlerDelegate<TResponse> next,
+                                        CancellationToken cancellationToken)
     {
         if (_validators.Any() is false)
         {

@@ -52,26 +52,26 @@ public static class ErrorUtilities
         return errors;
     }
 
-    public static IList<Error> UseValidation<TValue>(
-        this IList<Error> errors,
-        Func<IList<Error>, TValue, IList<Error>> validationSegment,
-        TValue valueUnderValidation)
-    {
-        return validationSegment(errors, valueUnderValidation);
-    }
+    // public static IList<Error> UseValidation<TValue>(
+    //     this IList<Error> errors,
+    //     Func<IList<Error>, TValue, IList<Error>> validationSegment,
+    //     TValue valueUnderValidation)
+    // {
+    //     return validationSegment(errors, valueUnderValidation);
+    // }
 
-    public static IList<Error> UseValidation<TValue>(
-        this IList<Error> errors,
-        Func<TValue, IList<Error>> validationSegment,
-        TValue valueUnderValidation)
-    {
-        var errorsToAdd = validationSegment(valueUnderValidation);
+    // public static IList<Error> UseValidation<TValue>(
+    //     this IList<Error> errors,
+    //     Func<TValue, IList<Error>> validationSegment,
+    //     TValue valueUnderValidation)
+    // {
+    //     var errorsToAdd = validationSegment(valueUnderValidation);
 
-        foreach (var errorToAdd in errorsToAdd)
-        {
-            errorsToAdd.Add(errorToAdd);
-        }
+    //     foreach (var errorToAdd in errorsToAdd)
+    //     {
+    //         errorsToAdd.Add(errorToAdd);
+    //     }
 
-        return errors;
-    }
+    //     return errors;
+    // }
 }
