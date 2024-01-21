@@ -8,6 +8,7 @@
 - 도메인 Primitive 타입
 - 도메인 Primitive Error 타임
 - 도메인 Primitive Result 타입
+- 패키지
 
 <br/>
 
@@ -85,6 +86,27 @@ ArchiWorkshop
 
 ### Local CI(Build.ps1)
 ```shell
+# 전역 도구 목록 확인하기
+dotnet tool list -g
+
+# 전역 도구 설치
+dotnet tool install -g dotnet-coverage
+dotnet tool install -g dotnet-reportgenerator-globaltool
+
+# 전역 도구 업데이트
+dotnet tool update -g dotnet-coverage
+dotnet tool update -g dotnet-reportgenerator-globaltool
+
+# 패키지 ID                              버전           명령
+# --------------------------------------------------------------------
+# dotnet-coverage                        17.9.6        dotnet-coverage
+# dotnet-reportgenerator-globaltool      5.2.0         reportgenerator
+```
+- CI 로컬 빌드를 위해 dotnet 도구를 전역적으로 설치합니다.
+  - `dotnet-coverage`
+  - `dotnet-reportgenerator-globaltool`
+
+```shell
 #
 # .sln 파일이 있는 곳에서 CLI 명령을 실행합니다.
 #
@@ -124,6 +146,11 @@ reportgenerator `
   -verbosity:Info
 ```
 - [Build.ps1](./Build.ps1)
+  ```shell
+  # PowerShell을 관리자 권한으로 실행
+  Set-ExecutionPolicy RemoteSigned
+  ```
+  - PowerShell 로컬 실행시 권한 문제가 발생하면 실행 권한을 변경합니다.
 
 ### Remote CI(GitHub Actions)
 - [.github/workflows/dotnet-ci.yml](https://github.com/hhko/ArchiWorkshop/blob/main/.github/workflows/dotnet-ci.yml)
@@ -376,3 +403,23 @@ public interface IValidationResult
   WithoutErrors(TValue? value)
   WithErrors(Error[] validationErrors)
   ```
+
+<br/>
+
+## 패키지
+```shell
+# 도메인
+- Ulid
+- MediatR.Contracts
+
+# 테스트
+- Microsoft.NET.Test.Sdk
+- xunit
+- FluentAssertions
+
+# 테스트 아키텍처
+- NetArchTest.Rules
+
+# 테스트 데이터
+- Bogus
+```

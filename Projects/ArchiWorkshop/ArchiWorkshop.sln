@@ -11,15 +11,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ArchiWorkshop.Domains", "Sr
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ArchiWorkshop.Tests.Unit", "Tests\ArchiWorkshop.Tests.Unit\ArchiWorkshop.Tests.Unit.csproj", "{B6CD4C6F-857B-4492-8782-E3CC57085F8D}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Docs", "Docs", "{DDB204DE-4901-4A1F-B132-A89F4C0A58A7}"
-	ProjectSection(SolutionItems) = preProject
-		Docs\CodeCoverage.md = Docs\CodeCoverage.md
-		Docs\NuGetPackages.md = Docs\NuGetPackages.md
-		Docs\PowerShell.md = Docs\PowerShell.md
-		Docs\Result.md = Docs\Result.md
-		Docs\TODO.md = Docs\TODO.md
-	EndProjectSection
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ArchiWorkshop.Tests.Integration", "Tests\ArchiWorkshop.Tests.Integration\ArchiWorkshop.Tests.Integration.csproj", "{F7E1439D-BCF8-4ED0-8815-577BC35ED2CD}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ArchiWorkshop.Applications", "Src\ArchiWorkshop.Applications\ArchiWorkshop.Applications.csproj", "{8D7D1D0E-400C-44E3-90F3-B4C4E9C9186B}"
@@ -28,9 +19,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ArchiWorkshop", "Src\ArchiW
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ArchiWorkshop.Adapters.Infrastructure", "Src\ArchiWorkshop.Adapters.Infrastructure\ArchiWorkshop.Adapters.Infrastructure.csproj", "{31AC56E9-0182-4E02-923C-DEAE1D414B3A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ArchiWorkshop.Adapters.Persistence", "Src\ArchiWorkshop.Adapters.Persistence\ArchiWorkshop.Adapters.Persistence.csproj", "{BF24E899-1D96-4412-9258-F5897225B668}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ArchiWorkshop.Adapters.Persistence", "Src\ArchiWorkshop.Adapters.Persistence\ArchiWorkshop.Adapters.Persistence.csproj", "{BF24E899-1D96-4412-9258-F5897225B668}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ArchiWorkshop.Adapters.Presentation", "Src\ArchiWorkshop.Adapters.Presentation\ArchiWorkshop.Adapters.Presentation.csproj", "{BFC1ACA5-C9E8-406F-A8BD-B75D09FBFF80}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ArchiWorkshop.Adapters.Presentation", "Src\ArchiWorkshop.Adapters.Presentation\ArchiWorkshop.Adapters.Presentation.csproj", "{BFC1ACA5-C9E8-406F-A8BD-B75D09FBFF80}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
