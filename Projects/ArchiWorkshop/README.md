@@ -332,8 +332,10 @@ public string Message { get; }
   ↑               ↑
   ValidationResult<T>
   ```
-- ValidationResult
-  > ValidationResult, ValidationResult<T>은 유효성 검사 실패할 때 모든 이유를 포함시킵니다.
+
+### 유효성 결과 타입
+- `ValidationResult, ValidationResult<T>`은 실패한 모든 유효성 검사 결과(ValidationErrors)를 포함 시킵니다.
+- 유효성 검사 실패이기 때문에 Error 값은 `ValidationResult`입니다.
   - IsFailure: true
   - Error: ValidationResult
   - ValidationErrors: N개
