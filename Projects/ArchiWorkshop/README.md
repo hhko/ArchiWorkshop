@@ -30,14 +30,14 @@
 ```shell
 ArchiWorkshop
   # Adapter Layer
-  참조-> ArchiWorkshop.Adapters.Presentation
-  참조-> ArchiWorkshop.Adapters.Persistence 참조-> ArchiWorkshop.Adapters.Infrastructure
+  -> ArchiWorkshop.Adapters.Presentation
+  -> ArchiWorkshop.Adapters.Persistence 참조-> ArchiWorkshop.Adapters.Infrastructure
 
   # Application Layer
-  참조-> ArchiWorkshop.Applications
+  -> ArchiWorkshop.Applications
 
   # Domain Layer
-  참조-> ArchiWorkshop.Domains
+  -> ArchiWorkshop.Domains
 ```
 - 솔루션: `ArchiWorkshop`
 - `ArchiWorkshop.Domains` 레이어는 `ArchiWorkshop.Applications` 레이어만 참조합니다.
@@ -71,16 +71,16 @@ ArchiWorkshop
 ## Continuous Integration
 ### 폴더 구성
 ```
-/ArchiWorkshop                                // 솔루션 Root
-  /{_N_Project_Layers}                        // 프로젝트 N개 레이어
-  /TestResults                                // 테스트 자동화 결과
-    /19f5be57-f7f1-4902-a22d-ca2dcd8fdc7a     // dotnet test: 코드 커버리지 N개
-      /coverage.cobertura.xml
+/ArchiWorkshop                                      // 솔루션 Root
+    /{_N_Project_Layers}                            // 프로젝트 N개 레이어
+    /TestResults                                    // 테스트 자동화 결과
+        /19f5be57-f7f1-4902-a22d-ca2dcd8fdc7a       // dotnet test: 코드 커버리지 N개
+            /coverage.cobertura.xml
 
-      /merged-coverage.cobertura.xml          // dotnet-coverage: Merged 코드 커버리지
+            /merged-coverage.cobertura.xml          // dotnet-coverage: Merged 코드 커버리지
 
-      /CodeCoverageReport                     // ReportGenerator: 코드 커버리지 Html, Badges
-        /...
+            /CodeCoverageReport                     // ReportGenerator: 코드 커버리지 Html, Badges
+                /...
 ```
 
 ### Local CI(Build.ps1)
@@ -160,8 +160,8 @@ reportgenerator `
 ## 의존성 주입
 ```
 ArchiWorkshop
-    참조-> ArchiWorkshop.Adapters.Presentation
-        참조-> ArchiWorkshop.Application
+    -> ArchiWorkshop.Adapters.Presentation
+        -> ArchiWorkshop.Application
 ```
 - ArchiWorkshop에서 ArchiWorkshop.Application 참조 없이 ArchiWorkshop.Application 확장 메서드 사용하기
 
@@ -222,9 +222,23 @@ AggregateRoot<TEntityId>
     , IAggregateRoot
     where TEntityId : struct, IEntityId<TEntityId>
 
-// 4. Entity & AggregateRoot
+// 4. Auditable(Entity & AggregateRoot)
 IAuditable
 ```
+- **Value**
+  - ValueObject
+  - Enumeration
+- **Entity**
+  - IEntityId
+  - IEntityId<TEntityId>
+  - IEntity
+  - Entity<TEntityId>
+- **AggregateRoot**
+  - IDomainEvent
+  - IAggregateRoot
+  - AggregateRoot<TEntityId>
+- **Audit**
+  - IAuditable
 
 ### Primitive 타입 적용
 ```cs
