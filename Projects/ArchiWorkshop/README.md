@@ -305,6 +305,11 @@ public string Message { get; }
   ↑               ↑
   ValidationResult<T>
   ```
+- ValidationResult
+  > ValidationResult, ValidationResult<T>은 유효성 검사 실패할 때 모든 이유를 포함시킵니다.
+  - IsFailure: true
+  - Error: ValidationResult
+  - ValidationErrors: N개
 
 ### Result 타입 속성
 ```cs
