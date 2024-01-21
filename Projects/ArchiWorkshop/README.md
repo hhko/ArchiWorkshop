@@ -1,7 +1,18 @@
 # Architecture Workshop for Domain-Driven Design 프로젝트
+## 목차
+- 아키텍처 구성
+- 요구사항
+- Continuous Integration
+- 개발 구성
+- 의존성 주입
+- 도메인 Primitive 타입
+- 도메인 Primitive Error 타임
+- 도메인 Primitive Result 타입
+
+<br/>
 
 ## 아키텍처 구성
-### 레이어 프로젝트 구성
+### 레이어 구성 규칙
 ```
 {솔루션}.{레이어}s.{주제}
 ```
@@ -15,7 +26,7 @@
   - Infrastructure
   - ...
 
-### 레이어 프로젝트 구성 예
+### 레이어 구성 적용
 ```shell
 ArchiWorkshop
   # Adapter Layer
@@ -28,13 +39,14 @@ ArchiWorkshop
   # Domain Layer
   참조-> ArchiWorkshop.Domains
 ```
-- `ArchiWorkshop.Applications` 레이어만 `ArchiWorkshop.Domains` 레이어를 참조합니다.
+- 솔루션: `ArchiWorkshop`
+- `ArchiWorkshop.Domains` 레이어는 `ArchiWorkshop.Applications` 레이어만 참조합니다.
 
 ### 레이어 폴더 구성
 ![](./.images/2024-01-20-06-54-33.png)
-- `AssemblyReference.cs`: 네임스페이스 기준으로 어셈블리를 참조할 수 있도록 표준화한다.
-- `Abstractions` 폴더는 레이어 공통 요소와 개별 레이어 구성을 위한 파일을 관리합니다. 
-- `{레이어명}LayerRegistration.cs`: 레이어 단위로 DI을 수행한다.
+- `AssemblyReference.cs`는 어셈블리 참조를 위한 공통 파일입니다.
+- `Abstractions`는 "레이어 공통 요소"와 "개별 레이어 구성"을 위한 폴더입니다.
+- `{레이어명}LayerRegistration.cs`는 인터페이스 주입 등록을 위한 파일입니다.
   ```CS
   // DI 네임스페이스를 사용하여 참조와 using 구문을 제거 시킵니다.
   //namespace ArchiWorkshop.Applications.Abstractions.Registrations;
@@ -43,23 +55,85 @@ ArchiWorkshop
   public static class PersistenceLayerRegistration
   {
     public static IServiceCollection RegisterApplicationLayer(this IServiceCollection services)
-    { 
+    {
       // ...
     }
   }
   ```
+
+<br/>
 
 ## 요구사항
 - ...
 
 <br/>
 
-## 개발 환경
-- [코드 커버리지](./Docs/CodeCoverage.md)
+## Continuous Integration
+### 폴더 구성
+```
+/ArchiWorkshop                                // 솔루션 Root
+  /{_N_Project_Layers}                        // 프로젝트 N개 레이어
+  /TestResults                                // 테스트 자동화 결과
+    /19f5be57-f7f1-4902-a22d-ca2dcd8fdc7a     // dotnet test: 코드 커버리지 N개
+      /coverage.cobertura.xml
+
+      /merged-coverage.cobertura.xml          // dotnet-coverage: Merged 코드 커버리지
+
+      /CodeCoverageReport                     // ReportGenerator: 코드 커버리지 Html, Badges
+        /...
+```
+
+### Local CI(Build.ps1)
+```shell
+#
+# .sln 파일이 있는 곳에서 CLI 명령을 실행합니다.
+#
+
+$current_dir = Get-Location
+$testResult_dir = Join-Path -Path $current_dir -ChildPath "TestResults"
+
+# 이전 테스트 결과 정리(TestResults 폴더 정리)
+if (Test-Path -Path $testResult_dir) {
+    Remove-Item -Path (Join-Path -Path $testResult_dir -ChildPath "*") -Recurse -Force
+}
+
+# NuGet 패키지 복원
+dotnet restore $current_dir
+
+# 솔루션 빌드
+dotnet build $current_dir --no-restore --configuration Release --verbosity m
+
+# 솔루션 테스트
+dotnet test `
+    --configuration Release `
+    --results-directory $testResult_dir `
+    --no-build `
+    --collect "XPlat Code Coverage" `
+    --verbosity normal
+
+# 코드 커버리지 머지
+dotnet-coverage merge (Join-Path -Path $testResult_dir -ChildPath "**/*.cobertura.xml") `
+    -f cobertura `
+    -o (Join-Path -Path $testResult_dir -ChildPath "merged-coverage.cobertura.xml")
+
+# 코드 커버리지 HTML
+reportgenerator `
+	-reports:(Join-Path -Path $testResult_dir -ChildPath "merged-coverage.cobertura.xml") `
+	-targetdir:(Join-Path -Path $testResult_dir -ChildPath "CodeCoverageReport") `
+	-reporttypes:"Html;Badges" `
+  -verbosity:Info
+```
+- [Build.ps1](./Build.ps1)
+
+### Remote CI(GitHub Actions)
+- [.github/workflows/dotnet-ci.yml](https://github.com/hhko/ArchiWorkshop/blob/main/.github/workflows/dotnet-ci.yml)
+
+![](./.images/2024-01-21-16-49-10.png)
 
 <br/>
 
-## Framework 참조 추가
+## 개발 구성
+### Framework 참조 추가
 ```xml
 <ItemGroup>
 	<FrameworkReference Include="Microsoft.AspNetCore.App" />
@@ -68,12 +142,9 @@ ArchiWorkshop
 ![](./.images/2024-01-21-01-08-07.png)
 - `IWebHostEnvironment`
 
-<br/>
-
-## 시작 프로젝트 변환
-- Console 프로젝트 템플릿을 사용하여 WebApi 시작 프로젝트로 변환합니다.
-
-### 프로젝트 파일 타입 변경
+### 시작 프로젝트 변환
+- 개요
+  - Console 프로젝트 템플릿을 사용하여 WebApi 시작 프로젝트로 변환합니다.
 - 변경 전
   ```xml
   <Project Sdk="Microsoft.NET.Sdk">
@@ -84,11 +155,12 @@ ArchiWorkshop
   ```
   - `Properties\launchSettings.json` 파일이 자동 생성됩니다.
 
+<br/>
 
-## DI 네임스페이스 활용
+## 의존성 주입
 ```
 ArchiWorkshop
-    참조-> ArchiWorkshop.Adapters.WebApi
+    참조-> ArchiWorkshop.Adapters.Presentation
         참조-> ArchiWorkshop.Application
 ```
 - ArchiWorkshop에서 ArchiWorkshop.Application 참조 없이 ArchiWorkshop.Application 확장 메서드 사용하기
@@ -114,7 +186,8 @@ builder.Services.RegisterApplicationLayer();
 
 <br/>
 
-## 도메인 기본 타입
+## 도메인 Primitive 타입
+### Primitive 타입 구성
 ```cs
 // 1.1 ValueObject
 [Serializable]
@@ -152,6 +225,8 @@ AggregateRoot<TEntityId>
 // 4. Entity & AggregateRoot
 IAuditable
 ```
+
+### Primitive 타입 적용
 ```cs
 // 적용 예: Entity
 Customer
@@ -166,7 +241,7 @@ User
 
 <br/>
 
-## 도메인 Error 타입
+## 도메인 Primitive Error 타임
 ### Error 타임 구성
 ```cs
 public string Code { get; }
@@ -194,21 +269,10 @@ public string Message { get; }
   public static Error New(string code, string message)
   ```
 
-### Error에서 IResult 타입 생성
-```cs
-public static TResult CreateValidationResult<TResult>(this ICollection<Error> errors)
-  where TResult : class, IResult
-
-public static ValidationResult<TValueObject> CreateValidationResult<TValueObject>(
-  this ICollection<Error> errors,
-  Func<TValueObject> createValueObject) 
-  where TValueObject : ValueObject
-```
-
 <br/>
 
-## 도메인 Result 타입
-### Result 구조
+## 도메인 Primitive Result 타입
+### Result 타입 구성
 - 값이 없는 성공/실패: `Result`
   ```shell
   IResult
@@ -228,7 +292,7 @@ public static ValidationResult<TValueObject> CreateValidationResult<TValueObject
   ValidationResult<T>
   ```
 
-### Result 속성
+### Result 타입 속성
 ```cs
 public interface IResult
 {
@@ -250,7 +314,7 @@ public interface IValidationResult
 }
 ```
 
-### Result 생성
+### Result 타입 생성
 - 성공/실패를 동적으로 판단할 때
   ```cs
   // bool      : False일 때 -> ConditionNotSatisfied
@@ -268,8 +332,21 @@ public interface IValidationResult
   Failure<TValue>(Error error)
   ```
 
-### ValidationResult 생성
-- ~~성공/실패를 동적으로 판단할 때~~
+### ValidationResult 타입 생성
+- 성공/실패를 동적으로 판단할 때: Error 타입 컬랙션(this ICollection<Error> errors)에서 생성합니다.
+  ```cs
+  public static class ErrorUtilities
+  {
+    public static TResult CreateValidationResult<TResult>(
+      this ICollection<Error> errors)
+      where TResult : class, IResult
+
+    public static ValidationResult<TValueObject> CreateValidationResult<TValueObject>(
+      this ICollection<Error> errors,
+      Func<TValueObject> createValueObject)
+      where TValueObject : ValueObject
+  }
+  ```
 - 성공/실패를 정적으로 판단할 때
   ```cs
   // 값이 없는 성공/실패
@@ -280,6 +357,3 @@ public interface IValidationResult
   WithoutErrors(TValue? value)
   WithErrors(Error[] validationErrors)
   ```
-
-<br/>
-
