@@ -26,3 +26,6 @@
 
 ## 예제
 - [ ] https://github.com/michael-wolfenden/todo-minimal-api/tree/main
+
+## 문서
+- [ ] https://www.milanjovanovic.tech/blog/balancing-cross-cutting-concerns-in-clean-architecture

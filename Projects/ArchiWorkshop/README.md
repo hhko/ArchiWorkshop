@@ -336,9 +336,9 @@ public string Message { get; }
 ### 유효성 결과 타입
 - `ValidationResult, ValidationResult<T>`은 실패한 모든 유효성 검사 결과(ValidationErrors)를 포함 시킵니다.
 - 유효성 검사 실패이기 때문에 Error 값은 `ValidationResult`입니다.
-  - IsFailure: true
-  - Error: ValidationResult
-  - ValidationErrors: N개
+  - IsFailure: `true`
+  - Error: `ValidationResult`
+  - ValidationErrors: `N개`
 
 ### Result 타입 속성
 ```cs
