@@ -32,7 +32,7 @@
 ArchiWorkshop
   # Adapter Layer
   -> ArchiWorkshop.Adapters.Presentation
-  -> ArchiWorkshop.Adapters.Persistence 참조-> ArchiWorkshop.Adapters.Infrastructure
+  -> ArchiWorkshop.Adapters.Persistence -> ArchiWorkshop.Adapters.Infrastructure
 
   # Application Layer
   -> ArchiWorkshop.Applications
@@ -116,7 +116,7 @@ $testResult_dir = Join-Path -Path $current_dir -ChildPath "TestResults"
 
 # 이전 테스트 결과 정리(TestResults 폴더 정리)
 if (Test-Path -Path $testResult_dir) {
-    Remove-Item -Path (Join-Path -Path $testResult_dir -ChildPath "*") -Recurse -Force
+  Remove-Item -Path (Join-Path -Path $testResult_dir -ChildPath "*") -Recurse -Force
 }
 
 # NuGet 패키지 복원
@@ -127,22 +127,22 @@ dotnet build $current_dir --no-restore --configuration Release --verbosity m
 
 # 솔루션 테스트
 dotnet test `
-    --configuration Release `
-    --results-directory $testResult_dir `
-    --no-build `
-    --collect "XPlat Code Coverage" `
-    --verbosity normal
+  --configuration Release `
+  --results-directory $testResult_dir `
+  --no-build `
+  --collect "XPlat Code Coverage" `
+  --verbosity normal
 
 # 코드 커버리지 머지
 dotnet-coverage merge (Join-Path -Path $testResult_dir -ChildPath "**/*.cobertura.xml") `
-    -f cobertura `
-    -o (Join-Path -Path $testResult_dir -ChildPath "merged-coverage.cobertura.xml")
+  -f cobertura `
+  -o (Join-Path -Path $testResult_dir -ChildPath "merged-coverage.cobertura.xml")
 
 # 코드 커버리지 HTML
 reportgenerator `
-	-reports:(Join-Path -Path $testResult_dir -ChildPath "merged-coverage.cobertura.xml") `
-	-targetdir:(Join-Path -Path $testResult_dir -ChildPath "CodeCoverageReport") `
-	-reporttypes:"Html;Badges" `
+  -reports:(Join-Path -Path $testResult_dir -ChildPath "merged-coverage.cobertura.xml") `
+  -targetdir:(Join-Path -Path $testResult_dir -ChildPath "CodeCoverageReport") `
+  -reporttypes:"Html;Badges" `
   -verbosity:Info
 ```
 - [Build.ps1](./Build.ps1)
@@ -163,7 +163,7 @@ reportgenerator `
 ### Framework 참조 추가
 ```xml
 <ItemGroup>
-	<FrameworkReference Include="Microsoft.AspNetCore.App" />
+  <FrameworkReference Include="Microsoft.AspNetCore.App" />
 </ItemGroup>
 ```
 ![](./.images/2024-01-21-01-08-07.png)
@@ -253,19 +253,19 @@ AggregateRoot<TEntityId>
 IAuditable
 ```
 - **Value**
-  - ValueObject
-  - Enumeration
+  - `ValueObject`
+  - `Enumeration`
 - **Entity**
-  - IEntityId
-  - IEntityId<TEntityId>
-  - IEntity
-  - Entity<TEntityId>
+  - `IEntityId`
+  - `IEntityId<TEntityId>`
+  - `IEntity`
+  - `Entity<TEntityId>`
 - **AggregateRoot**
-  - IDomainEvent
-  - IAggregateRoot
-  - AggregateRoot<TEntityId>
+  - `IDomainEvent`
+  - `IAggregateRoot`
+  - `AggregateRoot<TEntityId>`
 - **Audit**
-  - IAuditable
+  - `IAuditable`
 
 ### Primitive 타입 적용
 ```cs
@@ -283,7 +283,7 @@ User
 <br/>
 
 ## 도메인 Result 타입
-![](./.images/2024-01-22-16-35-55.png)
+![](./.images/2024-01-22-16-40-51.png)
 
 ### Result 타입 구성
 - 값이 없는 성공/실패: `Result`
