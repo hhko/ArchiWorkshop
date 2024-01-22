@@ -145,12 +145,12 @@ reportgenerator `
   -reporttypes:"Html;Badges" `
   -verbosity:Info
 ```
+```shell
+# PowerShell을 관리자 권한으로 실행
+Set-ExecutionPolicy RemoteSigned
+```
 - [Build.ps1](./Build.ps1)
-  ```shell
-  # PowerShell을 관리자 권한으로 실행
-  Set-ExecutionPolicy RemoteSigned
-  ```
-  - PowerShell 로컬 실행시 권한 문제가 발생하면 실행 권한을 변경합니다.
+- PowerShell 로컬 실행시 권한 문제가 발생하면 실행 권한을 변경합니다.
 
 ### Remote CI(GitHub Actions)
 - [.github/workflows/dotnet-ci.yml](https://github.com/hhko/ArchiWorkshop/blob/main/.github/workflows/dotnet-ci.yml)
