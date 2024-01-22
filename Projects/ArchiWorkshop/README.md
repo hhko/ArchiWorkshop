@@ -419,6 +419,16 @@ public string Message { get; }
 - `appsettings.json`, `appsettings.Development.json`
   - Visual Studio Solution Explorer: 계층 구조화
 
+### launchSettings.json
+![](./.images/2024-01-22-17-00-33.png)
+- `profiles`: N개
+  - ArchiWorkshop
+  - ArchiWorkshop_Dev
+  - ...
+- appsettings 관계
+  - `"ASPNETCORE_ENVIRONMENT": ""` -> `appsettings.json`
+  - `"ASPNETCORE_ENVIRONMENT": "Development"` -> `appsettings.Development.json`
+
 <br/>
 
 ## 패키지
