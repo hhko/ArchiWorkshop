@@ -1,5 +1,12 @@
 # TODO
 
+- 컨테이너화
+- 환경설정 읽기
+- WebApi -> Validation 통합
+- Validation 동영상 강의 정리
+- 문서 정리
+----
+
 - WebApi 프로젝트 구성
 - WebApi -> Application 레이어 구성
 - MediatR Pipeline 이해

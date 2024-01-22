@@ -6,8 +6,8 @@
 - 개발 구성
 - 의존성 주입
 - 도메인 Primitive 타입
-- 도메인 Primitive Error 타임
-- 도메인 Primitive Result 타입
+- 도메인 Result 타입
+- Host 프로젝트
 - 패키지
 
 <br/>
@@ -282,37 +282,9 @@ User
 
 <br/>
 
-## 도메인 Primitive Error 타임
-### Error 타임 구성
-```cs
-public string Code { get; }
-public string Message { get; }
-```
+## 도메인 Result 타입
+![](./.images/2024-01-22-16-35-55.png)
 
-### Error 타입 생성
-- 사전 정의
-  ```cs
-  // 실패: 에러
-  public static readonly Error NullValue = new($"{nameof(NullValue)}", "The result value is null.");
-  public static readonly Error ConditionNotSatisfied = new($"{nameof(ConditionNotSatisfied)}", "The specified condition was not satisfied.");
-  public static readonly Error ValidationError = new($"{nameof(ValidationError)}", "A validation problem occurred.");
-
-  // 성공
-   public static readonly Error None = new(string.Empty, string.Empty);
-  ```
-- From Exception
-  ```cs
-  public static Error FromException<TException>(TException exception)
-    where TException : Exception
-  ```
-- 사용자 정의
-  ```cs
-  public static Error New(string code, string message)
-  ```
-
-<br/>
-
-## 도메인 Primitive Result 타입
 ### Result 타입 구성
 - 값이 없는 성공/실패: `Result`
   ```shell
@@ -405,6 +377,44 @@ public interface IValidationResult
   WithoutErrors(TValue? value)
   WithErrors(Error[] validationErrors)
   ```
+
+### Error 타임 구성
+```cs
+public string Code { get; }
+public string Message { get; }
+```
+
+### Error 타입 생성
+- 사전 정의
+  ```cs
+  // 실패: 에러
+  public static readonly Error NullValue = new($"{nameof(NullValue)}", "The result value is null.");
+  public static readonly Error ConditionNotSatisfied = new($"{nameof(ConditionNotSatisfied)}", "The specified condition was not satisfied.");
+  public static readonly Error ValidationError = new($"{nameof(ValidationError)}", "A validation problem occurred.");
+
+  // 성공
+   public static readonly Error None = new(string.Empty, string.Empty);
+  ```
+- From Exception
+  ```cs
+  public static Error FromException<TException>(TException exception)
+    where TException : Exception
+  ```
+- 사용자 정의
+  ```cs
+  public static Error New(string code, string message)
+  ```
+
+<br/>
+
+## Host 프로젝트
+### appsettings.json
+![](./.images/2024-01-22-15-56-38.png)
+- `appsettings.json`
+  - Build Action: `Content`
+  - Copy to Output Directory: `Copy if newer`
+- `appsettings.json`, `appsettings.Development.json`
+  - Visual Studio Solution Explorer: 계층 구조화
 
 <br/>
 

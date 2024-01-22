@@ -1,5 +1,4 @@
 ## 설계
-- [ ] 도메인 주도 설계; https://github.com/dr-marek-jaskula/DomainDrivenDesignUniversity
 - [ ] 함수형 타입 설계: https://ijrussell.github.io/posts/csharp-discriminated-union/
   - [ ] https://medium.com/@bddkickstarter/functional-bdd-5014c880c935
   - [ ] https://medium.com/@bddkickstarter/functional-bdd-part-2-the-gherkin-type-provider-731c7df3653e
@@ -29,3 +28,10 @@
 
 ## 문서
 - [ ] https://www.milanjovanovic.tech/blog/balancing-cross-cutting-concerns-in-clean-architecture
+- [ ] https://learn.microsoft.com/en-us/visualstudio/ide/file-nesting-solution-explorer?view=vs-2022
+
+## 동영상
+- [ ] [Containers with .NET and Docker for Beginners](https://github.com/dotnet/beginner-series/tree/main/Containers)
+  - [What's the deal with .NET & Containers? [Pt 1] | Containers with .NET for Beginners](https://www.youtube.com/watch?v=HA8rpDWMRq0&t)
+  - [Great containers with .NET, Visual Studio, and VS Code [Pt 2] | Containers with .NET for Beginners](https://www.youtube.com/watch?v=qCxSYymD0ug)
+  - [Publishing your .NET containers everywhere! [Pt 3] | Containers with .NET for Beginners](https://www.youtube.com/watch?v=21zduERRS3M)
