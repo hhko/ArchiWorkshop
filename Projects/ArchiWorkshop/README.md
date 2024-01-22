@@ -214,6 +214,8 @@ builder.Services.RegisterApplicationLayer();
 <br/>
 
 ## 도메인 Primitive 타입
+- 비즈니스 이해를 통한 도메인 모델을 만들기 위한 Primitive 타입니다.
+
 ### Primitive 타입 구성
 ```cs
 // 1.1 ValueObject
@@ -284,6 +286,7 @@ User
 
 ## 도메인 Result 타입
 ![](./.images/2024-01-22-16-40-51.png)
+- 비즈니스 사용 사례(Use Case)의 성공/실패를 처리하기 위한 Primitive 타입(Result, ValidationResult)입니다.
 
 ### Result 타입 구성
 - 값이 없는 성공/실패: `Result`
