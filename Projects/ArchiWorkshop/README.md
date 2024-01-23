@@ -1,9 +1,11 @@
-# Architecture Workshop for Domain-Driven Design 프로젝트
+# 아키텍처 워크숍 for 도메인 주도 설계 **프로젝트**
+
+> Architecting is all about strategically chosen concessions and trade-offs.
+
 ## 목차
 - [아키텍처 구성](#아키텍처-구성)
 - [요구사항](#요구사항)
 - [Continuous Integration](#continuous-integration)
-- [개발 구성](#개발-구성)
 - [의존성 주입](#의존성-주입)
 - [도메인 Primitive 타입](#도메인-primitive-타입)
 - [도메인 Result 타입](#도메인-result-타입)
@@ -156,31 +158,6 @@ Set-ExecutionPolicy RemoteSigned
 - [.github/workflows/dotnet-ci.yml](https://github.com/hhko/ArchiWorkshop/blob/main/.github/workflows/dotnet-ci.yml)
 
 ![](./.images/2024-01-21-16-49-10.png)
-
-<br/>
-
-## 개발 구성
-### Framework 참조 추가
-```xml
-<ItemGroup>
-  <FrameworkReference Include="Microsoft.AspNetCore.App" />
-</ItemGroup>
-```
-![](./.images/2024-01-21-01-08-07.png)
-- `IWebHostEnvironment`
-
-### 시작 프로젝트 변환
-- 개요
-  - Console 프로젝트 템플릿을 사용하여 WebApi 시작 프로젝트로 변환합니다.
-- 변경 전
-  ```xml
-  <Project Sdk="Microsoft.NET.Sdk">
-  ```
-- 변경 후
-  ```xml
-  <Project Sdk="Microsoft.NET.Sdk.Web">
-  ```
-  - `Properties\launchSettings.json` 파일이 자동 생성됩니다.
 
 <br/>
 
@@ -411,6 +388,19 @@ public string Message { get; }
 <br/>
 
 ## Host 프로젝트
+### 시작 프로젝트
+- 개요
+  - Console 프로젝트 템플릿을 사용하여 WebApi 시작 프로젝트로 변환합니다.
+- 변경 전
+  ```xml
+  <Project Sdk="Microsoft.NET.Sdk">
+  ```
+- 변경 후
+  ```xml
+  <Project Sdk="Microsoft.NET.Sdk.Web">
+  ```
+  - `Properties\launchSettings.json` 파일이 자동 생성됩니다.
+
 ### appsettings.json
 ![](./.images/2024-01-22-15-56-38.png)
 - `appsettings.json`
@@ -428,6 +418,16 @@ public string Message { get; }
 - appsettings 관계
   - `"ASPNETCORE_ENVIRONMENT": ""` -> `appsettings.json`
   - `"ASPNETCORE_ENVIRONMENT": "Development"` -> `appsettings.Development.json`
+
+### Framework 참조 추가
+```xml
+<ItemGroup>
+  <FrameworkReference Include="Microsoft.AspNetCore.App" />
+</ItemGroup>
+```
+![](./.images/2024-01-21-01-08-07.png)
+- `IWebHostEnvironment`
+
 
 <br/>
 

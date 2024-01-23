@@ -1,6 +1,5 @@
 # Architecture Workshop for Domain-Driven Design
-> Architecting is a series of trade-offs.  
-> Architecting is all about strategically chosen concessions and trade-offs.
+> Architecting is a series of trade-offs.
 
 - [![ArchiWorkshop CI](https://github.com/hhko/ArchiWorkshop/actions/workflows/dotnet-ci.yml/badge.svg)](https://github.com/hhko/ArchiWorkshop/actions/workflows/dotnet-ci.yml)
   - [프로젝트](./Projects/ArchiWorkshop/)
