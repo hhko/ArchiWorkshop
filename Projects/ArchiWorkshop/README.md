@@ -412,7 +412,7 @@ public string Message { get; }
   - ...
 - appsettings 관계: appsettings`{.ASPNETCORE_ENVIRONMENT}`.json
   | Env.         | ASPNETCORE_ENVIRONMENT Env.                 | appsettings File                |
-  }--------------|---------------------------------------------|---------------------------------|
+  |--------------|---------------------------------------------|---------------------------------|
   | Production   | `"ASPNETCORE_ENVIRONMENT": "" `             | `appsettings.json`              |
   | Staging      | `"ASPNETCORE_ENVIRONMENT": "Staging"`       | `appsettings.Staging.json`      |
   | Development  | `"ASPNETCORE_ENVIRONMENT": "Development"`   | `appsettings.Development.json`  |
