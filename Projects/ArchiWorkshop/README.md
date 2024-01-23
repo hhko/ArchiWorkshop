@@ -4,7 +4,6 @@
 
 ## 목차
 - [아키텍처 구성](#아키텍처-구성)
-- [요구사항](#요구사항)
 - [Continuous Integration](#continuous-integration)
 - [의존성 주입](#의존성-주입)
 - [도메인 Primitive 타입](#도메인-primitive-타입)
@@ -63,11 +62,6 @@ ArchiWorkshop
     }
   }
   ```
-
-<br/>
-
-## 요구사항
-- ...
 
 <br/>
 
