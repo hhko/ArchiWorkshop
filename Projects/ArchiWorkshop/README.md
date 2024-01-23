@@ -417,6 +417,8 @@ public string Message { get; }
   | Staging      | `"ASPNETCORE_ENVIRONMENT": "Staging"`       | `appsettings.Staging.json`      |
   | Development  | `"ASPNETCORE_ENVIRONMENT": "Development"`   | `appsettings.Development.json`  |
 
+  ![](./.images/2024-01-23-16-35-14.png)
+
 ### Framework 참조 추가
 ```xml
 <ItemGroup>
