@@ -6,7 +6,11 @@
 
 builder.Services
     .RegisterAppOptions()
-    .RegisterApplicationLayer();
-    // .RegisterPersistenceLayer(builder.Environment)
-    // .RegisterInfrastructureLayer()
-    //.RegisterAdapterLayerWebApi();
+    .RegisterApplicationLayer()
+    .RegisterAdapterLayerPersistence(builder.Environment);
+    //.RegisterInfrastructureLayer()
+    //.RegisterPresentationLayer();
+
+WebApplication webApplication = builder.Build();
+
+webApplication.Run();

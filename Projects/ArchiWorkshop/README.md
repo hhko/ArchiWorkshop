@@ -407,11 +407,15 @@ public string Message { get; }
 ![](./.images/2024-01-22-17-00-33.png)
 - `profiles`: N개
   - ArchiWorkshop
+  - ArchiWorkshop_Staging
   - ArchiWorkshop_Dev
   - ...
-- appsettings 관계
-  - `"ASPNETCORE_ENVIRONMENT": ""` -> `appsettings.json`
-  - `"ASPNETCORE_ENVIRONMENT": "Development"` -> `appsettings.Development.json`
+- appsettings 관계: `IConfiguration configuration`
+  | Env.         | ASPNETCORE_ENVIRONMENT Env.                 | appsettings File                |
+  }--------------|---------------------------------------------|---------------------------------|
+  | Production   | `"ASPNETCORE_ENVIRONMENT": "" `             | `appsettings.json`              |
+  | Staging      | `"ASPNETCORE_ENVIRONMENT": "Staging"`       | `appsettings.Staging.json`      |
+  | Development  | `"ASPNETCORE_ENVIRONMENT": "Development"`   | `appsettings.Development.json`  |
 
 ### Framework 참조 추가
 ```xml
