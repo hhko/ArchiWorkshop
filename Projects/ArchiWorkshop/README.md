@@ -410,7 +410,7 @@ public string Message { get; }
   - ArchiWorkshop_Staging
   - ArchiWorkshop_Dev
   - ...
-- appsettings 관계: `IConfiguration configuration`
+- appsettings 관계: appsettings`{.ASPNETCORE_ENVIRONMENT}`.json
   | Env.         | ASPNETCORE_ENVIRONMENT Env.                 | appsettings File                |
   }--------------|---------------------------------------------|---------------------------------|
   | Production   | `"ASPNETCORE_ENVIRONMENT": "" `             | `appsettings.json`              |

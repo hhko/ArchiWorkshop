@@ -5,13 +5,14 @@ using Microsoft.Extensions.Options;
 
 namespace ArchiWorkshop.Adapters.Infrastructure.Abstractions.Options;
 
-internal sealed class DatabaseOptionsSetup(IConfiguration configuration,
-                                           IWebHostEnvironment environment)
+//internal sealed class DatabaseOptionsSetup(IConfiguration configuration,
+//                                           IWebHostEnvironment environment)
+internal sealed class DatabaseOptionsSetup(IConfiguration configuration)
     : IConfigureOptions<DatabaseOptions>
 {
     // 생성자
     private readonly IConfiguration _configuration = configuration;
-    private readonly IWebHostEnvironment _environment = environment;
+    //private readonly IWebHostEnvironment _environment = environment;
 
     // Key 이름
     private const string _configurationSectionName = "DatabaseOptions";
@@ -40,10 +41,6 @@ internal sealed class DatabaseOptionsSetup(IConfiguration configuration,
         //    options.ConnectionString = _configuration.GetConnectionString(_developmentConnection);
         //}
 
-        // "ASPNETCORE_ENVIRONMENT": "..."
-        //  - appsettings.json
-        //  - appsettings.Staging.json
-        //  - appsettings.Development.json
         _configuration
             .GetSection(_configurationSectionName)
             .Bind(options);
