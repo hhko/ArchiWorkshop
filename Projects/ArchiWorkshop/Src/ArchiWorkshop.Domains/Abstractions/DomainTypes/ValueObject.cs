@@ -20,10 +20,10 @@ public abstract class ValueObject
             return false;
         }
 
-        //if (other.GetType() != GetType())
-        //{
-        //    return false;
-        //}
+        if (other.GetType() != GetType())
+        {
+            return false;
+        }
 
         return ValuesAreEqual(other);
     }

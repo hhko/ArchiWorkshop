@@ -23,10 +23,10 @@ public abstract class Entity<TEntityId>
             return false;
         }
 
-        //if (other.GetType() != GetType())
-        //{
-        //    return false;
-        //}
+        if (other.GetType() != GetType())
+        {
+            return false;
+        }
 
         return other.Id.Value == Id.Value;
     }
