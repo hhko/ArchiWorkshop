@@ -8,7 +8,7 @@ using static ArchiWorkshop.Domains.AggregateRoots.Users.Errors.DomainErrors;
 
 namespace ArchiWorkshop.Domains.AggregateRoots.Users.ValueObjects;
 
-public class Email : ValueObject
+public sealed class Email : ValueObject
 {
     public const int MaxLength = 40;
 

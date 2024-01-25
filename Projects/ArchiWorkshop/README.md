@@ -6,10 +6,10 @@
 - [아키텍처 구성](#아키텍처-구성)
 - [Continuous Integration](#continuous-integration)
 - [의존성 주입](#의존성-주입)
-- [도메인 Primitive 타입](#도메인-primitive-타입)
-- [도메인 Result 타입](#도메인-result-타입)
 - [Host 프로젝트 구성](#host-프로젝트-구성)
 - [Domain 프로젝트 구성](#domain-프로젝트-구성)
+  - [도메인 Base 타입](#도메인-base-타입)
+  - [도메인 Result 타입](#도메인-result-타입)
 - [패키지](#패키지)
 
 <br/>
@@ -185,203 +185,6 @@ builder.Services.RegisterApplicationLayer();
 
 <br/>
 
-## 도메인 Primitive 타입
-- 비즈니스 이해를 통한 도메인 모델을 만들기 위한 Primitive 타입니다.
-
-### Primitive 타입 구성
-```cs
-// 1.1 ValueObject
-[Serializable]
-ValueObject
-  : IEquatable<ValueObject>
-
-// 1.2 Enumeration?
-// TODO...
-
-// 2.1 Entity Id
-IEntityId
-    : IComparable<IEntityId>
-IEntityId<TEntityId>
-    : IEntityId
-
-// 2.2 Entity
-IEntity
-Entity<TEntityId>
-    : IEquatable<Entity<TEntityId>>
-    , IEntity
-    where TEntityId : struct, IEntityId<TEntityId>
-
-// 3.1 DomainEvent
-IDomainEvent
-    : INotification
-
-// 3.2 AggregateRoot
-IAggregateRoot
-    : IEntity
-AggregateRoot<TEntityId>
-    : Entity<TEntityId>
-    , IAggregateRoot
-    where TEntityId : struct, IEntityId<TEntityId>
-
-// 4. Auditable(Entity & AggregateRoot)
-IAuditable
-```
-- **Value**
-  - `ValueObject`
-  - `Enumeration`
-- **Entity**
-  - `IEntityId`
-  - `IEntityId<TEntityId>`
-  - `IEntity`
-  - `Entity<TEntityId>`
-- **AggregateRoot**
-  - `IDomainEvent`
-  - `IAggregateRoot`
-  - `AggregateRoot<TEntityId>`
-- **Audit**
-  - `IAuditable`
-
-### Primitive 타입 적용
-```cs
-// 적용 예: Entity
-Customer
-    : Entity<CustomerId>
-    , IAuditable
-
-// 적용 예: AggregateRoot
-User
-    : AggregateRoot<UserId>
-    , IAuditable
-```
-
-<br/>
-
-## 도메인 Result 타입
-![](./.images/2024-01-22-16-40-51.png)
-- 비즈니스 사용 사례(Use Case)의 성공/실패를 처리하기 위한 Primitive 타입(Result, ValidationResult)입니다.
-
-### Result 타입 구성
-- 값이 없는 성공/실패: `Result`
-  ```shell
-  IResult
-  ↑
-  Result  IValidationResult
-  ↑       ↑
-  ValidationResult
-  ```
-- 값이 있는 성공/실패: `IResult<out TValue>`
-  ```shell
-  IResult
-  ↑
-  IResult<out TValue>
-  ↑
-  Result<TValue>  IValidationResult
-  ↑               ↑
-  ValidationResult<T>
-  ```
-
-### 유효성 결과 타입
-- `ValidationResult, ValidationResult<T>`은 실패한 모든 유효성 검사 결과(ValidationErrors)를 포함 시킵니다.
-- 유효성 검사 실패이기 때문에 Error 값은 `ValidationResult`입니다.
-  - IsFailure: `true`
-  - Error: `ValidationResult`
-  - ValidationErrors: `N개`
-
-### Result 타입 속성
-```cs
-public interface IResult
-{
-    bool IsSuccess { get; }
-
-    bool IsFailure { get; }
-
-    Error Error { get; }
-}
-
-public interface IResult<out TValue> : IResult
-{
-    TValue Value { get; }
-}
-
-public interface IValidationResult
-{
-    Error[] ValidationErrors { get; }
-}
-```
-
-### Result 타입 생성
-- 성공/실패를 동적으로 판단할 때
-  ```cs
-  // bool      : False일 때 -> ConditionNotSatisfied
-  // TValue?   : NULL일 때  -> NullValue
-  Create
-  ```
-- 성공/실패를 정적으로 판단할 때
-  ```cs
-  // 값이 없는 성공/실패
-  Success()
-  Failure(Error error)
-
-  // 값이 있는 성공/실패
-  Success<TValue>(TValue value)
-  Failure<TValue>(Error error)
-  ```
-
-### ValidationResult 타입 생성
-- 성공/실패를 동적으로 판단할 때: Error 타입 컬랙션(this ICollection<Error> errors)에서 생성합니다.
-  ```cs
-  public static class ErrorUtilities
-  {
-    public static TResult CreateValidationResult<TResult>(
-      this ICollection<Error> errors)
-      where TResult : class, IResult
-
-    public static ValidationResult<TValueObject> CreateValidationResult<TValueObject>(
-      this ICollection<Error> errors,
-      Func<TValueObject> createValueObject)
-      where TValueObject : ValueObject
-  }
-  ```
-- 성공/실패를 정적으로 판단할 때
-  ```cs
-  // 값이 없는 성공/실패
-  WithoutErrors()
-  WithErrors(Error[] validationErrors)
-
-  // 값이 있는 성공/실패
-  WithoutErrors(TValue? value)
-  WithErrors(Error[] validationErrors)
-  ```
-
-### Error 타임 구성
-```cs
-public string Code { get; }
-public string Message { get; }
-```
-
-### Error 타입 생성
-- 사전 정의
-  ```cs
-  // 실패: 에러
-  public static readonly Error NullValue = new($"{nameof(NullValue)}", "The result value is null.");
-  public static readonly Error ConditionNotSatisfied = new($"{nameof(ConditionNotSatisfied)}", "The specified condition was not satisfied.");
-  public static readonly Error ValidationError = new($"{nameof(ValidationError)}", "A validation problem occurred.");
-
-  // 성공
-   public static readonly Error None = new(string.Empty, string.Empty);
-  ```
-- From Exception
-  ```cs
-  public static Error FromException<TException>(TException exception)
-    where TException : Exception
-  ```
-- 사용자 정의
-  ```cs
-  public static Error New(string code, string message)
-  ```
-
-<br/>
-
 ## Host 프로젝트 구성
 ### 시작 프로젝트
 - 개요
@@ -443,7 +246,214 @@ public string Message { get; }
   - `Events`: 도메인 이벤트
   - `ValueObjects`: 값 객체
 
+### 도메인 Base 타입
+- 비즈니스 이해를 통한 도메인 모델을 만들기 위한 Base 타입니다.
+
+#### Base 타입 구성
+```cs
+// 1.1 ValueObject
+[Serializable]
+ValueObject
+  : IEquatable<ValueObject>
+
+// 1.2 Enumeration?
+// TODO...
+
+// 2.1 Entity Id
+IEntityId
+    : IComparable<IEntityId>
+IEntityId<TEntityId>
+    : IEntityId
+
+// 2.2 Entity
+IEntity
+Entity<TEntityId>
+    : IEquatable<Entity<TEntityId>>
+    , IEntity
+    where TEntityId : struct, IEntityId<TEntityId>
+
+// 3.1 DomainEvent
+IDomainEvent
+    : INotification
+
+// 3.2 AggregateRoot
+IAggregateRoot
+    : IEntity
+AggregateRoot<TEntityId>
+    : Entity<TEntityId>
+    , IAggregateRoot
+    where TEntityId : struct, IEntityId<TEntityId>
+
+// 4. Auditable(Entity & AggregateRoot)
+IAuditable
+```
+- **Value**
+  - `ValueObject`
+  - `Enumeration`
+- **Entity**
+  - `IEntityId`
+  - `IEntityId<TEntityId>`
+  - `IEntity`
+  - `Entity<TEntityId>`
+- **AggregateRoot**
+  - `IDomainEvent`
+  - `IAggregateRoot`
+  - `AggregateRoot<TEntityId>`
+- **Audit**
+  - `IAuditable`
+
+#### Base 타입 적용
+```cs
+// 적용 예: Entity
+Customer
+    : Entity<CustomerId>
+    , IAuditable
+
+// 적용 예: AggregateRoot
+User
+    : AggregateRoot<UserId>
+    , IAuditable
+```
+
 <br/>
+
+### 도메인 Result 타입
+![](./.images/2024-01-22-16-40-51.png)
+- 비즈니스 사용 사례(Use Case)의 성공/실패를 처리하기 위한 타입(Result, ValidationResult)입니다.
+
+#### Result 타입 구성
+- 값이 없는 성공/실패: `Result`
+  ```shell
+  IResult
+  ↑
+  Result  IValidationResult
+  ↑       ↑
+  ValidationResult
+  ```
+- 값이 있는 성공/실패: `IResult<out TValue>`
+  ```shell
+  IResult
+  ↑
+  IResult<out TValue>
+  ↑
+  Result<TValue>  IValidationResult
+  ↑               ↑
+  ValidationResult<T>
+  ```
+
+#### 유효성 결과 타입
+- `ValidationResult, ValidationResult<T>`은 실패한 모든 유효성 검사 결과(ValidationErrors)를 포함 시킵니다.
+- 유효성 검사 실패이기 때문에 Error 값은 `ValidationResult`입니다.
+  - IsFailure: `true`
+  - Error: `ValidationResult`
+  - ValidationErrors: `N개`
+
+#### Result 타입 속성
+```cs
+public interface IResult
+{
+    bool IsSuccess { get; }
+
+    bool IsFailure { get; }
+
+    Error Error { get; }
+}
+
+public interface IResult<out TValue> : IResult
+{
+    TValue Value { get; }
+}
+
+public interface IValidationResult
+{
+    Error[] ValidationErrors { get; }
+}
+```
+
+#### Result 타입 생성
+- 성공/실패를 동적으로 판단할 때
+  ```cs
+  // bool      : False일 때 -> ConditionNotSatisfied
+  // TValue?   : NULL일 때  -> NullValue
+  Create
+  ```
+- 성공/실패를 정적으로 판단할 때
+  ```cs
+  // 값이 없는 성공/실패
+  Success()
+  Failure(Error error)
+
+  // 값이 있는 성공/실패
+  Success<TValue>(TValue value)
+  Failure<TValue>(Error error)
+  ```
+
+#### ValidationResult 타입 생성
+- 성공/실패를 동적으로 판단할 때: Error 타입 컬랙션(this ICollection<Error> errors)에서 생성합니다.
+  ```cs
+  public static class ErrorUtilities
+  {
+    public static TResult CreateValidationResult<TResult>(
+      this ICollection<Error> errors)
+      where TResult : class, IResult
+
+    public static ValidationResult<TValueObject> CreateValidationResult<TValueObject>(
+      this ICollection<Error> errors,
+      Func<TValueObject> createValueObject)
+      where TValueObject : ValueObject
+  }
+  ```
+- 성공/실패를 정적으로 판단할 때
+  ```cs
+  // 값이 없는 성공/실패
+  WithoutErrors()
+  WithErrors(Error[] validationErrors)
+
+  // 값이 있는 성공/실패
+  WithoutErrors(TValue? value)
+  WithErrors(Error[] validationErrors)
+  ```
+
+#### Error 타임 구성
+```cs
+public string Code { get; }
+public string Message { get; }
+```
+
+#### Error 타입 생성
+- 사전 정의
+  ```cs
+  // 실패: 에러
+  public static readonly Error NullValue = new($"{nameof(NullValue)}", "The result value is null.");
+  public static readonly Error ConditionNotSatisfied = new($"{nameof(ConditionNotSatisfied)}", "The specified condition was not satisfied.");
+  public static readonly Error ValidationError = new($"{nameof(ValidationError)}", "A validation problem occurred.");
+
+  // 성공
+   public static readonly Error None = new(string.Empty, string.Empty);
+  ```
+- From Exception
+  ```cs
+  public static Error FromException<TException>(TException exception)
+    where TException : Exception
+  ```
+- 사용자 정의
+  ```cs
+  public static Error New(string code, string message)
+  ```
+
+<br/>
+
+## Application 프로젝트 구성
+### CQRS 인터페이스
+```cs
+// 요청: IRequest
+// 요청 결과: IResult<TResponse>
+// 요청 결과 조건: where TResponse : IResponse
+public interface IQuery<out TResponse> : IRequest<IResult<TResponse>>
+    where TResponse : IResponse
+{
+}
+```
 
 ## 패키지
 ```shell
