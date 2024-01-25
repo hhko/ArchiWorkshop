@@ -10,6 +10,7 @@
 - [Domain 프로젝트 구성](#domain-프로젝트-구성)
   - [도메인 Base 타입](#도메인-base-타입)
   - [도메인 Result 타입](#도메인-result-타입)
+- [Application 프로젝트 구성](#application-프로젝트-구성)
 - [패키지](#패키지)
 
 <br/>
