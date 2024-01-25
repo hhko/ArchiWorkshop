@@ -8,7 +8,8 @@
 - [의존성 주입](#의존성-주입)
 - [도메인 Primitive 타입](#도메인-primitive-타입)
 - [도메인 Result 타입](#도메인-result-타입)
-- [Host 프로젝트](#host-프로젝트)
+- [Host 프로젝트 구성](#host-프로젝트-구성)
+- [Domain 프로젝트 구성](#domain-프로젝트-구성)
 - [패키지](#패키지)
 
 <br/>
@@ -381,7 +382,7 @@ public string Message { get; }
 
 <br/>
 
-## Host 프로젝트
+## Host 프로젝트 구성
 ### 시작 프로젝트
 - 개요
   - Console 프로젝트 템플릿을 사용하여 WebApi 시작 프로젝트로 변환합니다.
@@ -430,9 +431,10 @@ public string Message { get; }
 
 <br/>
 
-## Domain 프로젝트
+## Domain 프로젝트 구성
 ### 폴더 구성
 ![](./.images/2024-01-26-01-34-09.png)
+![](./.images/2024-01-26-01-41-14.png)
 
 - `AggregateRoots`
 - `{AggregateRoot 클래스}s`: AggregateRoot 단위로 폴더를 생성한다.
