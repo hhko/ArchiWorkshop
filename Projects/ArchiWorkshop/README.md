@@ -428,6 +428,18 @@ public string Message { get; }
 ![](./.images/2024-01-21-01-08-07.png)
 - `IWebHostEnvironment`
 
+<br/>
+
+## Domain 프로젝트
+### 폴더 구성
+![](./.images/2024-01-26-01-34-09.png)
+
+- `AggregateRoots`
+- `{AggregateRoot 클래스}s`: AggregateRoot 단위로 폴더를 생성한다.
+  - `Enumerations`: AggregateRoot을 구성하는 Enum 타입 값 객체
+  - `Errors`: ValueObject 실패 메시지
+  - `Events`: 도메인 이벤트
+  - `ValueObjects`: 값 객체
 
 <br/>
 
