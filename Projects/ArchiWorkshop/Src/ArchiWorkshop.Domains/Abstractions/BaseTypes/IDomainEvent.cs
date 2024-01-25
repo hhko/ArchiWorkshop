@@ -1,6 +1,6 @@
 ﻿using MediatR;
 
-namespace ArchiWorkshop.Domains.Abstractions.DomainTypes;
+namespace ArchiWorkshop.Domains.Abstractions.BaseTypes;
 
 public interface IDomainEvent
     : INotification

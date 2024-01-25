@@ -1,4 +1,4 @@
-﻿namespace ArchiWorkshop.Domains.Abstractions.DomainTypes;
+﻿namespace ArchiWorkshop.Domains.Abstractions.BaseTypes;
 
 public abstract class AggregateRoot<TEntityId>
     : Entity<TEntityId>

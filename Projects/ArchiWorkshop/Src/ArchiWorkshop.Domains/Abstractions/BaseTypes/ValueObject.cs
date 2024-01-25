@@ -1,6 +1,6 @@
 ﻿using ArchiWorkshop.Domains.Abstractions.Utilities;
 
-namespace ArchiWorkshop.Domains.Abstractions.DomainTypes;
+namespace ArchiWorkshop.Domains.Abstractions.BaseTypes;
 
 [Serializable]
 public abstract class ValueObject

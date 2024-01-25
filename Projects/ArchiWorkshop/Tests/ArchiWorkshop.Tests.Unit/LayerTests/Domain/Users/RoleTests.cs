@@ -1,4 +1,4 @@
-﻿using ArchiWorkshop.Domains.AggregateRoots.Users;
+﻿using ArchiWorkshop.Domains.AggregateRoots.Users.Enumerations;
 
 namespace ArchiWorkshop.Tests.Unit.LayerTests.Domain.Users;
 

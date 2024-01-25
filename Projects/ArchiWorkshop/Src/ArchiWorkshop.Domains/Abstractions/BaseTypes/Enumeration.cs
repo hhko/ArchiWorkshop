@@ -1,8 +1,8 @@
 ﻿using System.Reflection;
 
-namespace ArchiWorkshop.Domains.Abstractions.DomainTypes;
+namespace ArchiWorkshop.Domains.Abstractions.BaseTypes;
 
-public abstract class Enumeration<TEnum> 
+public abstract class Enumeration<TEnum>
     : IEquatable<Enumeration<TEnum>>
     , IComparable<Enumeration<TEnum>>
     where TEnum : Enumeration<TEnum>

@@ -1,4 +1,4 @@
-﻿namespace ArchiWorkshop.Domains.Abstractions.DomainTypes;
+﻿namespace ArchiWorkshop.Domains.Abstractions.BaseTypes;
 
 public interface IAggregateRoot
     : IEntity

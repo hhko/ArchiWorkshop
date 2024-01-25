@@ -1,9 +1,10 @@
 ﻿using System.Text.RegularExpressions;
-using ArchiWorkshop.Domains.Abstractions.DomainTypes;
+using ArchiWorkshop.Domains.Abstractions.BaseTypes;
 using ArchiWorkshop.Domains.Abstractions.Results;
 using ArchiWorkshop.Domains.Abstractions.Utilities;
 using static System.Text.RegularExpressions.RegexOptions;
 using static ArchiWorkshop.Domains.Abstractions.Utilities.ListUtilities;
+using static ArchiWorkshop.Domains.AggregateRoots.Users.Errors.DomainErrors;
 
 namespace ArchiWorkshop.Domains.AggregateRoots.Users.ValueObjects;
 

@@ -1,4 +1,4 @@
-﻿using ArchiWorkshop.Domains.Abstractions.DomainTypes;
+﻿using ArchiWorkshop.Domains.Abstractions.BaseTypes;
 using ArchiWorkshop.Tests.Unit.Abstractions.Extensions;
 
 namespace ArchiWorkshop.Tests.Unit.ArchitectureTests;

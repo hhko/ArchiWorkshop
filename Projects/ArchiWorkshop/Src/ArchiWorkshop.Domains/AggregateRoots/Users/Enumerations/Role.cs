@@ -1,6 +1,6 @@
-﻿using ArchiWorkshop.Domains.Abstractions.DomainTypes;
+﻿using ArchiWorkshop.Domains.Abstractions.BaseTypes;
 
-namespace ArchiWorkshop.Domains.AggregateRoots.Users;
+namespace ArchiWorkshop.Domains.AggregateRoots.Users.Enumerations;
 
 public sealed class Role : Enumeration<Role>
 {
