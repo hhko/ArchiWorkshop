@@ -438,8 +438,8 @@ public string Message { get; }
 
 - `AggregateRoots`
 - `{AggregateRoot 클래스}s`: AggregateRoot 단위로 폴더를 생성한다.
-  - `Enumerations`: AggregateRoot을 구성하는 Enum 타입 값 객체
-  - `Errors`: ValueObject 실패 메시지
+  - `Enumerations`: Enum 값 객체
+  - `Errors`: 실패 메시지
   - `Events`: 도메인 이벤트
   - `ValueObjects`: 값 객체
 
