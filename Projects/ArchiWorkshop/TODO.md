@@ -1,28 +1,30 @@
 # TODO
 
+- WebApi
+- WebApi + Mediator
+- WebApi + Mediator(Pipeline: Validation, Log)
+  - MediatR Pipeline 이해
+  - Validation 파이프라인 이해
+  - Error CreateValidationResult 메서드 이해
+  - 로그 파이프라인 이해
+  - 로그 LoggerMessage 속성 이해
+
+---
+
+- CI Codecov 적용
+
+---
+
 - 컨테이너화
-- WebApi -> Validation 통합
-- Validation 동영상 강의 정리
+- 컨테이너화 단위 테스트
+- 컨테이너화 데이터베이스 통합 테스트
+- 컨테이너화 성능 테스트
+- 컨테이너화 CI?
+
+---
+
 - 문서 정리
 
-----
-
-- WebApi 프로젝트 구성
-- WebApi -> Application 레이어 구성
-- MediatR Pipeline 이해
-- 로그 파이프라인 이해
-- 로그 LoggerMessage 속성 이해
-- Validation 파이프라인 이해
-- Error CreateValidationResult 메서드 이해
----
-- 컨테이너화 테스트
-  - 단위
-  - 통합
-  - 성능
-- 컨테이너화
-- WebApi 성능 테스트
-- WebApi 통합 테스트
-- WebApi
 ---
 - Address 적용
 - FistName 적용
@@ -33,7 +35,6 @@
 - Domain 레이어 Abstractions 테스트 추가
 - Entity
 - <out T> 이해
----
 
 ```
 // 파일
@@ -49,7 +50,6 @@ New			// ?
 Create		// 외부
 ```
 
-- ValueObject <object> 개선
 - 코드 커버리지 | ArchiWorkshop.Tests.Unit 코드 커버리지 제외
 - 코드 커버리지 | N개 테스트일 때 통합 코드 커버리지 구하기
 - ValueObject | `public abstract IEnumerable<object> GetAtomicValues();` object 제거하기

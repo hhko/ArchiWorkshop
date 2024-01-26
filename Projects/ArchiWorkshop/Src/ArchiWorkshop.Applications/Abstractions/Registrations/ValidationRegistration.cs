@@ -4,9 +4,9 @@
 //namespace ArchiWorkshop.Applications.Abstractions.Registrations;
 namespace Microsoft.Extensions.DependencyInjection;
 
-internal static class FluentValidationRegistration
+internal static class ValidationRegistration
 {
-    internal static IServiceCollection RegisterFluentValidation(this IServiceCollection services)
+    internal static IServiceCollection RegisterValidation(this IServiceCollection services)
     {
         services.AddValidatorsFromAssembly(
             ArchiWorkshop.Applications.AssemblyReference.Assembly, 

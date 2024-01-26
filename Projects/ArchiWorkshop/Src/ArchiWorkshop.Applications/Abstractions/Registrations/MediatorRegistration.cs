@@ -11,7 +11,7 @@ public static class MediatorRegistration
         services.AddMediatR(configuration =>
         {
             configuration.RegisterServicesFromAssembly(ArchiWorkshop.Applications.AssemblyReference.Assembly);
-            //configuration.AddOpenBehavior(typeof(LoggingPipeline<,>));
+            configuration.AddOpenBehavior(typeof(LoggingPipeline<,>));
             configuration.AddOpenBehavior(typeof(FluentValidationPipeline<,>));
         });
 
