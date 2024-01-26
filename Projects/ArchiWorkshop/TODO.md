@@ -1,10 +1,10 @@
 # TODO
 
 - 컨테이너화
-- 환경설정 읽기
 - WebApi -> Validation 통합
 - Validation 동영상 강의 정리
 - 문서 정리
+
 ----
 
 - WebApi 프로젝트 구성
@@ -41,13 +41,15 @@ Xyz             // 핵심 메서드
 XyzUtilities	// 그외 메서드
 
 // 폴더
-Utilities       // 더 명확한 이름(확장 메서드, 정적 메서드: using static)
-
+Utilities  // 더 명확한 이름(확장 메서드, 정적 메서드: using static)
+  폴더 존재 유: 공용 Utilities
+  폴더 존재 무: 전용 Utilities
 
 New			// ?
 Create		// 외부
 ```
 
+- ValueObject <object> 개선
 - 코드 커버리지 | ArchiWorkshop.Tests.Unit 코드 커버리지 제외
 - 코드 커버리지 | N개 테스트일 때 통합 코드 커버리지 구하기
 - ValueObject | `public abstract IEnumerable<object> GetAtomicValues();` object 제거하기
@@ -70,10 +72,23 @@ Create		// 외부
     .Invoke(null, [errors])!;
   ```
 - Error 클래스 `UseValidation` 구현을 이해한다.
+- 빌드
+  ```
+  - name: Upload coverage to Codecov
+        uses: codecov/codecov-action@v3
+        with:
+          token: ${{ secrets.CODE_COV_TOKEN }}
+  ```
+
+---
+
+- gRPC 통합 테스트: https://renatogolia.com/2021/12/19/testing-asp-net-core-grpc-applications-with-webapplicationfactory/
 
 <br/>
 
 # DONE
+- `2024-01-27(금)` MediatR UseCase Query 구현
+- `2024-01-26(목)` 환경설정 읽기
 - `2024-01-25(수)` Enumeration 값 객체 구현
 - `2024-01-20(토)` Application Layer 로그 파이프라인
 - `2024-01-20(토)` DI 구조화 이해
@@ -83,7 +98,7 @@ Create		// 외부
 - `2024-01-14(일)` `IX, IX<T> : IX` T타입 생성을 위한 자료구조
   ```cs
   IEntityId
-  IEntityId<T> : IEntityId 
+  IEntityId<T> : IEntityId
   ```
 - `2024-01-14(일)` EntityIdConverter 이해(현재 버전에는 제외 시킴)
 - `2024-01-14(일)` IEntityId 구현
