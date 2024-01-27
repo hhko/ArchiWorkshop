@@ -6,7 +6,7 @@
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": ""
       },
-      "applicationUrl": "https://localhost:65379;http://localhost:65380"
+      "applicationUrl": "http://localhost:65380"
     },
     "ArchiWorkshop_Staging": {
       "commandName": "Project",

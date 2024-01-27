@@ -1,0 +1,10 @@
+﻿@hostname=localhost
+@port=65380
+@host = http://{{hostname}}:{{port}}
+@contentType = application/json
+
+### SUCCESS
+GET {{host}}/api/greeting/foo
+
+### SUCCESS
+GET {{host}}/api/users/foo

@@ -20,11 +20,12 @@
 ```
 {솔루션}.{레이어}s.{주제}
 ```
-- 레이어
+- `{솔루션}`
+- `{레이어}s`
   - Adapter
   - Application
   - Domain
-- 주제
+- `{주제}`
   - Presentation
   - Persistence
   - Infrastructure
@@ -35,7 +36,8 @@
 ArchiWorkshop
   # Adapter Layer
   -> ArchiWorkshop.Adapters.Presentation
-  -> ArchiWorkshop.Adapters.Persistence -> ArchiWorkshop.Adapters.Infrastructure
+  -> ArchiWorkshop.Adapters.Persistence
+     -> ArchiWorkshop.Adapters.Infrastructure
 
   # Application Layer
   -> ArchiWorkshop.Applications
@@ -43,8 +45,12 @@ ArchiWorkshop
   # Domain Layer
   -> ArchiWorkshop.Domains
 ```
-- 솔루션: `ArchiWorkshop`
-- `ArchiWorkshop.Domains` 레이어는 `ArchiWorkshop.Applications` 레이어만 참조합니다.
+- `{솔루션}` 이름은 `ArchiWorkshop`입니다.
+- 도메인 레이어(`ArchiWorkshop.Domains`)는 애플리케이션 레이어만(`ArchiWorkshop.Applications`) 참조합니다.
+- 어댑터 레이어 레이어에는 3개 `{주제}`가 있습니다.
+  - ArchiWorkshop.Adapters.Presentation
+  - ArchiWorkshop.Adapters.Persistence
+  - ArchiWorkshop.Adapters.Infrastructure
 
 ### 레이어 폴더 구성
 ![](./.images/2024-01-20-06-54-33.png)
@@ -445,6 +451,31 @@ public string Message { get; }
 <br/>
 
 ## Application 프로젝트 구성
+
+### WebApi 클래스 라이브러리 추가
+```cs
+builder.Services.RegisterControllers();
+
+WebApplication webApplication = builder.Build();
+
+// services.AddControllers()
+webApplication.MapControllers();
+```
+```cs
+public static class ControllerRegistration
+{
+    public static IServiceCollection RegisterControllers(this IServiceCollection services)
+    {
+        services
+            .AddControllers()
+            .AddApplicationPart(Adapters.Presentation.AssemblyReference.Assembly);
+
+        return services;
+    }
+}
+```
+- `AddApplicationPart` 메서드를 통해 `ControllerBase` 클래스를 구현한 WebApi 어셈블리를 추가합니다.
+
 ### CQRS 인터페이스
 ```cs
 // 요청: IRequest
@@ -458,9 +489,23 @@ public interface IQuery<out TResponse> : IRequest<IResult<TResponse>>
 
 ## 패키지
 ```shell
+#
+# 레이어
+#
+
 # 도메인
 - Ulid
 - MediatR.Contracts
+
+# 애플리케이션
+
+# 어댑터: WebApi
+- MediatR
+- Microsoft.AspNetCore.App    # 프레임워크
+
+#
+# 테스트
+#
 
 # 테스트
 - Microsoft.NET.Test.Sdk

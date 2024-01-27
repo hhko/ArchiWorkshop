@@ -4,6 +4,7 @@ using ArchiWorkshop.Applications.Features.Users.Mappings;
 using ArchiWorkshop.Domains.Abstractions.Results;
 using ArchiWorkshop.Domains.AggregateRoots.Users;
 using ArchiWorkshop.Domains.AggregateRoots.Users.ValueObjects;
+using static ArchiWorkshop.Domains.AggregateRoots.Users.Errors.DomainErrors;
 
 namespace ArchiWorkshop.Applications.Features.Users.Queries;
 
@@ -14,8 +15,22 @@ internal sealed class GetUserByUsernameQueryHandler
     {
         await Task.Delay(1);
 
-        var userNameResult = UserName.Create(query.Username);
-        var user = new User();
+        ValidationResult<UserName> usernameResult = UserName.Create(query.UserName);
+        var user = User.Create(UserId.New(), usernameResult.Value);
+
+        //bool emailIsTaken = await _userRepository
+        //    .IsEmailTakenAsync(emailResult.Value, cancellationToken);
+
+        //_validator
+        //    .Validate(emailResult)
+        //    .Validate(usernameResult)
+        //    .Validate(passwordResult)
+        //    .If(emailIsTaken, thenError: EmailError.EmailAlreadyTaken);
+
+        //if (_validator.IsInvalid)
+        //{
+        //    return _validator.Failure<RegisterUserResponse>();
+        //}
 
         return user
             .ToResponse()

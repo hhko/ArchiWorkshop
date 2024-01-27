@@ -7,10 +7,18 @@
 builder.Services
     .RegisterAppOptions()
     .RegisterApplicationLayer()
-    .RegisterAdapterLayerPersistence(builder.Environment);
+    .RegisterAdapterLayerPersistence(builder.Environment)
     //.RegisterInfrastructureLayer()
-    //.RegisterPresentationLayer();
+    .RegisterAdapterLayerPresentation();
 
 WebApplication webApplication = builder.Build();
+
+webApplication
+    .UseHttpsRedirection();
+    //.UseApplicationLayer()
+    //.UsePresentationLayer(builder.Environment)
+    //.UsePersistenceLayer();
+
+webApplication.MapControllers();
 
 webApplication.Run();

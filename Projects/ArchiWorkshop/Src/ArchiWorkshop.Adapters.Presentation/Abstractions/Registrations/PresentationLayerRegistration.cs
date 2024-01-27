@@ -6,6 +6,23 @@ public static class PresentationLayerRegistration
 {
     public static IServiceCollection RegisterAdapterLayerPresentation(this IServiceCollection services)
     {
+        services
+            .RegisterControllers();
+
+        //services
+        //    .RegisterControllers()
+        //    .RegisterOpenApi()
+        //    .RegisterVersioning()
+        //    .RegisterAuthentication();
+
+        //services.Scan(selector => selector
+        //    .FromAssemblies(
+        //        Shopway.Presentation.AssemblyReference.Assembly)
+        //    .AddClasses(false)
+        //    .UsingRegistrationStrategy(RegistrationStrategy.Skip)
+        //    .AsMatchingInterface()
+        //    .WithScopedLifetime());
+
         return services;
     }
 }

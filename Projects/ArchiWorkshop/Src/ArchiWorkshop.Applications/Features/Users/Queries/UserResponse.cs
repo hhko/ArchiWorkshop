@@ -12,6 +12,7 @@ namespace ArchiWorkshop.Applications.Features.Users.Queries;
 
 public sealed record UserResponse
 (
-    Ulid Id
+    Ulid Id,
+    string UserName
 )
     : IResponse;

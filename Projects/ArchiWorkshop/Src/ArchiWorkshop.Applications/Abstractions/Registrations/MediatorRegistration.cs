@@ -4,13 +4,15 @@ using ArchiWorkshop.Applications.Abstractions.Pipelines;
 
 namespace Microsoft.Extensions.DependencyInjection;
 
-public static class MediatorRegistration
+internal static class MediatorRegistration
 {
     internal static IServiceCollection RegisterMediator(this IServiceCollection services)
     {
         services.AddMediatR(configuration =>
         {
             configuration.RegisterServicesFromAssembly(ArchiWorkshop.Applications.AssemblyReference.Assembly);
+            
+            // 추가한 순서에 따라 수행한다
             configuration.AddOpenBehavior(typeof(LoggingPipeline<,>));
             configuration.AddOpenBehavior(typeof(FluentValidationPipeline<,>));
         });

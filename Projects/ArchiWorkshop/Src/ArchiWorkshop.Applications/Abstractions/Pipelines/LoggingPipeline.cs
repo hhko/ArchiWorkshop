@@ -6,12 +6,18 @@ using Microsoft.Extensions.Logging;
 //  - Microsoft.Extensions.Logging.Abstractions
 namespace ArchiWorkshop.Applications.Abstractions.Pipelines;
 
-public sealed class LoggingPipeline<TRequest, TResponse>(ILogger<LoggingPipeline<TRequest, TResponse>> logger)
+//public sealed class LoggingPipeline<TRequest, TResponse>(ILogger<LoggingPipeline<TRequest, TResponse>> logger)
+public sealed class LoggingPipeline<TRequest, TResponse>
     : IPipelineBehavior<TRequest, TResponse>
     where TRequest : IRequest<TResponse>
     where TResponse : IResult
 {
-    private readonly ILogger<LoggingPipeline<TRequest, TResponse>> _logger = logger;
+    private readonly ILogger<LoggingPipeline<TRequest, TResponse>> _logger;
+
+    public LoggingPipeline(ILogger<LoggingPipeline<TRequest, TResponse>> logger)
+    {
+        _logger = logger;
+    }
 
     public async Task<TResponse> Handle(TRequest request,
                                         RequestHandlerDelegate<TResponse> next,

@@ -1,13 +1,11 @@
 # TODO
 
-- WebApi
-- WebApi + Mediator
 - WebApi + Mediator(Pipeline: Validation, Log)
-  - MediatR Pipeline 이해
-  - Validation 파이프라인 이해
-  - Error CreateValidationResult 메서드 이해
-  - 로그 파이프라인 이해
-  - 로그 LoggerMessage 속성 이해
+  - [x] 파이프라인 이해
+  - [ ] Error CreateValidationResult 메서드 이해
+  - [ ] Controller 실패 처리
+  - [ ] 로그 출력
+  - [ ] 로그 LoggerMessage 속성 이해
 
 ---
 
@@ -50,6 +48,7 @@ New			// ?
 Create		// 외부
 ```
 
+- `public readonly record struct UserId : IEntityId<UserId>` xxxId 구현 단순화하기, 반복적 코드가 많다.
 - 코드 커버리지 | ArchiWorkshop.Tests.Unit 코드 커버리지 제외
 - 코드 커버리지 | N개 테스트일 때 통합 코드 커버리지 구하기
 - ValueObject | `public abstract IEnumerable<object> GetAtomicValues();` object 제거하기
@@ -87,6 +86,7 @@ Create		// 외부
 <br/>
 
 # DONE
+- `2024-01-28(토)` WebApi Controller Dll 프로젝트 만들기
 - `2024-01-27(금)` MediatR UseCase Query 구현
 - `2024-01-26(목)` 환경설정 읽기
 - `2024-01-25(수)` Enumeration 값 객체 구현

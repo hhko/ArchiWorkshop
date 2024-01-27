@@ -10,10 +10,10 @@ internal static class UserMapping
     {
         return new UserResponse
         (
-            user.Id.Value
-        //user.Username.Value,
-        //user.Email.Value,
-        //user.CustomerId?.Value
+            user.Id.Value,
+            user.UserName.Value
+            //user.Email.Value,
+            //user.CustomerId?.Value
         );
     }
 }

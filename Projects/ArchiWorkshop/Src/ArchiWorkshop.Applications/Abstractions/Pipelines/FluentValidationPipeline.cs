@@ -1,6 +1,7 @@
 ﻿using ArchiWorkshop.Domains.Abstractions.Results;
 using FluentValidation;
 using MediatR;
+using System.ComponentModel.DataAnnotations;
 
 namespace ArchiWorkshop.Applications.Abstractions.Pipelines;
 
@@ -17,6 +18,7 @@ public class FluentValidationPipeline<TRequest, TResponse>
 
     public FluentValidationPipeline(IEnumerable<IValidator<TRequest>> validators)
     {
+        // Validator
         _validators = validators;
     }
 
@@ -24,11 +26,13 @@ public class FluentValidationPipeline<TRequest, TResponse>
                                         RequestHandlerDelegate<TResponse> next,
                                         CancellationToken cancellationToken)
     {
+        // Validator가 없다면(Validator 결과가 없다면)
         if (_validators.Any() is false)
         {
             return await next();
         }
 
+        // Validator가 있다면(Validator 결과가 있다면: 성공/실패)
         Error[] errors = _validators
             .Select(validator => validator.Validate(request))
             .SelectMany(validationResult => validationResult.Errors)

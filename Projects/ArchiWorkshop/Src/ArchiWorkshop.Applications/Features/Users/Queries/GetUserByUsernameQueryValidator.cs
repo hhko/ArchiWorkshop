@@ -6,6 +6,6 @@ internal sealed class GetUserByUsernameQueryValidator : AbstractValidator<GetUse
 {
     public GetUserByUsernameQueryValidator()
     {
-        RuleFor(x => x.Username).NotNull();
+        RuleFor(x => x.UserName).NotNull().MinimumLength(5);
     }
 }
