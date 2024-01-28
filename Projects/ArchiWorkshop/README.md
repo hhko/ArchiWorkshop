@@ -242,7 +242,7 @@ builder.Services.RegisterApplicationLayer();
 ### 구조적 Serilog 구성
 
 ![](./.images/2024-01-29-01-06-17.png)
-- 구조적 로그는 로그 `메시지 템플릿(Message Template)`을 통해 데이터를 구조화하는 `capturing` 후 `rendering`에 지정한 형식으로 출력합니다.
+- 구조적 로그는 `메시지 템플릿(Message Template)`을 통해 데이터를 구조화하는 `capturing`과 데이터 출력을 결정하는 `rendering`으로 구성되어 있습니다.
 
 #### 2단계 Serilog 초기화(Two-stage initialization)
 - Bootstrap logging with Serilog + ASP.NET Core: https://nblumhardt.com/2020/10/bootstrap-logger/
