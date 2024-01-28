@@ -295,8 +295,8 @@ public static void ConfigureSerilog(this WebApplicationBuilder builder)
 }
 ```
 
-#### 로그 전용 함수
-```
+#### 로그 함수 특성화
+```shell
 [LoggerMessage
 (
     EventId = 1,
@@ -308,14 +308,14 @@ public static void ConfigureSerilog(this WebApplicationBuilder builder)
 public static partial void LogStartingRequest(this ILogger logger, string requestName, DateTime dateTimeUtc);
 
 {
-  "Level": "Information",
-  "MessageTemplate": "Starting request {RequestName}, {DateTimeUtc}",
+  "Level": "Information",                                                # Level
+  "MessageTemplate": "Starting request {RequestName}, {DateTimeUtc}",    # Message
   "Properties": {
-    "RequestName": "GetUserByUsernameQuery",
-    "DateTimeUtc": "2024-01-28T08:22:27.9918679Z",
+    "RequestName": "GetUserByUsernameQuery",                             # Message
+    "DateTimeUtc": "2024-01-28T08:22:27.9918679Z",                       # Message
     "EventId": {
-      "Id": 1,
-      "Name": "StartingRequest in LoggingPipeline"
+      "Id": 1,                                                           # EventId
+      "Name": "StartingRequest in LoggingPipeline"                       # EventName
     }
   }
 }
