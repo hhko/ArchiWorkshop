@@ -1,5 +1,9 @@
 # Architecture Workshop for Domain-Driven Design
 > Architecting is a series of **trade-offs**.
+>
+> **배움**은 **설렘**이다.  
+> **배움**은 **겸손**이다.  
+> **배움**은 **이타심**이다.
 
 [프로젝트](./Projects/ArchiWorkshop/)  
 - [![ArchiWorkshop CI](https://github.com/hhko/ArchiWorkshop/actions/workflows/dotnet-ci.yml/badge.svg)](https://github.com/hhko/ArchiWorkshop/actions/workflows/dotnet-ci.yml)
