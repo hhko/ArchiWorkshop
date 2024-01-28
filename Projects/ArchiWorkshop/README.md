@@ -193,7 +193,7 @@ builder.Services.RegisterApplicationLayer();
 <br/>
 
 ## Host 프로젝트 구성
-### 시작 프로젝트
+### WebApi 시작 프로젝트
 - 개요
   - Console 프로젝트 템플릿을 사용하여 WebApi 시작 프로젝트로 변환합니다.
 - 변경 전
@@ -230,7 +230,7 @@ builder.Services.RegisterApplicationLayer();
 
   ![](./.images/2024-01-23-16-35-14.png)
 
-### Framework 참조 추가
+### AspNetCore.App Framework 추가
 ```xml
 <ItemGroup>
   <FrameworkReference Include="Microsoft.AspNetCore.App" />
@@ -238,6 +238,88 @@ builder.Services.RegisterApplicationLayer();
 ```
 ![](./.images/2024-01-21-01-08-07.png)
 - `IWebHostEnvironment`
+
+### 구조적 Serilog 구성
+#### Two-stage initialization
+- Bootstrap logging with Serilog + ASP.NET Core: https://nblumhardt.com/2020/10/bootstrap-logger/
+
+```cs
+public static Serilog.ILogger CreateSerilogLogger()
+{
+  return ...
+    .WriteTo.Console()
+    .CreateBootstrapLogger();
+}
+
+public static void ConfigureSerilog(this WebApplicationBuilder builder)
+{
+  builder.Host.UseSerilog((context, services, configuration) => configuration
+    ...
+    .Enrich.FromLogContext());
+}
+```
+
+#### appsettings.json
+```json
+{
+  "Serilog": {
+    "Using": [
+      "Serilog.Sinks.Console",
+      "Serilog.Sinks.File",
+      "Serilog.Exceptions"
+    ],
+    "WriteTo": [
+      {
+        "Name": "Console",
+        "Args": {
+          "restrictedToMinimumLevel": "Warning"   // Warning 이상 로그
+        }
+      },
+      {
+        "Name": "File",
+        "Args": {
+          "path": "Logs/log-.json",
+          "rollingInterval": "Day",
+          "formatter": "Serilog.Formatting.Json.JsonFormatter, Serilog"   // Json 로그 형식
+        }
+      }
+    ],
+    "Enrich": [
+      "FromLogContext",
+
+      // Serilog.Enrichers.Environment
+      "WithMachineName",
+      ...
+    ]
+  }
+}
+```
+
+#### 로그 전용 함수
+```
+[LoggerMessage
+(
+    EventId = 1,
+    EventName = $"StartingRequest in {nameof(LoggingPipeline<IRequest<IResult>, IResult>)}",
+    Level = LogLevel.Information,
+    Message = "Starting request {RequestName}, {DateTimeUtc}",
+    SkipEnabledCheck = false
+)]
+public static partial void LogStartingRequest(this ILogger logger, string requestName, DateTime dateTimeUtc);
+
+{
+  "Level": "Information",
+  "MessageTemplate": "Starting request {RequestName}, {DateTimeUtc}",
+  "Properties": {
+    "RequestName": "GetUserByUsernameQuery",
+    "DateTimeUtc": "2024-01-28T08:22:27.9918679Z",
+    "EventId": {
+      "Id": 1,
+      "Name": "StartingRequest in LoggingPipeline"
+    }
+  }
+}
+```
 
 <br/>
 
@@ -503,6 +585,19 @@ public interface IQuery<out TResponse> : IRequest<IResult<TResponse>>
 - MediatR
 - Microsoft.AspNetCore.App    # 프레임워크
 
+# 호스트
+- Serilog.AspNetCore
+  - Serilog.Settings.Configuration
+  - Serilog.Sinks.Console
+  - Serilog.Sinks.Debug
+  - Serilog.Sinks.File
+- Serilog.Enrichers.Environment
+- Serilog.Enrichers.Process
+- Serilog.Enrichers.Thread
+- Serilog.Exceptions
+- SerilogTimings
+- ~~Destructurama.Attributed~~
+
 #
 # 테스트
 #
@@ -517,4 +612,66 @@ public interface IQuery<out TResponse> : IRequest<IResult<TResponse>>
 
 # 테스트 데이터
 - Bogus
+```
+
+<br/>
+
+## 로그 출력 예
+```json
+{
+    "Timestamp": "2024-01-28T17:22:27.9955867+09:00",
+    "Level": "Information",
+    "MessageTemplate": "Starting request {RequestName}, {DateTimeUtc}",
+    "TraceId": "8a524c53c007f0ece499959328d59b85",
+    "SpanId": "a9a2de05e40a93ed",
+    "Properties": {
+        "RequestName": "GetUserByUsernameQuery",
+        "DateTimeUtc": "2024-01-28T08:22:27.9918679Z",
+        "EventId": {
+            "Id": 1,
+            "Name": "StartingRequest in LoggingPipeline"
+        },
+        "SourceContext": "ArchiWorkshop.Applications.Abstractions.Pipelines.LoggingPipeline",
+        "ActionId": "0602c599-3f0d-48be-a088-aceada16f4fa",
+        "ActionName": "ArchiWorkshop.Adapters.Presentation.Controllers.UsersController.GetUserByUsername (ArchiWorkshop.Adapters.Presentation)",
+        "RequestId": "0HN0VR8NTVHVD:00000001",
+        "RequestPath": "/api/users/foo",
+        "ConnectionId": "0HN0VR8NTVHVD",
+        "MachineName": "HHKO-LABTOP",
+        "EnvironmentUserName": "HHKO-LABTOP\\고형호",
+        "EnvironmentName": "Production",
+        "ProcessId": 34360,
+        "ProcessName": "ArchiWorkshop",
+        "ThreadId": 12,
+        "ThreadName": ".NET TP Worker"
+    }
+}
+{
+    "Timestamp": "2024-01-28T17:22:28.0179135+09:00",
+    "Level": "Information",
+    "MessageTemplate": "Request completed {requestName}, {DateTimeUtc}",
+    "TraceId": "8a524c53c007f0ece499959328d59b85",
+    "SpanId": "a9a2de05e40a93ed",
+    "Properties": {
+        "requestName": "GetUserByUsernameQuery",
+        "DateTimeUtc": "2024-01-28T08:22:28.0174334Z",
+        "EventId": {
+            "Id": 2,
+            "Name": "CompletingRequest in LoggingPipeline"
+        },
+        "SourceContext": "ArchiWorkshop.Applications.Abstractions.Pipelines.LoggingPipeline",
+        "ActionId": "0602c599-3f0d-48be-a088-aceada16f4fa",
+        "ActionName": "ArchiWorkshop.Adapters.Presentation.Controllers.UsersController.GetUserByUsername (ArchiWorkshop.Adapters.Presentation)",
+        "RequestId": "0HN0VR8NTVHVD:00000001",
+        "RequestPath": "/api/users/foo",
+        "ConnectionId": "0HN0VR8NTVHVD",
+        "MachineName": "HHKO-LABTOP",
+        "EnvironmentUserName": "HHKO-LABTOP\\고형호",
+        "EnvironmentName": "Production",
+        "ProcessId": 34360,
+        "ProcessName": "ArchiWorkshop",
+        "ThreadId": 12,
+        "ThreadName": ".NET TP Worker"
+    }
+}
 ```

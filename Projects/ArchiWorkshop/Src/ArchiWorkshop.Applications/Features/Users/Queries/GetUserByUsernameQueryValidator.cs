@@ -2,10 +2,10 @@
 
 namespace ArchiWorkshop.Applications.Features.Users.Queries;
 
-internal sealed class GetUserByUsernameQueryValidator : AbstractValidator<GetUserByUsernameQuery>
+internal sealed class GetUserByUserNameQueryValidator : AbstractValidator<GetUserByUserNameQuery>
 {
-    public GetUserByUsernameQueryValidator()
+    public GetUserByUserNameQueryValidator()
     {
-        RuleFor(x => x.UserName).NotNull().MinimumLength(5);
+        RuleFor(x => x.UserName).NotNull(); //.MinimumLength(5);
     }
 }

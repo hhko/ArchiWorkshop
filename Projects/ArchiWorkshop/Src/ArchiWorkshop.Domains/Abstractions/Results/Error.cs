@@ -1,6 +1,6 @@
 ﻿namespace ArchiWorkshop.Domains.Abstractions.Results;
 
-public class Error : IEquatable<Error>
+public sealed partial class Error : IEquatable<Error>
 {
     // 성공 Error 종류
     //  - None : 없음

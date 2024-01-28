@@ -8,30 +8,41 @@ using static ArchiWorkshop.Domains.AggregateRoots.Users.Errors.DomainErrors;
 
 namespace ArchiWorkshop.Applications.Features.Users.Queries;
 
-internal sealed class GetUserByUsernameQueryHandler
-    : IQueryHandler<GetUserByUsernameQuery, UserResponse>
+internal sealed class GetUserByUserNameQueryHandler
+    : IQueryHandler<GetUserByUserNameQuery, UserResponse>
 {
-    public async Task<IResult<UserResponse>> Handle(GetUserByUsernameQuery query, CancellationToken cancellationToken)
+    private readonly IValidator _validator;
+
+    public GetUserByUserNameQueryHandler(IValidator validator)
     {
-        await Task.Delay(1);
+        _validator = validator;
+    }
 
-        ValidationResult<UserName> usernameResult = UserName.Create(query.UserName);
-        var user = User.Create(UserId.New(), usernameResult.Value);
+    public async Task<IResult<UserResponse>> Handle(GetUserByUserNameQuery query, CancellationToken cancellationToken)
+    {
+        // Input Validation
+        var userNameResult = UserName.Create(query.UserName);
 
-        //bool emailIsTaken = await _userRepository
-        //    .IsEmailTakenAsync(emailResult.Value, cancellationToken);
+        _validator
+            .Validate(userNameResult);
 
-        //_validator
-        //    .Validate(emailResult)
-        //    .Validate(usernameResult)
-        //    .Validate(passwordResult)
-        //    .If(emailIsTaken, thenError: EmailError.EmailAlreadyTaken);
+        if (_validator.IsInvalid)
+        {
+            return _validator.Failure<UserResponse>();
+        }
 
-        //if (_validator.IsInvalid)
-        //{
-        //    return _validator.Failure<RegisterUserResponse>();
-        //}
+        // Act
+        //var user = await _userRepository
+        //    .GetByUsernameAsync(usernameResult.Value, cancellationToken);
+        var user = User.Create(UserId.New(), userNameResult.Value);
 
+        // Ouput Validation
+        if (user is null)
+        {
+            return Result.Failure<UserResponse>(Error.NotFound<User>(query.UserName));
+        }
+
+        // Mapping
         return user
             .ToResponse()
             .ToResult();

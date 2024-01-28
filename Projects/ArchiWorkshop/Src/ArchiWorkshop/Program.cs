@@ -1,24 +1,49 @@
-﻿var builder = WebApplication.CreateBuilder(new WebApplicationOptions
+﻿
+using Serilog;
+using static ArchiWorkshop.Abstractions.Utilities.LoggerUtilities;
+
+Log.Logger = CreateSerilogLogger();
+
+try
 {
-    Args = args,
-    ContentRootPath = Directory.GetCurrentDirectory()
-});
+    Log.Information("Staring the host");
 
-builder.Services
-    .RegisterAppOptions()
-    .RegisterApplicationLayer()
-    .RegisterAdapterLayerPersistence(builder.Environment)
-    //.RegisterInfrastructureLayer()
-    .RegisterAdapterLayerPresentation();
+    var builder = WebApplication.CreateBuilder(new WebApplicationOptions
+    {
+        Args = args,
+        ContentRootPath = Directory.GetCurrentDirectory()
+    });
 
-WebApplication webApplication = builder.Build();
+    builder.ConfigureSerilog();
 
-webApplication
-    .UseHttpsRedirection();
+    builder.Services
+        .RegisterAppOptions()
+        .RegisterApplicationLayer()
+        .RegisterAdapterLayerPersistence(builder.Environment)
+        .RegisterAdapterLayerInfrastructure()
+        .RegisterAdapterLayerPresentation();
+
+    WebApplication webApplication = builder.Build();
+
+    webApplication
+        .UseHttpsRedirection();
     //.UseApplicationLayer()
     //.UsePresentationLayer(builder.Environment)
     //.UsePersistenceLayer();
 
-webApplication.MapControllers();
+    webApplication.MapControllers();
 
-webApplication.Run();
+    webApplication.Run();
+}
+catch (Exception exception)
+{
+    Log.Fatal(exception, "Host terminated unexpectedly");
+    return 1;
+}
+finally
+{
+    Log.Information("Ending the host");
+    Log.CloseAndFlush();
+}
+
+return 0;

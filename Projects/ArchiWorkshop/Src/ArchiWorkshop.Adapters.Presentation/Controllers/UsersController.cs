@@ -20,7 +20,7 @@ public class UsersController : ApiController
     //public IActionResult GetUserByUsername(string userName)
     public async Task<IActionResult> GetUserByUsername([FromRoute] string userName, CancellationToken cancellationToken)
     {
-        var query = new GetUserByUsernameQuery(userName);
+        var query = new GetUserByUserNameQuery(userName);
         var result = await Sender.Send(query, default);
         //var result = Sender.Send(query, default).Result;
 
@@ -28,6 +28,9 @@ public class UsersController : ApiController
         //{
         //    return HandleFailure(result);
         //}
+
+        // ValidationResult<UserResponse>
+
 
         return Ok(result.Value);
     }

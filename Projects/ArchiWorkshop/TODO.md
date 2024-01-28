@@ -1,11 +1,63 @@
+```
+1주
+  - 로그
+  - 유효성 검사
+  - 코드 정적 분석
+2주
+  - 통합 테스트 자동화
+  - 성능 테스트 자동화
+  - 컨테이너화
+  - 컨테이너 기반 테스트 자동화
+  - BDD
+3주
+  - CRUD 시나리오
+  - EF
+4주
+5주
+```
+
 # TODO
 
 - WebApi + Mediator(Pipeline: Validation, Log)
   - [x] 파이프라인 이해
+  - [x] IValidator 인터페이스 이해
+  - [x] 로그 구성
+  - [x] 로그 LoggerMessage 속성 이해
   - [ ] Error CreateValidationResult 메서드 이해
   - [ ] Controller 실패 처리
-  - [ ] 로그 출력
-  - [ ] 로그 LoggerMessage 속성 이해
+
+```
+public sealed class ErrorHandlingMiddleware(ILogger<ErrorHandlingMiddleware> logger) : IMiddleware
+public sealed class RequestTimeMiddleware(ILogger<RequestTimeMiddleware> logger) : IMiddleware
+```
+
+using Microsoft.Extensions.Logging;
+
+[LoggerMessage
+(
+    EventId = 1,
+    EventName = $"StartingRequest in {nameof(LoggingPipeline<IRequest<IResult>, IResult>)}",
+    Level = LogLevel.Information,
+    Message = "Starting request {RequestName}, {DateTimeUtc}",
+    SkipEnabledCheck = false
+)]
+public static partial void LogStartingRequest(this ILogger logger, string requestName, DateTime dateTimeUtc);
+
+partial class LoggerMessageDefinitionsUtilities
+{
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Extensions.Logging.Generators", "8.0.9.3103")]
+    private static readonly global::System.Action<global::Microsoft.Extensions.Logging.ILogger, global::System.String, global::System.DateTime, global::System.Exception?> __LogStartingRequestCallback =
+        global::Microsoft.Extensions.Logging.LoggerMessage.Define<global::System.String, global::System.DateTime>(global::Microsoft.Extensions.Logging.LogLevel.Information, new global::Microsoft.Extensions.Logging.EventId(1, "StartingRequest in LoggingPipeline"), "Starting request {RequestName}, {DateTimeUtc}", new global::Microsoft.Extensions.Logging.LogDefineOptions() { SkipEnabledCheck = true }); 
+
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.Extensions.Logging.Generators", "8.0.9.3103")]
+    public static partial void LogStartingRequest(this global::Microsoft.Extensions.Logging.ILogger logger, global::System.String requestName, global::System.DateTime dateTimeUtc)
+    {
+        if (logger.IsEnabled(global::Microsoft.Extensions.Logging.LogLevel.Information))
+        {
+            __LogStartingRequestCallback(logger, requestName, dateTimeUtc, null);
+        }
+    }
+}
 
 ---
 
@@ -21,7 +73,24 @@
 
 ---
 
+- 코드 정적 분석: sonar-cloud
+- 코드 정적 분석: codeql-analysis.yml
+  - https://github.com/jeangatto/ASP.NET-Core-Clean-Architecture-CQRS-Event-Sourcing/tree/main/.github/workflows
+
+```
+# https://zeddios.tistory.com/1047
+{계정} > Settings > Developer settings > Personal access tokens > Tokens (classic)
+  Generate new token
+
+{저장소} > Settings > Secrets > New Secret
+```
+
+---
+
 - 문서 정리
+
+
+- DI decorator
 
 ---
 - Address 적용
@@ -82,6 +151,92 @@ Create		// 외부
 ---
 
 - gRPC 통합 테스트: https://renatogolia.com/2021/12/19/testing-asp-net-core-grpc-applications-with-webapplicationfactory/
+
+Two-stage initialization
+https://github.com/serilog/serilog-aspnetcore?tab=readme-ov-file#two-stage-initialization
+the ASP.NET Core host, including the appsettings.json configuration and dependency injection, aren't available yet.
+
+
+
+Write to different log files by level
+https://ehye.github.io/2023/02/14/asp-dotnet-core-api-serilog/
+
+
+{
+    "@t": "2024-01-28T08:01:05.3490315Z",
+    "@mt": "Failed to determine the https port for redirect.",
+    "@l": "Warning",
+    "@tr": "c4c6d285f7f862cad578f11a2dab08f6",
+    "@sp": "64daae1c0410fe79",
+    "EventId": {
+        "Id": 3,
+        "Name": "FailedToDeterminePort"
+    },
+    "SourceContext": "Microsoft.AspNetCore.HttpsPolicy.HttpsRedirectionMiddleware",
+    "RequestId": "0HN0VQT2R1V5G:00000001",
+    "RequestPath": "/",
+    "ConnectionId": "0HN0VQT2R1V5G",
+    "MachineName": "HHKO-LABTOP",
+    "ProcessId": 19968,
+    "ThreadId": 12
+}
+{
+    "@t": "2024-01-28T08:02:16.0945267Z",
+    "@mt": "테스트",
+    "@tr": "8a524c53c007f0ece499959328d59b85",
+    "@sp": "260b04e1c71e0a61",
+    "SourceContext": "ArchiWorkshop.Applications.Abstractions.Pipelines.LoggingPipeline",
+    "ActionId": "b7ac7be6-03ae-4df6-ad3f-915677998f8c",
+    "ActionName": "ArchiWorkshop.Adapters.Presentation.Controllers.UsersController.GetUserByUsername (ArchiWorkshop.Adapters.Presentation)",
+    "RequestId": "0HN0VQT2R1V5I:00000001",
+    "RequestPath": "/api/users/foo",
+    "ConnectionId": "0HN0VQT2R1V5I",
+    "MachineName": "HHKO-LABTOP",
+    "ProcessId": 19968,
+    "ThreadId": 9
+}
+{
+    "@t": "2024-01-28T08:02:16.1001772Z",
+    "@mt": "Starting request {RequestName}, {DateTimeUtc}",
+    "@tr": "8a524c53c007f0ece499959328d59b85",
+    "@sp": "260b04e1c71e0a61",
+    "RequestName": "GetUserByUsernameQuery",
+    "DateTimeUtc": "2024-01-28T08:02:16.0954273Z",
+    "EventId": {
+        "Id": 1,
+        "Name": "StartingRequest in LoggingPipeline"
+    },
+    "SourceContext": "ArchiWorkshop.Applications.Abstractions.Pipelines.LoggingPipeline",
+    "ActionId": "b7ac7be6-03ae-4df6-ad3f-915677998f8c",
+    "ActionName": "ArchiWorkshop.Adapters.Presentation.Controllers.UsersController.GetUserByUsername (ArchiWorkshop.Adapters.Presentation)",
+    "RequestId": "0HN0VQT2R1V5I:00000001",
+    "RequestPath": "/api/users/foo",
+    "ConnectionId": "0HN0VQT2R1V5I",
+    "MachineName": "HHKO-LABTOP",
+    "ProcessId": 19968,
+    "ThreadId": 9
+}
+{
+    "@t": "2024-01-28T08:02:16.1336739Z",
+    "@mt": "Request completed {requestName}, {DateTimeUtc}",
+    "@tr": "8a524c53c007f0ece499959328d59b85",
+    "@sp": "260b04e1c71e0a61",
+    "requestName": "GetUserByUsernameQuery",
+    "DateTimeUtc": "2024-01-28T08:02:16.1333871Z",
+    "EventId": {
+        "Id": 2,
+        "Name": "CompletingRequest in LoggingPipeline"
+    },
+    "SourceContext": "ArchiWorkshop.Applications.Abstractions.Pipelines.LoggingPipeline",
+    "ActionId": "b7ac7be6-03ae-4df6-ad3f-915677998f8c",
+    "ActionName": "ArchiWorkshop.Adapters.Presentation.Controllers.UsersController.GetUserByUsername (ArchiWorkshop.Adapters.Presentation)",
+    "RequestId": "0HN0VQT2R1V5I:00000001",
+    "RequestPath": "/api/users/foo",
+    "ConnectionId": "0HN0VQT2R1V5I",
+    "MachineName": "HHKO-LABTOP",
+    "ProcessId": 19968,
+    "ThreadId": 9
+}
 
 <br/>
 
