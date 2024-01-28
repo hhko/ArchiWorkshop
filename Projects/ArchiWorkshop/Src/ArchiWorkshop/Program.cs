@@ -26,8 +26,8 @@ try
     WebApplication webApplication = builder.Build();
 
     webApplication
-        .UseHttpsRedirection();
-    //.UseApplicationLayer()
+        .UseHttpsRedirection()
+        .UseApplicationLayer();
     //.UsePresentationLayer(builder.Environment)
     //.UsePersistenceLayer();
 

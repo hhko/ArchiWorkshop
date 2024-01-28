@@ -240,8 +240,27 @@ builder.Services.RegisterApplicationLayer();
 - `IWebHostEnvironment`
 
 ### 구조적 Serilog 구성
-#### Two-stage initialization
+
+![](./.images/2024-01-29-01-06-17.png)
+- 구조적 로그는 로그 `메시지 템플릿(Message Template)`을 통해 데이터를 구조화하는 `capturing` 후 `rendering`에 지정한 형식으로 출력합니다.
+
+#### 2단계 Serilog 초기화(Two-stage initialization)
 - Bootstrap logging with Serilog + ASP.NET Core: https://nblumhardt.com/2020/10/bootstrap-logger/
+
+```cs
+// 1단계 로그 초기화: .CreateBootstrapLogger
+Log.Logger = CreateSerilogLogger();
+
+try
+{
+    Log.Information("Staring the host");
+
+    var builder = WebApplication.CreateBuilder();
+
+    // 2단계 로그 초기화: .Enrich.FromLogContext());
+    builder.ConfigureSerilog();
+    ...
+```
 
 ```cs
 public static Serilog.ILogger CreateSerilogLogger()
@@ -297,6 +316,9 @@ public static void ConfigureSerilog(this WebApplicationBuilder builder)
 
 #### 로그 함수 특성화
 ```shell
+# Logger 메서드 정의
+using Microsoft.Extensions.Logging;
+
 [LoggerMessage
 (
     EventId = 1,
@@ -311,7 +333,7 @@ public static partial void LogStartingRequest(this ILogger logger, string reques
   "Level": "Information",                                                # Level
   "MessageTemplate": "Starting request {RequestName}, {DateTimeUtc}",    # Message
   "Properties": {
-    "RequestName": "GetUserByUsernameQuery",                             # Message
+    "RequestName": "GetUserByUserNameQuery",                             # Message
     "DateTimeUtc": "2024-01-28T08:22:27.9918679Z",                       # Message
     "EventId": {
       "Id": 1,                                                           # EventId
@@ -320,6 +342,12 @@ public static partial void LogStartingRequest(this ILogger logger, string reques
   }
 }
 ```
+```cs
+_logger.LogStartingRequest(typeof(TRequest).Name, DateTime.UtcNow);
+```
+- `LogInformation`와 같은 일반 로그 메서드가 아닌 특정 상황에 맞는 사용자 정의 로그 메서드를 `LoggerMessage`을 사용하여 정의할 수 있습니다.
+  - [컴파일 시간 로깅 소스 생성](https://learn.microsoft.com/ko-kr/dotnet/core/extensions/logger-message-generator)
+  - [.NET의 고성능 로깅](https://learn.microsoft.com/ko-kr/dotnet/core/extensions/high-performance-logging)
 
 <br/>
 
@@ -534,7 +562,7 @@ public string Message { get; }
 
 ## Application 프로젝트 구성
 
-### WebApi 클래스 라이브러리 추가
+### WebApi 클래스 라이브러리화
 ```cs
 builder.Services.RegisterControllers();
 
@@ -558,6 +586,11 @@ public static class ControllerRegistration
 ```
 - `AddApplicationPart` 메서드를 통해 `ControllerBase` 클래스를 구현한 WebApi 어셈블리를 추가합니다.
 
+### ASP.NET Core Middlewares
+```cs
+... : IMiddleware
+```
+
 ### CQRS 인터페이스
 ```cs
 // 요청: IRequest
@@ -568,6 +601,10 @@ public interface IQuery<out TResponse> : IRequest<IResult<TResponse>>
 {
 }
 ```
+
+
+
+<br/>
 
 ## 패키지
 ```shell
@@ -625,7 +662,7 @@ public interface IQuery<out TResponse> : IRequest<IResult<TResponse>>
     "TraceId": "8a524c53c007f0ece499959328d59b85",
     "SpanId": "a9a2de05e40a93ed",
     "Properties": {
-        "RequestName": "GetUserByUsernameQuery",
+        "RequestName": "GetUserByUserNameQuery",
         "DateTimeUtc": "2024-01-28T08:22:27.9918679Z",
         "EventId": {
             "Id": 1,
@@ -653,7 +690,7 @@ public interface IQuery<out TResponse> : IRequest<IResult<TResponse>>
     "TraceId": "8a524c53c007f0ece499959328d59b85",
     "SpanId": "a9a2de05e40a93ed",
     "Properties": {
-        "requestName": "GetUserByUsernameQuery",
+        "requestName": "GetUserByUserNameQuery",
         "DateTimeUtc": "2024-01-28T08:22:28.0174334Z",
         "EventId": {
             "Id": 2,
@@ -674,4 +711,11 @@ public interface IQuery<out TResponse> : IRequest<IResult<TResponse>>
         "ThreadName": ".NET TP Worker"
     }
 }
+```
+```
+[01:34:18 INF] Staring the host
+[01:34:34 WRN] Failed to determine the https port for redirect.
+[01:34:41 INF] Starting request GetUserByUserNameQuery, 01/28/2024 16:34:41
+[01:34:51 INF] Request completed GetUserByUserNameQuery, 01/28/2024 16:34:51
+[01:34:51 WRN] Request [GET] at /api/users/foo took 10470.8429 ms
 ```

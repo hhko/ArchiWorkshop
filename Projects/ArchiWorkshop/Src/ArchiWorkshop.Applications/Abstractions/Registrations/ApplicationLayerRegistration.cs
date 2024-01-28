@@ -10,8 +10,8 @@ public static class ApplicationLayerRegistration
     {
         services
             .RegisterValidation()
-            .RegisterMediator();
-            //.RegisterMiddlewares();
+            .RegisterMediator()
+            .RegisterMiddlewares();
 
         return services;
     }
@@ -20,7 +20,7 @@ public static class ApplicationLayerRegistration
     //  - IApplicationBuilder
     public static IApplicationBuilder UseApplicationLayer(this IApplicationBuilder app)
     {
-        //app.UseMiddlewares();
+        app.UseMiddlewares();
 
         return app;
     }

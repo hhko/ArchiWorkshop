@@ -36,6 +36,9 @@ internal sealed class GetUserByUserNameQueryHandler
         //    .GetByUsernameAsync(usernameResult.Value, cancellationToken);
         var user = User.Create(UserId.New(), userNameResult.Value);
 
+        // 5초
+        await Task.Delay(5000);
+
         // Ouput Validation
         if (user is null)
         {
