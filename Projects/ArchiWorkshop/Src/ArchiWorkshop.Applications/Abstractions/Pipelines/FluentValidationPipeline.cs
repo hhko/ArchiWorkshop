@@ -41,11 +41,13 @@ public class FluentValidationPipeline<TRequest, TResponse>
             .Distinct()
             .ToArray();
 
+        // Validator 결과가 실패일 때
         if (errors.Length is not 0)
         {
             return errors.CreateValidationResult<TResponse>();
         }
 
+        // Validator 결과가 성공일 때
         return await next();
     }
 }

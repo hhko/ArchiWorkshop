@@ -11,8 +11,8 @@ internal static class MediatorRegistration
         services.AddMediatR(configuration =>
         {
             configuration.RegisterServicesFromAssembly(ArchiWorkshop.Applications.AssemblyReference.Assembly);
-            
-            // 추가한 순서에 따라 수행한다
+
+            // Pipeline 호출 순서는 중요합니다.
             configuration.AddOpenBehavior(typeof(LoggingPipeline<,>));
             configuration.AddOpenBehavior(typeof(FluentValidationPipeline<,>));
         });

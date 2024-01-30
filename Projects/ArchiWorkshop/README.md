@@ -717,3 +717,64 @@ public interface IQuery<out TResponse> : IRequest<IResult<TResponse>>
     }
 }
 ```
+
+application/problem+json
+```
+{
+  "type": "Exception",
+  "title": "ExceptionOccurred",
+  "status": 500,
+  "detail": "The value of a failure result can not be accessed. Type 'ArchiWorkshop.Applications.Features.Users.Queries.UserResponse'.",
+  "instance": "/api/users/1234567890123456789012345678901",
+  "errors": null,
+  "RequestId": "0HN11QHRCG29J:00000001"
+}
+```
+
+```
+{
+  "type": "ValidationError",
+  "title": "ValidationError",
+  "status": 400,
+  "detail": "A validation problem occurred.",
+  "errors": [
+    {
+      "code": "UserName.TooLong",
+      "message": "UserName name must be at most 30 characters."
+    }
+  ]
+}
+```
+
+```
+{
+    "Timestamp": "2024-01-31T05:57:36.3127551+09:00",
+    "Level": "Error",
+    "MessageTemplate": "Request [{Method}] at {Path} thrown an exception '{Name}' from source '{Source}'. \n Exception message: '{Message}'. \n StackTrace: '{StackTrace}'",
+    "TraceId": "4b08cb8372ab5e20f82dda0450fa6bdf",
+    "SpanId": "85b035af0a365183",
+    "Properties": {
+        "Method": "GET",
+        "Path": "/api/users/throw",
+        "Name": "Exception",
+        "Source": "ArchiWorkshop.Applications",
+        "Message": "Hi",
+        "StackTrace": "   at ArchiWorkshop.Applications.Features.Users.Queries.GetUserByUserNameQueryHandler.Handle(GetUserByUserNameQuery query, CancellationToken cancellationToken) in C:\\Workspace\\Github\\ArchiWorkshop\\Projects\\ArchiWorkshop\\Src\\ArchiWorkshop.Applications\\Features\\Users\\Queries\\GetUserByUserNameQueryHandler.cs:line 35\r\n   at ArchiWorkshop.Applications.Abstractions.Pipelines.FluentValidationPipeline`2.Handle(TRequest request, RequestHandlerDelegate`1 next, CancellationToken cancellationToken) in C:\\Workspace\\Github\\ArchiWorkshop\\Projects\\ArchiWorkshop\\Src\\ArchiWorkshop.Applications\\Abstractions\\Pipelines\\FluentValidationPipeline.cs:line 49\r\n   at ArchiWorkshop.Applications.Abstractions.Pipelines.LoggingPipeline`2.Handle(TRequest request, RequestHandlerDelegate`1 next, CancellationToken cancellationToken) in C:\\Workspace\\Github\\ArchiWorkshop\\Projects\\ArchiWorkshop\\Src\\ArchiWorkshop.Applications\\Abstractions\\Pipelines\\LoggingPipeline.cs:line 28\r\n   at ArchiWorkshop.Adapters.Presentation.Controllers.UsersController.GetUserByUserName(String userName, CancellationToken cancellationToken) in C:\\Workspace\\Github\\ArchiWorkshop\\Projects\\ArchiWorkshop\\Src\\ArchiWorkshop.Adapters.Presentation\\Controllers\\UsersController.cs:line 24\r\n   at Microsoft.AspNetCore.Mvc.Infrastructure.ActionMethodExecutor.TaskOfIActionResultExecutor.Execute(ActionContext actionContext, IActionResultTypeMapper mapper, ObjectMethodExecutor executor, Object controller, Object[] arguments)\r\n   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeActionMethodAsync>g__Awaited|12_0(ControllerActionInvoker invoker, ValueTask`1 actionResultValueTask)\r\n   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeNextActionFilterAsync>g__Awaited|10_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)\r\n   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Rethrow(ActionExecutedContextSealed context)\r\n   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)\r\n   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.InvokeInnerFilterAsync()\r\n--- End of stack trace from previous location ---\r\n   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeFilterPipelineAsync>g__Awaited|20_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)\r\n   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Awaited|17_0(ResourceInvoker invoker, Task task, IDisposable scope)\r\n   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Awaited|17_0(ResourceInvoker invoker, Task task, IDisposable scope)\r\n   at ArchiWorkshop.Applications.Abstractions.Middlewares.RequestTimeMiddleware.InvokeAsync(HttpContext context, RequestDelegate next) in C:\\Workspace\\Github\\ArchiWorkshop\\Projects\\ArchiWorkshop\\Src\\ArchiWorkshop.Applications\\Abstractions\\Middlewares\\RequestTimeMiddleware.cs:line 15\r\n   at Microsoft.AspNetCore.Builder.UseMiddlewareExtensions.InterfaceMiddlewareBinder.<>c__DisplayClass2_0.<<CreateMiddleware>b__0>d.MoveNext()\r\n--- End of stack trace from previous location ---\r\n   at ArchiWorkshop.Applications.Abstractions.Middlewares.ErrorHandlingMiddleware.InvokeAsync(HttpContext context, RequestDelegate next) in C:\\Workspace\\Github\\ArchiWorkshop\\Projects\\ArchiWorkshop\\Src\\ArchiWorkshop.Applications\\Abstractions\\Middlewares\\ErrorHandlingMiddleware.cs:line 20",
+        "EventId": {
+            "Id": 10,
+            "Name": "ErrorHandlingMiddleware"
+        },
+        "SourceContext": "ArchiWorkshop.Applications.Abstractions.Middlewares.ErrorHandlingMiddleware",
+        "RequestId": "0HN11QNBH4BDB:00000001",
+        "RequestPath": "/api/users/throw",
+        "ConnectionId": "0HN11QNBH4BDB",
+        "MachineName": "HHKO-LABTOP",
+        "EnvironmentUserName": "HHKO-LABTOP\\고형호",
+        "EnvironmentName": "Production",
+        "ProcessId": 15164,
+        "ProcessName": "ArchiWorkshop",
+        "ThreadId": 17,
+        "ThreadName": ".NET TP Worker"
+    }
+}
+```

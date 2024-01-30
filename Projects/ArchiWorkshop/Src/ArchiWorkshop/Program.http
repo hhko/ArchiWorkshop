@@ -3,8 +3,14 @@
 @host = http://{{hostname}}:{{port}}
 @contentType = application/json
 
-### SUCCESS
+### Success
 GET {{host}}/api/greeting/foo
 
-### SUCCESS
+### Success
 GET {{host}}/api/users/foo
+
+### Failure | Validation
+GET {{host}}/api/users/1234567890123456789012345678901
+
+### Failure | Exception
+GET {{host}}/api/users/throw

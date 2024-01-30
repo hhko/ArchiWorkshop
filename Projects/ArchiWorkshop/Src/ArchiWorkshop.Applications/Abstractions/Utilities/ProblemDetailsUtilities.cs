@@ -18,11 +18,12 @@ public static class ProblemDetailsUtilities
         {
             Type = error.Code,
             Title = title,
-            Detail = error.Message,
+            Detail = error.Message,         // 추가
             Status = status,
             Extensions = { { nameof(errors), errors } }
         };
 
+        // 추가
         if (context is not null)
         {
             problemDetails.Extensions.Add(RequestId, context.TraceIdentifier);

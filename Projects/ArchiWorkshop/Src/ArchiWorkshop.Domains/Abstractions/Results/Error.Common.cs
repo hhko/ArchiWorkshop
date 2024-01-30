@@ -11,4 +11,9 @@ public sealed partial class Error
             $"{typeof(TEntity).Name}.{nameof(NotFound)}", 
             $"{typeof(TEntity).Name} for '{uniqueValue}' was not found.");
     }
+
+    public static Error Exception(string exceptionMessage)
+    {
+        return New($"{nameof(Exception)}", exceptionMessage);
+    }
 }

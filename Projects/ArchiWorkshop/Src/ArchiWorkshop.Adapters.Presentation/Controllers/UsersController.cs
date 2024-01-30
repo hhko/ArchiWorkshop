@@ -18,19 +18,15 @@ public class UsersController : ApiController
     //[ProducesResponseType<UserResponse>(StatusCodes.Status200OK)]
     //[ProducesResponseType<ProblemDetails>(StatusCodes.Status400BadRequest)]
     //public IActionResult GetUserByUsername(string userName)
-    public async Task<IActionResult> GetUserByUsername([FromRoute] string userName, CancellationToken cancellationToken)
+    public async Task<IActionResult> GetUserByUserName([FromRoute] string userName, CancellationToken cancellationToken)
     {
         var query = new GetUserByUserNameQuery(userName);
         var result = await Sender.Send(query, default);
-        //var result = Sender.Send(query, default).Result;
 
-        //if (result.IsFailure)
-        //{
-        //    return HandleFailure(result);
-        //}
-
-        // ValidationResult<UserResponse>
-
+        if (result.IsFailure)
+        {
+            return HandleFailure(result);
+        }
 
         return Ok(result.Value);
     }

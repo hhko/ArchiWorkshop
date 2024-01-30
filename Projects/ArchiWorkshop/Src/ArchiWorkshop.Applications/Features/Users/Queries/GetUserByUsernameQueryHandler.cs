@@ -31,6 +31,9 @@ internal sealed class GetUserByUserNameQueryHandler
             return _validator.Failure<UserResponse>();
         }
 
+        if (query.UserName == "throw")
+            throw new Exception("Hi");
+
         // Act
         //var user = await _userRepository
         //    .GetByUsernameAsync(usernameResult.Value, cancellationToken);

@@ -24,13 +24,11 @@ public sealed class RequestTimeMiddleware(ILogger<RequestTimeMiddleware> logger)
 
 public static partial class LoggerMessageDefinitionsUtilities
 {
-    [LoggerMessage
-    (
+    [LoggerMessage(
         EventId = 0,
         EventName = $"{nameof(RequestTimeMiddleware)}",
         Level = LogLevel.Warning,
         Message = "Request [{Method}] at {Path} took {Milliseconds} ms",
-        SkipEnabledCheck = true
-    )]
+        SkipEnabledCheck = true)]
     public static partial void LogRequestTime(this ILogger logger, string method, PathString path, double milliseconds);
 }

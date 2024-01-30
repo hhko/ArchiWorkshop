@@ -7,8 +7,8 @@ public static class MiddlewaresRegistration
 {
     internal static IServiceCollection RegisterMiddlewares(this IServiceCollection services)
     {
-        //Order is not important
-        //services.AddScoped<ErrorHandlingMiddleware>();
+        // Middleware 호출 순서는 중요합니다.
+        services.AddScoped<ErrorHandlingMiddleware>();
         services.AddScoped<RequestTimeMiddleware>();
 
         return services;
@@ -16,8 +16,8 @@ public static class MiddlewaresRegistration
 
     internal static IApplicationBuilder UseMiddlewares(this IApplicationBuilder app)
     {
-        //Order is important
-        //app.UseMiddleware<ErrorHandlingMiddleware>();
+        // Middleware 호출 순서는 중요합니다.
+        app.UseMiddleware<ErrorHandlingMiddleware>();
         app.UseMiddleware<RequestTimeMiddleware>();
 
         return app;

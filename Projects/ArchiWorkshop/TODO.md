@@ -1,14 +1,21 @@
 ```
 1주: 2월 3일(금)
-  - [ ] 로그
-    - Pipeline vs Middleware 비교
-    - Pipeline vs Middleware 통합될 때 호출은?
-  - [ ] 유효성 검사 FluentValidation 통합
-  - [ ] GitHub 코드 정적 분석
-  - [ ] Api 버전화
+  - [x] 로그
+  - [x] Pipeline vs Middleware 비교
+  - [ ] Pipeline vs Middleware 이동? Application -> Presentation
   - [ ] Api 문서화
+  - [ ] Api 버전화
+  ---
   - [ ] 컨테이너화
   - [ ] HealthCheck
+  ---
+  - [ ] Serilog.Exceptions과 LogMessage 통합?
+  - [ ] Api 타입 세이프, https://github.com/reactiveui/refit
+  - [ ] 유효성 검사 FluentValidation 통합
+  - [ ] 유효성 실패일 때 현재 값 포함
+  - [ ] 유효성 실패 메시지 다국어?
+  ---
+  - [ ] GitHub 코드 정적 분석
 2주: 2월 10일(금)
   - 통합 테스트 자동화
   - 성능 테스트 자동화
