@@ -45,8 +45,7 @@ public sealed class ErrorHandlingMiddleware(ILogger<ErrorHandlingMiddleware> log
                                        exception.GetType().Name,
                                        exception.Source,
                                        exception.Message,
-                                       exception.StackTrace,
-                                       exception);
+                                       exception.StackTrace);
 
 
         await context.Response.WriteAsJsonAsync(problemDetails,
@@ -62,7 +61,7 @@ public static partial class LoggerMessageDefinitionsUtilities
         EventId = 10,
         EventName = $"{nameof(ErrorHandlingMiddleware)}",
         Level = LogLevel.Error,
-        Message = "Request [{Method}] at {Path} thrown an exception '{Name}' from source '{Source}'. \n Exception message: '{Message}'. \n StackTrace: '{StackTrace}' {@Exception}",
+        Message = "Request [{Method}] at {Path} thrown an exception '{Name}' from source '{Source}'. \n Exception message: '{Message}'. \n StackTrace: '{StackTrace}'",
         SkipEnabledCheck = true)]
     public static partial void LogUnexpectedException(this ILogger logger,
                                                       string method,
@@ -70,6 +69,5 @@ public static partial class LoggerMessageDefinitionsUtilities
                                                       string name,
                                                       string? source,
                                                       string message,
-                                                      string? stackTrace,
-                                                      Exception exception);
+                                                      string? stackTrace);
 }
