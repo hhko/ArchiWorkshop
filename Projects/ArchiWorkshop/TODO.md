@@ -3,8 +3,9 @@
   - [ ] 로그
     - Pipeline vs Middleware 비교
     - Pipeline vs Middleware 통합될 때 호출은?
-  - [ ] 유효성 검사
+  - [ ] 유효성 검사 FluentValidation 통합
   - [ ] GitHub 코드 정적 분석
+  - [ ] Api 버전화
   - [ ] Api 문서화
   - [ ] 컨테이너화
   - [ ] HealthCheck
