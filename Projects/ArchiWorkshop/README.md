@@ -654,6 +654,11 @@ public interface IQuery<out TResponse> : IRequest<IResult<TResponse>>
 <br/>
 
 ## 로그 출력 예
+```
+[01:34:41 INF] Starting request GetUserByUserNameQuery, 01/28/2024 16:34:41
+[01:34:51 INF] Request completed GetUserByUserNameQuery, 01/28/2024 16:34:51
+```
+
 ```json
 {
     "Timestamp": "2024-01-28T17:22:27.9955867+09:00",
@@ -711,11 +716,4 @@ public interface IQuery<out TResponse> : IRequest<IResult<TResponse>>
         "ThreadName": ".NET TP Worker"
     }
 }
-```
-```
-[01:34:18 INF] Staring the host
-[01:34:34 WRN] Failed to determine the https port for redirect.
-[01:34:41 INF] Starting request GetUserByUserNameQuery, 01/28/2024 16:34:41
-[01:34:51 INF] Request completed GetUserByUserNameQuery, 01/28/2024 16:34:51
-[01:34:51 WRN] Request [GET] at /api/users/foo took 10470.8429 ms
 ```
