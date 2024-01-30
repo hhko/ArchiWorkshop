@@ -245,6 +245,7 @@ https://ehye.github.io/2023/02/14/asp-dotnet-core-api-serilog/
 <br/>
 
 # DONE
+- `2024-01-30(화)` Api Problem 객체 생성
 - `2024-01-28(토)` WebApi Controller Dll 프로젝트 만들기
 - `2024-01-27(금)` MediatR UseCase Query 구현
 - `2024-01-26(목)` 환경설정 읽기
