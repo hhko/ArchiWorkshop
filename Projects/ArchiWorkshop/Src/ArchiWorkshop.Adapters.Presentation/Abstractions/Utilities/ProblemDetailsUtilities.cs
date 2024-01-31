@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using static ArchiWorkshop.Applications.Abstractions.Constants.Constants.ProblemDetails;
 
-namespace ArchiWorkshop.Applications.Abstractions.Utilities;
+namespace ArchiWorkshop.Adapters.Presentation.Abstractions.Utilities;
 
 public static class ProblemDetailsUtilities
 {

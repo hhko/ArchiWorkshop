@@ -1,12 +1,12 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
-using static ArchiWorkshop.Applications.Abstractions.Utilities.ProblemDetailsUtilities;
+using static ArchiWorkshop.Adapters.Presentation.Abstractions.Utilities.ProblemDetailsUtilities;
 using static ArchiWorkshop.Applications.Abstractions.Constants.Constants.ProblemDetails;
 using ArchiWorkshop.Domains.Abstractions.Results;
 using Microsoft.AspNetCore.Mvc;
 using ArchiWorkshop.Applications.Abstractions.Exceptions;
 
-namespace ArchiWorkshop.Applications.Abstractions.Middlewares;
+namespace ArchiWorkshop.Adapters.Presentation.Abstractions.Middlewares;
 
 public sealed class ErrorHandlingMiddleware(ILogger<ErrorHandlingMiddleware> logger) : IMiddleware
 {

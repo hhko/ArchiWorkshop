@@ -2,7 +2,7 @@
 using Microsoft.Extensions.Logging;
 using System.Diagnostics;
 
-namespace ArchiWorkshop.Applications.Abstractions.Middlewares;
+namespace ArchiWorkshop.Adapters.Presentation.Abstractions.Middlewares;
 
 public sealed class RequestTimeMiddleware(ILogger<RequestTimeMiddleware> logger) : IMiddleware
 {

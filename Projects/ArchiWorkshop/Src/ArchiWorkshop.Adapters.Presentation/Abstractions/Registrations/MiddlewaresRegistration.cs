@@ -1,4 +1,4 @@
-﻿using ArchiWorkshop.Applications.Abstractions.Middlewares;
+﻿using ArchiWorkshop.Adapters.Presentation.Abstractions.Middlewares;
 using Microsoft.AspNetCore.Builder;
 
 namespace Microsoft.Extensions.DependencyInjection;

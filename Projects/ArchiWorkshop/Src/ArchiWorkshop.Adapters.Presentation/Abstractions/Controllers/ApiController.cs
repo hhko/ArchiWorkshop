@@ -2,7 +2,7 @@
 using MediatR;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using static ArchiWorkshop.Applications.Abstractions.Utilities.ProblemDetailsUtilities;
+using static ArchiWorkshop.Adapters.Presentation.Abstractions.Utilities.ProblemDetailsUtilities;
 using static ArchiWorkshop.Applications.Abstractions.Constants.Constants.ProblemDetails;
 using IResult = ArchiWorkshop.Domains.Abstractions.Results.IResult;
 

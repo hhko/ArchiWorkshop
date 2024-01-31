@@ -27,7 +27,7 @@ try
 
     webApplication
         .UseHttpsRedirection()
-        .UseApplicationLayer();
+        .UseAdapterLayerPresentation();
     //.UsePresentationLayer(builder.Environment)
     //.UsePersistenceLayer();
 
