@@ -3,6 +3,7 @@
   - [ ] https://medium.com/@bddkickstarter/functional-bdd-5014c880c935
   - [ ] https://medium.com/@bddkickstarter/functional-bdd-part-2-the-gherkin-type-provider-731c7df3653e
   - [ ] https://medium.com/@bddkickstarter/functional-bdd-part-3-scenario-outlines-feature-validation-c73b9972924d
+- [ ] https://github.com/ardalis/DDD-NoDuplicates/tree/master
 
 ## 아키텍처 템플릿
 - [ ] https://github.com/amantinband/clean-architecture

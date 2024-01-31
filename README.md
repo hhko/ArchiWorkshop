@@ -7,11 +7,6 @@
 
 [프로젝트](./Projects/ArchiWorkshop/)  
 - [![ArchiWorkshop CI](https://github.com/hhko/ArchiWorkshop/actions/workflows/dotnet-ci.yml/badge.svg)](https://github.com/hhko/ArchiWorkshop/actions/workflows/dotnet-ci.yml)
-- 목표
-  > 요구사항              --도메인 모델 매핑--> Domain 코드 배치 예상
-  > 요구사항 시나리오 이해 <-도메인 모델 매핑--- UseCase 코드
-  > `요구사항`으로부터 `도메인 코드 배치`를 예상할 수 있고,
-  > `코드`로부터 `요구사항 시나리오(UseCase)`를 이해할 수 있다.
 
 ## Part 1. 개요
 > 소프트웨어 아키텍처는 **유스 케이스가 중심입니다.**
