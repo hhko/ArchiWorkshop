@@ -2,9 +2,10 @@
 1주: 2월 3일(금)
   - [x] 로그
   - [x] Pipeline vs Middleware 비교
-  - [ ] Pipeline vs Middleware 이동? Application -> Presentation
+  - [x] Pipeline vs Middleware 이동? Application -> Presentation
   - [ ] Api 문서화
   - [ ] Api 버전화
+  - [ ] TreatWarningsAsErrors, https://learn.microsoft.com/ko-kr/dotnet/csharp/language-reference/compiler-options/errors-warnings
   ---
   - [ ] 컨테이너화
   - [ ] HealthCheck
@@ -252,6 +253,7 @@ https://ehye.github.io/2023/02/14/asp-dotnet-core-api-serilog/
 <br/>
 
 # DONE
+- `2024-01-31(수)` Pipeline vs Middleware 이동? Application -> Presentation
 - `2024-01-30(화)` Api Problem 객체 생성
 - `2024-01-28(토)` WebApi Controller Dll 프로젝트 만들기
 - `2024-01-27(금)` MediatR UseCase Query 구현
