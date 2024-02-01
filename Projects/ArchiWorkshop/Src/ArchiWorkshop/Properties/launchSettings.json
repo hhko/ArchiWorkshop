@@ -6,7 +6,8 @@
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": ""
       },
-      "applicationUrl": "http://localhost:65380"
+      "applicationUrl": "http://localhost:65380",
+      "launchUrl": "swagger/index.html"
     },
     "ArchiWorkshop_Staging": {
       "commandName": "Project",

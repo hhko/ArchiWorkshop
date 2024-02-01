@@ -1,6 +1,7 @@
 ﻿// DI 네임스페이스를 사용하여 참조와 using 구문을 제거 시킵니다.
 //namespace ArchiWorkshop.Applications.Abstractions.Registrations;
 using Microsoft.AspNetCore.Builder;
+using Microsoft.Extensions.Hosting;
 
 namespace Microsoft.Extensions.DependencyInjection;
 
@@ -10,7 +11,8 @@ public static class PresentationLayerRegistration
     {
         services
             .RegisterControllers()
-            .RegisterMiddlewares();
+            .RegisterMiddlewares()
+            .RegisterOpenApi();
 
         //services
         //    .RegisterControllers()
@@ -29,10 +31,22 @@ public static class PresentationLayerRegistration
         return services;
     }
 
+    //IHostEnvironment environment
     public static IApplicationBuilder UseAdapterLayerPresentation(this IApplicationBuilder app)
     {
-        app.UseMiddlewares();
+        app
+            .UseMiddlewares()
+            .ConfigureOpenApi();
 
         return app;
     }
+
+    //public static IApplicationBuilder UsePresentationLayer(this IApplicationBuilder app, IHostEnvironment environment)
+    //{
+    //    app
+    //        .ConfigureOpenApi(environment.IsDevelopment())
+    //        .UseAuthorization();
+
+    //    return app;
+    //}
 }

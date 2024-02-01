@@ -618,9 +618,10 @@ public interface IQuery<out TResponse> : IRequest<IResult<TResponse>>
 
 # 애플리케이션
 
-# 어댑터: WebApi
+# 어댑터: Presentation
 - MediatR
-- Microsoft.AspNetCore.App    # 프레임워크
+- Microsoft.AspNetCore.App        # 프레임워크
+- Asp.Versioning.Mvc.ApiExplorer
 
 # 호스트
 - Serilog.AspNetCore
