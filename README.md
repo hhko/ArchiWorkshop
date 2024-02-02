@@ -1,4 +1,5 @@
 # Architecture Workshop for Domain-Driven Design
+> 아키텍처는 타협의 연속이다.  
 > Architecting is a series of **trade-offs**.
 >
 > **배움**은 **설렘**이다.  
