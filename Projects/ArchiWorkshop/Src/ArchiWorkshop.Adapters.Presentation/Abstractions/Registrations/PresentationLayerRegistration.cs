@@ -1,7 +1,4 @@
-﻿// DI 네임스페이스를 사용하여 참조와 using 구문을 제거 시킵니다.
-//namespace ArchiWorkshop.Applications.Abstractions.Registrations;
-using Microsoft.AspNetCore.Builder;
-using Microsoft.Extensions.Hosting;
+﻿using Microsoft.AspNetCore.Builder;
 
 namespace Microsoft.Extensions.DependencyInjection;
 
@@ -12,7 +9,8 @@ public static class PresentationLayerRegistration
         services
             .RegisterControllers()
             .RegisterMiddlewares()
-            .RegisterOpenApi();
+            .RegisterOpenApi()
+            .RegisterVersioning();
 
         //services
         //    .RegisterControllers()
@@ -36,7 +34,7 @@ public static class PresentationLayerRegistration
     {
         app
             .UseMiddlewares()
-            .ConfigureOpenApi();
+            .UseOpenApi();
 
         return app;
     }

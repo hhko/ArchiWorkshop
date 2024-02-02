@@ -1,9 +1,7 @@
 ﻿using ArchiWorkshop.Adapters.Presentation.OpenApi;
-using Asp.Versioning.ApiExplorer;
 using Microsoft.AspNetCore.Builder;
-using Microsoft.Extensions.FileProviders;
-using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Options;
+using Swashbuckle.AspNetCore.Filters;
 using Swashbuckle.AspNetCore.SwaggerGen;
 
 namespace Microsoft.Extensions.DependencyInjection;
@@ -21,9 +19,16 @@ public static class OpenApiRegistration
 
         services.AddSwaggerGen(options =>
         {
+            // IOperationFilter
             //options.OperationFilter<OpenApiDefaultValues>();
+
+            // IExamplesProvider<T>
+            // ExamplesOperationFilter
             //options.ExampleFilters();
+
             //options.IncludeXmlDocumentation(Shopway.Presentation.AssemblyReference.Assembly);
+
+            // IOperationFilter
             //options.OperationFilter<AppendAuthorizeToSummaryOperationFilter>();
             //options.OperationFilter<SecurityRequirementsOperationFilter>();
             //options.AddJwtAuthorization();
@@ -35,13 +40,13 @@ public static class OpenApiRegistration
         return services;
     }
 
-    public static IApplicationBuilder ConfigureOpenApi(this IApplicationBuilder app)
+    public static IApplicationBuilder UseOpenApi(this IApplicationBuilder app)
     {
         app.UseSwagger();
         app.UseSwaggerUI(options =>
         {
             //options.InjectStylesheet("/swaggerstyles/SwaggerDark.css");
-            options.InjectStylesheet("/SwaggerDark.css");
+            //options.InjectStylesheet("/SwaggerDark.css");
         });
 
         return app;

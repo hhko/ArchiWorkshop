@@ -18,6 +18,16 @@
 - [ ] 헥사고날 아키텍처 예제: https://code-maze.com/csharp-hexagonal-architectural-pattern/
 - [ ] 데이터 접근 방법론: https://github.com/ardalis/DotNetDataAccessTour
   - [ ] https://www.youtube.com/watch?v=zNr2O6SBQZw
+- [ ] https://github.com/kimcuhoang/ddd-net-ef-core
+- [ ] https://jakeryu.github.io/
+
+## Observability
+- [ ] [Automatic Instrumentation of Containerized .NET Applications With OpenTelemetry](https://www.twilio.com/en-us/blog/automatic-instrumentation-of-containerized-dotnet-applications-with-opentelemetry)
+- [ ] [practical-net-otelcollector](https://github.com/kimcuhoang/practical-net-otelcollector/tree/main)
+
+## Container
+- [ ] [Tutorial: Containerize a .NET app](https://learn.microsoft.com/en-us/dotnet/core/docker/build-container?tabs=windows&pivots=dotnet-8-0)
+- [ ] https://github.com/kimcuhoang/setup-dotnet-test-projects
 
 ## 운영
 - [ ] Trace 통합 테스트: https://github.com/martinjt/todo-odd

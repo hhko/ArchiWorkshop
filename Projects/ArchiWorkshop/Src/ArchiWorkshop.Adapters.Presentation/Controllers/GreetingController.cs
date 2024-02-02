@@ -1,10 +1,14 @@
-﻿using MediatR;
+﻿using Asp.Versioning;
+using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ArchiWorkshop.Adapters.Presentation.Controllers;
 
-[ApiController]
-[Route("api/[controller]")]
+//[ApiController]
+////[Route("api/[controller]")]
+//[ApiVersion(1.0, Deprecated = true)]
+//[ApiVersion(2.0)]
+//[Route("api/v{version:apiVersion}/[controller]")]
 public class GreetingController : ControllerBase
 {
     public GreetingController(ISender sender)

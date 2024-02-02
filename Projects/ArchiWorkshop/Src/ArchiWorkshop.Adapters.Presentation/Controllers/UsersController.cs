@@ -1,11 +1,14 @@
 ﻿using ArchiWorkshop.Adapters.Presentation.Abstractions.Controllers;
 using ArchiWorkshop.Applications.Features.Users.Queries;
+using Asp.Versioning;
 using MediatR;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ArchiWorkshop.Adapters.Presentation.Controllers;
 
-//public class UsersController(ISender sender) : ApiController(sender)
+//[ApiVersion(2.0)]
+//[Route("api/v{version:apiVersion}/[controller]")]
 public class UsersController : ApiController
 {
     public UsersController(ISender sender)

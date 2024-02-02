@@ -12,22 +12,20 @@ namespace ArchiWorkshop.Adapters.Presentation.OpenApi;
 // https://www.linkedin.com/pulse/implementing-api-versioning-net-60-dimitar-iliev/
 // https://medium.com/@dipendupaul/documenting-a-versioned-net-web-api-using-swagger-eec0fe7aa010
 
-//internal sealed class DatabaseOptionsSetup(IConfiguration configuration)
-//    : IConfigureOptions<DatabaseOptions>
-//internal class OpenApiOptionsSetup
-public sealed class OpenApiOptionsSetup(IApiVersionDescriptionProvider provider)
+public sealed class OpenApiOptionsSetup
     : IConfigureOptions<SwaggerGenOptions>
 {
-    //private readonly IConfiguration _configuration = configuration;
-    //private readonly IWebHostEnvironment _environment = environment;
-    private readonly IApiVersionDescriptionProvider _provider = provider;
+    private readonly IApiVersionDescriptionProvider _provider;
 
+    // AddApiExplorer 메서드에서 IApiVersionDescriptionProvider 구현체 DI 등록
+    public OpenApiOptionsSetup(IApiVersionDescriptionProvider provider)
+    {
+        _provider = provider;
+    }
+
+    // IConfigureOptions 인터페이스 구현
     public void Configure(SwaggerGenOptions options)
     {
-        //_configuration
-        //    .GetSection(_configurationSectionName)
-        //    .Bind(options);
-
         foreach (var description in _provider.ApiVersionDescriptions)
         {
             options.SwaggerDoc(description.GroupName, CreateInfoForApiVersion(description));
