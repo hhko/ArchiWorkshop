@@ -1,5 +1,4 @@
-﻿
-using Serilog;
+﻿using Serilog;
 using static ArchiWorkshop.Abstractions.Utilities.LoggerUtilities;
 
 Log.Logger = CreateSerilogLogger();
@@ -16,24 +15,21 @@ try
 
     builder.ConfigureSerilog();
 
-    builder.Services
-        .RegisterAppOptions()
-        .RegisterApplicationLayer()
-        .RegisterAdapterLayerPersistence(builder.Environment)
-        .RegisterAdapterLayerInfrastructure()
-        .RegisterAdapterLayerPresentation();
+    builder.Services.RegisterAppOptions()
+                    .RegisterApplicationLayer()
+                    .RegisterAdapterLayerPersistence(builder.Environment)
+                    .RegisterAdapterLayerInfrastructure()
+                    .RegisterAdapterLayerPresentation();
 
-    WebApplication webApplication = builder.Build();
+    WebApplication app = builder.Build();
 
-    webApplication
-        .UseHttpsRedirection()
-        .UseAdapterLayerPresentation();
+    app.UseHttpsRedirection()
+       .UseAdapterLayerPresentation();
     //.UsePresentationLayer(builder.Environment)
     //.UsePersistenceLayer();
 
-    webApplication.MapControllers();
-
-    webApplication.Run();
+    app.MapControllers();
+    app.Run();
 }
 catch (Exception exception)
 {

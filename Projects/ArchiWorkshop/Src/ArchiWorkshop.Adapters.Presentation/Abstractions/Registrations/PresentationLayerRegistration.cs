@@ -6,17 +6,10 @@ public static class PresentationLayerRegistration
 {
     public static IServiceCollection RegisterAdapterLayerPresentation(this IServiceCollection services)
     {
-        services
-            .RegisterControllers()
-            .RegisterMiddlewares()
-            .RegisterOpenApi()
-            .RegisterVersioning();
-
-        //services
-        //    .RegisterControllers()
-        //    .RegisterOpenApi()
-        //    .RegisterVersioning()
-        //    .RegisterAuthentication();
+        services.RegisterControllers()
+                .RegisterMiddlewares()
+                .RegisterOpenApi()
+                .RegisterVersioning();
 
         //services.Scan(selector => selector
         //    .FromAssemblies(
@@ -32,19 +25,9 @@ public static class PresentationLayerRegistration
     //IHostEnvironment environment
     public static IApplicationBuilder UseAdapterLayerPresentation(this IApplicationBuilder app)
     {
-        app
-            .UseMiddlewares()
-            .UseOpenApi();
+        app.UseMiddlewares()
+           .UseOpenApi();
 
         return app;
     }
-
-    //public static IApplicationBuilder UsePresentationLayer(this IApplicationBuilder app, IHostEnvironment environment)
-    //{
-    //    app
-    //        .ConfigureOpenApi(environment.IsDevelopment())
-    //        .UseAuthorization();
-
-    //    return app;
-    //}
 }

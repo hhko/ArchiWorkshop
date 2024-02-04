@@ -683,6 +683,17 @@ public static class VersioningRegistration
 }
 ```
 
+### 
+
+![](./.images/2024-02-03-18-39-36.png)
+
+| Item | Value |
+| --- | === |
+| Build Action | Content |
+| Copy to Output Directory | Do not copy |
+
+- [SwaggerDark](https://github.com/Amoenus/SwaggerDark)
+
 ### CQRS 인터페이스
 ```cs
 // 요청: IRequest

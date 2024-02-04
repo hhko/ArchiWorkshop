@@ -1,7 +1,8 @@
 ﻿using ArchiWorkshop.Adapters.Presentation.OpenApi;
+using Asp.Versioning.ApiExplorer;
 using Microsoft.AspNetCore.Builder;
+using Microsoft.Extensions.FileProviders;
 using Microsoft.Extensions.Options;
-using Swashbuckle.AspNetCore.Filters;
 using Swashbuckle.AspNetCore.SwaggerGen;
 
 namespace Microsoft.Extensions.DependencyInjection;
@@ -10,7 +11,7 @@ public static class OpenApiRegistration
 {
     private const string SwaggerDarkThameStyleFileName = "SwaggerDark.css";
     private const string WwwRootDirectoryName = "OpenApi";
-    private const string ArchiWorkshopPresentation = $"{nameof(ArchiWorkshop)}.{nameof(ArchiWorkshop.Adapters.Presentation)}";
+    private const string ArchiWorkshopPresentation = $"{nameof(ArchiWorkshop)}.{nameof(ArchiWorkshop.Adapters)}.{nameof(ArchiWorkshop.Adapters.Presentation)}";
 
     internal static IServiceCollection RegisterOpenApi(this IServiceCollection services)
     {
@@ -22,8 +23,8 @@ public static class OpenApiRegistration
             // IOperationFilter
             //options.OperationFilter<OpenApiDefaultValues>();
 
-            // IExamplesProvider<T>
-            // ExamplesOperationFilter
+            //// IExamplesProvider<T>
+            //// ExamplesOperationFilter
             //options.ExampleFilters();
 
             //options.IncludeXmlDocumentation(Shopway.Presentation.AssemblyReference.Assembly);
@@ -43,60 +44,49 @@ public static class OpenApiRegistration
     public static IApplicationBuilder UseOpenApi(this IApplicationBuilder app)
     {
         app.UseSwagger();
+        
+        // 정적 파일
+        UseStaticFiles(app);
+
+        var provider = app.ApplicationServices.GetRequiredService<IApiVersionDescriptionProvider>();
         app.UseSwaggerUI(options =>
         {
-            //options.InjectStylesheet("/swaggerstyles/SwaggerDark.css");
-            //options.InjectStylesheet("/SwaggerDark.css");
-        });
-
-        return app;
-    }
-
-    /*
-    internal static IApplicationBuilder ConfigureOpenApi(this IApplicationBuilder app, bool isDevelopment)
-    {
-        if (isDevelopment)
-        {
-            var provider = app.ApplicationServices.GetRequiredService<IApiVersionDescriptionProvider>();
-
-            app.UseSwagger();
-
-            UseStaticFiles(app);
-
-            app.UseSwaggerUI(options =>
+            // Select a definition: V1
+            foreach (var groupName in provider.ApiVersionDescriptions.Select(x => x.GroupName))
             {
-                foreach (var groupName in provider.ApiVersionDescriptions.Select(x => x.GroupName))
-                {
-                    options.SwaggerEndpoint($"/swagger/{groupName}/swagger.json", groupName.ToUpperInvariant());
-                }
+                options.SwaggerEndpoint($"/swagger/{groupName}/swagger.json", groupName.ToUpperInvariant());
+            }
 
-                options.InjectStylesheet($"/{SwaggerDarkThameStyleFileName}");
-            });
-        }
+            // Swagger Theme 정적 파일
+            options.InjectStylesheet($"/{SwaggerDarkThameStyleFileName}");
+        });
 
         return app;
     }
 
     private static void UseStaticFiles(IApplicationBuilder app)
     {
-        var wwwRoot = Path.Combine($"{Directory.GetParent(Directory.GetCurrentDirectory())}", ShopwayPresentation, WwwRootDirectoryName);
+        // ... \ArchiWorkshop\Src\ArchiWorkshop             <- Directory.GetCurrentDirectory()
+        // ... \ArchiWorkshop\Src                           <- Directory.GetParent(Directory.GetCurrentDirectory())
+        //          \ArchiWorkshop.Adapters.Presentation    <- ArchiWorkshopPresentation
+        //          \OpenApi                                <- WwwRootDirectoryName
+        var wwwRootDir = Path.Combine($"{Directory.GetParent(Directory.GetCurrentDirectory())}",
+                                      ArchiWorkshopPresentation, 
+                                      WwwRootDirectoryName);
 
         try
         {
-            app
-                .UseStaticFiles(new StaticFileOptions()
-                {
-                    FileProvider = new PhysicalFileProvider(wwwRoot)
-                });
+            app.UseStaticFiles(new StaticFileOptions() 
+               {
+                   FileProvider = new PhysicalFileProvider(wwwRootDir)
+               });
         }
         catch
         {
-            app
-                .UseStaticFiles(new StaticFileOptions()
-                {
-                    FileProvider = new PhysicalFileProvider(Directory.GetCurrentDirectory())
-                });
+            app.UseStaticFiles(new StaticFileOptions()
+               {
+                   FileProvider = new PhysicalFileProvider(Directory.GetCurrentDirectory())
+               });
         }
     }
-    */
 }

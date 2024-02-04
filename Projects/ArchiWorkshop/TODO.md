@@ -4,6 +4,7 @@
   - [x] Pipeline vs Middleware 비교
   - [x] Pipeline vs Middleware 이동? Application -> Presentation
   - [ ] Api 문서화
+    IExamplesProvider
   - [ ] Api 버전화
   - [ ] TreatWarningsAsErrors, https://learn.microsoft.com/ko-kr/dotnet/csharp/language-reference/compiler-options/errors-warnings
   ---

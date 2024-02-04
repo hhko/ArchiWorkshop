@@ -14,10 +14,10 @@ public class UsersController : ApiController
     public UsersController(ISender sender)
         : base(sender)
     {
-        
+
     }
 
-    [HttpGet("{userName}")]
+    [HttpGet("{username}")]
     //[ProducesResponseType<UserResponse>(StatusCodes.Status200OK)]
     //[ProducesResponseType<ProblemDetails>(StatusCodes.Status400BadRequest)]
     //public IActionResult GetUserByUsername(string userName)
