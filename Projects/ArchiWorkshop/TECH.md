@@ -27,6 +27,9 @@
 - [ ] traces
 
 ```
+IQueryable          vs. IEnumerable
+IHttpActionResult   vs. IActionResult
+
 https://learn.microsoft.com/ko-kr/aspnet/web-api/overview/web-api-routing-and-actions/attribute-routing-in-web-api-2
 
 ASP.NET Web API 2에서 특성 라우팅을 사용하여 REST API 만들기
