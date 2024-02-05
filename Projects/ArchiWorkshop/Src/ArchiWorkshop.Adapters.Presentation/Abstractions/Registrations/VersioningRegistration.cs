@@ -12,16 +12,24 @@ namespace Microsoft.Extensions.DependencyInjection;
 
 public static class VersioningRegistration
 {
-    private const string ApiVersionHeader = "api-version";
+    private const string ApiVersionQueryString = "api-version";
+    private const string ApiVersionHeader = "x-version";
+    private const string ApiVersionMediaType = "ver";
 
     internal static IServiceCollection RegisterVersioning(this IServiceCollection services)
     {
         services
             .AddApiVersioning(options =>
             {
-                //options.DefaultApiVersion = ApiVersion.Default;
-                //options.DefaultApiVersion = new ApiVersion(2.0);
-                //options.ApiVersionReader = new HeaderApiVersionReader(ApiVersionHeader);
+                options.DefaultApiVersion = ApiVersion.Default;
+                //options.DefaultApiVersion = new ApiVersion(1.5);
+
+                // 버전
+                options.ApiVersionReader = ApiVersionReader.Combine(
+                    new QueryStringApiVersionReader(ApiVersionQueryString),     // /api/StringList?api-version=1.0
+                    new HeaderApiVersionReader(ApiVersionHeader),               // /api/StringList      x-version    1.0
+                    new MediaTypeApiVersionReader(ApiVersionMediaType),         // /api/StringList      application/json;ver=2.0
+                    new UrlSegmentApiVersionReader());                          // /api/v3/StringList
 
                 // "api-version" required 제거
                 options.AssumeDefaultVersionWhenUnspecified = true;

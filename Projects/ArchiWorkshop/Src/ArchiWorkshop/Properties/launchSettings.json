@@ -7,7 +7,6 @@
         "ASPNETCORE_ENVIRONMENT": ""
       },
       "applicationUrl": "http://localhost:65380",
-      //"launchUrl": "swagger/index.html",
       "launchUrl": "swagger/index.html?urls.primaryName=V1"
     },
     "ArchiWorkshop_Staging": {

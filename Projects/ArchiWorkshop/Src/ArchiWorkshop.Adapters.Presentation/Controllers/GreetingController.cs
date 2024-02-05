@@ -6,9 +6,11 @@ using Microsoft.Extensions.Logging;
 
 namespace ArchiWorkshop.Adapters.Presentation.Controllers;
 
-[ApiController]
-[Route("[controller]")]
-public class WeatherForecastController : ControllerBase
+//[ApiController]
+//[Route("[controller]")]
+//[ApiVersion("0.1", Deprecated = true)]
+[ApiVersion("1.5", Deprecated = true)]
+public class WeatherForecastController : ApiController
 {
     private static readonly string[] Summaries = new[]
     {
@@ -17,7 +19,8 @@ public class WeatherForecastController : ControllerBase
 
     private readonly ILogger<WeatherForecastController> _logger;
 
-    public WeatherForecastController(ILogger<WeatherForecastController> logger)
+    public WeatherForecastController(ISender sender, ILogger<WeatherForecastController> logger)
+        : base(sender)
     {
         _logger = logger;
     }

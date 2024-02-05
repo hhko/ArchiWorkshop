@@ -12,9 +12,7 @@ public static class InfrastructureLayerRegistration
 
     public static IServiceCollection RegisterAdapterLayerInfrastructure(this IServiceCollection services)
     {
-        services
-            .RegisterServices();
-
+        services.RegisterServices();
         return services;
     }
 }

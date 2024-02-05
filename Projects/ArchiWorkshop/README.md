@@ -32,6 +32,8 @@
   - ...
 
 ### 레이어 구성 적용
+![](./.images/2024-02-05-22-05-56.png)
+
 ```shell
 ArchiWorkshop
   # Adapter Layer
@@ -45,17 +47,17 @@ ArchiWorkshop
   # Domain Layer
   -> ArchiWorkshop.Domains
 ```
-- `{솔루션}` 이름은 `ArchiWorkshop`입니다.
-- 도메인 레이어(`ArchiWorkshop.Domains`)는 애플리케이션 레이어만(`ArchiWorkshop.Applications`) 참조합니다.
-- 어댑터 레이어 레이어에는 3개 `{주제}`가 있습니다.
-  - ArchiWorkshop.Adapters.Presentation
-  - ArchiWorkshop.Adapters.Persistence
-  - ArchiWorkshop.Adapters.Infrastructure
+- `{솔루션}`은 `ArchiWorkshop`입니다.
+- 애플리케이션 레이어(`ArchiWorkshop.Applications`)만 도메인 레이어(`ArchiWorkshop.Domains`)을 참조합니다.
+- 어댑터 레이어는 3개 `{주제}`가 있습니다.
+  - ArchiWorkshop.Adapters.`Presentation`
+  - ArchiWorkshop.Adapters.`Persistence`
+  - ArchiWorkshop.Adapters.`Infrastructure`
 
 ### 레이어 폴더 구성
 ![](./.images/2024-01-20-06-54-33.png)
 - `AssemblyReference.cs`는 어셈블리 참조를 위한 공통 파일입니다.
-- `Abstractions`는 "레이어 공통 요소"와 "개별 레이어 구성"을 위한 폴더입니다.
+- `Abstractions`는 레이어 구성을 위한 폴더입니다.
 - `{레이어명}LayerRegistration.cs`는 인터페이스 주입 등록을 위한 파일입니다.
   ```CS
   // DI 네임스페이스를 사용하여 참조와 using 구문을 제거 시킵니다.
@@ -70,6 +72,7 @@ ArchiWorkshop
     }
   }
   ```
+  `namespace Microsoft.Extensions.DependencyInjection;` 네임스페이스를 사용하여 직접 참조를 최소화 시킵니다.
 
 <br/>
 
@@ -683,7 +686,7 @@ public static class VersioningRegistration
 }
 ```
 
-### 
+### Swagger 테마
 
 ![](./.images/2024-02-03-18-39-36.png)
 
@@ -705,7 +708,15 @@ public interface IQuery<out TResponse> : IRequest<IResult<TResponse>>
 }
 ```
 
+## 인터페이스 주입
+```cs
+IServiceCollection services
+services.BuildServiceProvider().GetRequiredService<IOptions<TOptions>>();
 
+IApplicationBuilder app
+app.ApplicationServices.GetRequiredService<IApiVersionDescriptionProvider>();
+```
+- `GetRequiredService<T>()`
 
 <br/>
 

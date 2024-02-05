@@ -21,7 +21,7 @@ public static class OpenApiRegistration
         services.AddSwaggerGen(options =>
         {
             // IOperationFilter
-            //options.OperationFilter<OpenApiDefaultValues>();
+            options.OperationFilter<OpenApiDefaultValues>();
 
             //// IExamplesProvider<T>
             //// ExamplesOperationFilter
