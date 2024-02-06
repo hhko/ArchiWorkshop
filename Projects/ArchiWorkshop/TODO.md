@@ -29,6 +29,9 @@
 5주: 3월 2일(금)
 ```
 
+- console docker: https://learn.microsoft.com/ko-kr/dotnet/core/docker/build-container?tabs=windows&pivots=dotnet-8-0
+- asp.net docker: https://learn.microsoft.com/ko-kr/aspnet/core/host-and-deploy/docker/building-net-docker-images?view=aspnetcore-8.0
+
 # TODO
 
 - WebApi + Mediator(Pipeline: Validation, Log)
