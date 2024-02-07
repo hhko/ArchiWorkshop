@@ -14,6 +14,8 @@
 - [ ] https://github.com/nadirbad/VerticalSliceArchitecture
 
 ## 아키텍처 예제
+- [ ] **https://github.com/matthewrenze/clean-architecture-demo/tree/master**
+  - Mapping 종료 구분 구현
 - [ ] 클린 아키텍처 예제: https://github.com/amantinband/buber-breakfast
 - [ ] 헥사고날 아키텍처 예제: https://code-maze.com/csharp-hexagonal-architectural-pattern/
 - [ ] 데이터 접근 방법론: https://github.com/ardalis/DotNetDataAccessTour
