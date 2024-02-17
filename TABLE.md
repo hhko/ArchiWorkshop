@@ -1,3 +1,11 @@
+### 솔루션 프로젝트 구성
+- Layer
+- Test
+
+### 솔루션 설정 구성
+
+- https://github.com/PublicApiGenerator/PublicApiGenerator
+
 ## ?
 1. WebApi 기본 코드
    - 기본 함수
