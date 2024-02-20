@@ -1,50 +1,74 @@
-### 솔루션 프로젝트 구성
-- Layer
-- Test
+## 솔루션 구성
+```
+솔루션 프로젝트 구성
+- 레이어: T1_T2_T3
+- 테스트: T1_T2_T3
+  - T3: 테스트 종류
+    - 단위
+    - 통합
+    - 통합(행위: BDD)
+    - Functional
+    - 성능
+    - Arrange 데이터: Fake
+    - Arrange 생성자: 변화 차단
+    - API Signature(PublicApiGenerator)
 
-### 솔루션 설정 구성
+솔루션 설정 구성
+- 형상관리
+  - .gitattributes
+  - .gitignore
+- 코딩 스타일
+  - .editorconfig
+- 빌드  
+  - Directory.Build.props
+  - Directory.Build.targets
+  - Directory.Packages.props
+- VSCode  
+  - extensions.json
+  - launch.json
+  - settings.json
+  - tasks.json
 
-- https://github.com/PublicApiGenerator/PublicApiGenerator
+솔루션 빌드
+- 빌드
+  - 로컬: build.ps1
+  - 원격: GitHub Actions
+- 코드 정적 분석
+- 코드 형식(Format)
+- 테스트
+  - 코드 커버리지  
 
-## ?
-1. WebApi 기본 코드
-   - 기본 함수
-   - long 함수
+솔루션 디버깅
+- Host
+- Docker
+- WSL
+- Linux Remote
 
-## 솔루션 재구성
-1. 관찰(observability) 시스템
-1. 솔루션 레이어 구주화
-   - WebApi 모듈 Host에서 분리
-1. 솔루션 구성 파일
-   - .editorconfig
-   - .gitattributes
-   - .gitignore
-   - Directory.Build.props
-   - Directory.Build.targets
-   - Directory.Packages.props
-   - .vscode
-     - extensions.json
-     - launch.json
-     - settings.json
-     - tasks.json
-1. 테스트 자동화
-   - 통합 테스트
-   - BDD?
-   - Snapshot
-   - 코드 커버리지: VSCode
-1. CI
-   - 구분
-     - Local: powershell
-     - Remote: GitHub Actions
-   - 빌드
-   - 테스트
-   - 코드 커버리지
-   - 정적 코드 분석?
-   - 코드 형식?
-1. 컨테이너화
-1. 로그
-   - 호스트 로그 -> otel-collector
-   - 컨테이너 로그 -std?-> otel-collector
-1. CD
+솔루션 배포
+- 컨테이너
+- NuGet
 
-## ...
+솔루션 문서 시스템
+- DocFx/...?
+- C4
+- Context Mapper
+
+솔루션 관찰(Observability) 시스템  
+- 로그
+- 자원
+- 추적
+```
+
+- 로그
+- 추적
+- 통합 테스트
+  - Backend
+    - WebApi
+    - gRPC
+    - IHostedService
+    - EFCore
+  - Frontend
+    - Web 화면
+    - Desktop 화면
+    - HttpClient
+    - ...
