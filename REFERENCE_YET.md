@@ -12,6 +12,8 @@
 - [ ] https://github.com/cbcrouse/CleanArchitecture
 - [ ] https://github.com/stphnwlsh/CleanMinimalApi
 - [ ] https://github.com/nadirbad/VerticalSliceArchitecture
+- [ ] https://github.com/jeangatto/ASP.NET-Core-Vertical-Slice-Architecture/tree/main
+- [ ] https://github.com/iammukeshm/CleanArchitecture.WebApi
 
 ## 아키텍처 예제
 - [ ] **https://github.com/matthewrenze/clean-architecture-demo/tree/master**
